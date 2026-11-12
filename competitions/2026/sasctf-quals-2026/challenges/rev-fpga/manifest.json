@@ -15,11 +15,204 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/rev-fpga",
-  "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "preparation_status": "ready",
+  "player_files": [
+    {
+      "path": "static/ciphertext.hex",
+      "size": 85,
+      "sha256": "83cf533c7adad9f0ab698f08d6dee611f8c13f557aca637a43696bf71e4a3fb1",
+      "modified": false,
+      "upstream_sha256": "83cf533c7adad9f0ab698f08d6dee611f8c13f557aca637a43696bf71e4a3fb1"
+    },
+    {
+      "path": "static/firmware.bin",
+      "size": 135100,
+      "sha256": "11a7281c774bf3d09ed7aebfcb00882ac91c9eab005cdb5d6bcd6f457461a61b",
+      "modified": false,
+      "upstream_sha256": "11a7281c774bf3d09ed7aebfcb00882ac91c9eab005cdb5d6bcd6f457461a61b"
+    },
+    {
+      "path": "static/pinout.md",
+      "size": 1481,
+      "sha256": "a5a4040ef97fdb4b715cbb26e674c2f2e984e9fcea74c71f521e2b4b40144780",
+      "modified": false,
+      "upstream_sha256": "a5a4040ef97fdb4b715cbb26e674c2f2e984e9fcea74c71f521e2b4b40144780"
+    }
+  ],
+  "operator_files": [
+    {
+      "path": ".gitignore",
+      "size": 78,
+      "sha256": "b32357514f73d14813bd85731db34236ecf7e15a89a8ebd7e4b13ed31d4c26c1",
+      "modified": false,
+      "upstream_sha256": "b32357514f73d14813bd85731db34236ecf7e15a89a8ebd7e4b13ed31d4c26c1"
+    },
+    {
+      "path": "sources/ciphertext.hex",
+      "size": 85,
+      "sha256": "0ac726b591f743d53d57c136589e1a75f515ad177cb46d6865661cac6837a579",
+      "modified": false,
+      "upstream_sha256": "0ac726b591f743d53d57c136589e1a75f515ad177cb46d6865661cac6837a579"
+    },
+    {
+      "path": "sources/gen_trace.py",
+      "size": 1480,
+      "sha256": "8ebcdd8c6ec8c06c7281e953c4a69f5284a7666c9600759d7bb7f394cefc6d50",
+      "modified": true,
+      "modification": "reference flag replaced with placeholder"
+    },
+    {
+      "path": "sources/build/firmware.bin",
+      "size": 135100,
+      "sha256": "11a7281c774bf3d09ed7aebfcb00882ac91c9eab005cdb5d6bcd6f457461a61b",
+      "modified": false,
+      "upstream_sha256": "11a7281c774bf3d09ed7aebfcb00882ac91c9eab005cdb5d6bcd6f457461a61b"
+    },
+    {
+      "path": "sources/build/hardware.asc",
+      "size": 4789191,
+      "sha256": "6167c7f4e82ba37480ed0ae8c65a24fc5b8b74c2fb51dfcc5237d29fb676aaef",
+      "modified": false,
+      "upstream_sha256": "6167c7f4e82ba37480ed0ae8c65a24fc5b8b74c2fb51dfcc5237d29fb676aaef"
+    },
+    {
+      "path": "sources/build/hardware.json",
+      "size": 4905572,
+      "sha256": "8c009ed91a182758e25dc24e9b236245f2118c2059119dd19197e15ee9be79e3",
+      "modified": false,
+      "upstream_sha256": "8c009ed91a182758e25dc24e9b236245f2118c2059119dd19197e15ee9be79e3"
+    },
+    {
+      "path": "sources/build/Makefile",
+      "size": 381,
+      "sha256": "5f0a731dc2e059942438a6d21769ade7073b49357bd077eda781dcd53e093e48",
+      "modified": false,
+      "upstream_sha256": "5f0a731dc2e059942438a6d21769ade7073b49357bd077eda781dcd53e093e48"
+    },
+    {
+      "path": "sources/build/synth.ys",
+      "size": 314,
+      "sha256": "37a0e340bba8a1967ab3596d415997e5d4787a049c42170dea9dd715c120df37",
+      "modified": false,
+      "upstream_sha256": "37a0e340bba8a1967ab3596d415997e5d4787a049c42170dea9dd715c120df37"
+    },
+    {
+      "path": "sources/constraints/ice40hx8k.pcf",
+      "size": 328,
+      "sha256": "0a88bc4b6320356c529ea5fc1d863f7a6e2fb35d17e08b9538dce1968cb27147",
+      "modified": false,
+      "upstream_sha256": "0a88bc4b6320356c529ea5fc1d863f7a6e2fb35d17e08b9538dce1968cb27147"
+    },
+    {
+      "path": "sources/rtl/cipher.v",
+      "size": 8089,
+      "sha256": "670a9c4f8244ee1aecb4c87e0dab0abeeb82e03a2da9bd2964d568f1ac632d81",
+      "modified": false,
+      "upstream_sha256": "670a9c4f8244ee1aecb4c87e0dab0abeeb82e03a2da9bd2964d568f1ac632d81"
+    },
+    {
+      "path": "sources/rtl/controller.v",
+      "size": 8695,
+      "sha256": "980b65e7039ddd26febc92492c8012cfba3c19f99641a084126835ff92a43e4e",
+      "modified": false,
+      "upstream_sha256": "980b65e7039ddd26febc92492c8012cfba3c19f99641a084126835ff92a43e4e"
+    },
+    {
+      "path": "sources/rtl/decoy.v",
+      "size": 8869,
+      "sha256": "ce150cbf12bb9308ac19c433447dde92c0b469fa0ef942d191da42a24022fc2b",
+      "modified": false,
+      "upstream_sha256": "ce150cbf12bb9308ac19c433447dde92c0b469fa0ef942d191da42a24022fc2b"
+    },
+    {
+      "path": "sources/rtl/keymem.v",
+      "size": 1246,
+      "sha256": "8a7ff7c022c050f324218a4383a356e7ef789ac7f568b37f7ef5135edf3f804b",
+      "modified": false,
+      "upstream_sha256": "8a7ff7c022c050f324218a4383a356e7ef789ac7f568b37f7ef5135edf3f804b"
+    },
+    {
+      "path": "sources/rtl/led_output.v",
+      "size": 612,
+      "sha256": "25410663ffacd11d979effbb3b4a4eb1766ca72e84ca306b56693fa4d4d23c5e",
+      "modified": false,
+      "upstream_sha256": "25410663ffacd11d979effbb3b4a4eb1766ca72e84ca306b56693fa4d4d23c5e"
+    },
+    {
+      "path": "sources/rtl/ps2_rx.v",
+      "size": 2015,
+      "sha256": "959fab820aaec5511e3dc4ae81e249fa5516b35373f7bc09c6592707c9e6d4e3",
+      "modified": false,
+      "upstream_sha256": "959fab820aaec5511e3dc4ae81e249fa5516b35373f7bc09c6592707c9e6d4e3"
+    },
+    {
+      "path": "sources/rtl/sbox_rom.v",
+      "size": 5431,
+      "sha256": "b3fc4026b89b02617ea41e229fba3247c951cf559ff78ee69bcdd6a0a1a9f744",
+      "modified": false,
+      "upstream_sha256": "b3fc4026b89b02617ea41e229fba3247c951cf559ff78ee69bcdd6a0a1a9f744"
+    },
+    {
+      "path": "sources/rtl/scancode_fsm.v",
+      "size": 6813,
+      "sha256": "dd55b7f1fc26e82e89cf03f110bc827b41a5f79b007f7ff0ef2171e43573edba",
+      "modified": false,
+      "upstream_sha256": "dd55b7f1fc26e82e89cf03f110bc827b41a5f79b007f7ff0ef2171e43573edba"
+    },
+    {
+      "path": "sources/rtl/top.v",
+      "size": 3201,
+      "sha256": "51e89288dfaa5036d4d1304863073e9702be31f046394c38ab8651c8d6fccbf4",
+      "modified": false,
+      "upstream_sha256": "51e89288dfaa5036d4d1304863073e9702be31f046394c38ab8651c8d6fccbf4"
+    },
+    {
+      "path": "sources/sim/.gitignore",
+      "size": 9,
+      "sha256": "cd45c3f6a19bf9497a1ff39c7614352cf4240bb6c257786f0944728d0f4e9328",
+      "modified": false,
+      "upstream_sha256": "cd45c3f6a19bf9497a1ff39c7614352cf4240bb6c257786f0944728d0f4e9328"
+    },
+    {
+      "path": "sources/sim/Makefile",
+      "size": 747,
+      "sha256": "3b926ce3a8aa5d0b49232486822952a1756d10409163328e0571b5ba04a52de2",
+      "modified": true,
+      "modification": "reference flag replaced with placeholder"
+    },
+    {
+      "path": "sources/sim/ps2_driver.h",
+      "size": 5349,
+      "sha256": "c38cbda462c9be4939bc83a2cfb77b185601405bb3f131ea80937132cbe2256b",
+      "modified": false,
+      "upstream_sha256": "c38cbda462c9be4939bc83a2cfb77b185601405bb3f131ea80937132cbe2256b"
+    },
+    {
+      "path": "sources/sim/run_flag.sh",
+      "size": 111,
+      "sha256": "f5e13a3382a052977dcef95923d6b2f3a6b2dd948b11109695bcccea4a699f95",
+      "modified": false,
+      "upstream_sha256": "f5e13a3382a052977dcef95923d6b2f3a6b2dd948b11109695bcccea4a699f95"
+    },
+    {
+      "path": "sources/sim/tb_top.cpp",
+      "size": 1809,
+      "sha256": "d15dcc3f4006976324a0d5a8a5ee2a1d6a38e61f5c0a463d8f2927a5c78c2882",
+      "modified": false,
+      "upstream_sha256": "d15dcc3f4006976324a0d5a8a5ee2a1d6a38e61f5c0a463d8f2927a5c78c2882"
+    }
+  ],
+  "modified_files": [
+    "sources/gen_trace.py",
+    "sources/sim/Makefile"
+  ],
+  "removed_from_public_package": {
+    "writeup": true,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": []
 }

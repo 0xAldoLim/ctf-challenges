@@ -1,0 +1,12 @@
+services:
+  snaking-revenge:
+    build: .
+    ports:
+      - "11331:11331"
+    read_only: true
+    tmpfs:
+      - /tmp
+    deploy:
+      resources:
+        limits:
+          memory: 256M

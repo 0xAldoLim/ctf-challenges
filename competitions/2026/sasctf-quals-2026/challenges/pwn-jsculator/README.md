@@ -1,5 +1,5 @@
-# JSculator
+## Title
+JSculator
 
-Category `pwn`, `0day`. Original author [@s41nt0l3xus](https://github.com/s41nt0l3xus).
-
-Redistribution permission for the upstream challenge materials could not be verified. See the [competition index](../../README.md) and [manifest](manifest.json).
+## Description
+My AI Bro said every compiled language I know is memory-unsafe, so he used JavaScript to build my calculator. Look at what he's done! No raw memory access means it's secure from binary exploitation by design, right?

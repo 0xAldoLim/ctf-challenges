@@ -19,11 +19,146 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/misc-cbt",
+  "preparation_status": "source_only",
   "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "operator_files": [
+    {
+      "path": "server/.dockerignore",
+      "size": 18,
+      "sha256": "d958025fe3928d9ec40a2cd0b56e873c5f3ad4ca45be3d104583964cbcff26cb",
+      "modified": false,
+      "upstream_sha256": "d958025fe3928d9ec40a2cd0b56e873c5f3ad4ca45be3d104583964cbcff26cb"
+    },
+    {
+      "path": "server/.env.example",
+      "size": 291,
+      "sha256": "43b6ad997366aa1fe70ff64d874b844d0858146114ea037a59fcd49efdf94306",
+      "modified": true,
+      "modification": "reference flag replaced with placeholder"
+    },
+    {
+      "path": "server/.gitignore",
+      "size": 4678,
+      "sha256": "034e5455a6d7dea6f946d51333b5e00076020044a671dcba5561a8db1a4fe066",
+      "modified": false,
+      "upstream_sha256": "034e5455a6d7dea6f946d51333b5e00076020044a671dcba5561a8db1a4fe066"
+    },
+    {
+      "path": "server/docker-compose.yml",
+      "size": 900,
+      "sha256": "17e4760700cab0f78736cf79873e66edfd0ad1c04503bc6f2cd57265c2275a76",
+      "modified": false,
+      "upstream_sha256": "17e4760700cab0f78736cf79873e66edfd0ad1c04503bc6f2cd57265c2275a76"
+    },
+    {
+      "path": "server/Dockerfile",
+      "size": 342,
+      "sha256": "5d80bb568861c577025ba37c253be090c5f717a01e6931a9333c753550d5a796",
+      "modified": false,
+      "upstream_sha256": "5d80bb568861c577025ba37c253be090c5f717a01e6931a9333c753550d5a796"
+    },
+    {
+      "path": "server/requirements.txt",
+      "size": 130,
+      "sha256": "9cd032ef8a8b018c150aaf600468e694f9af7f4ce1dbd4159ebfc0ac798d5a04",
+      "modified": false,
+      "upstream_sha256": "9cd032ef8a8b018c150aaf600468e694f9af7f4ce1dbd4159ebfc0ac798d5a04"
+    },
+    {
+      "path": "server/app/agent.py",
+      "size": 9475,
+      "sha256": "0c1e9cd3ae55e941898ba122dd8d90b7c41a394ea494a1f7f48210ccd0388680",
+      "modified": false,
+      "upstream_sha256": "0c1e9cd3ae55e941898ba122dd8d90b7c41a394ea494a1f7f48210ccd0388680"
+    },
+    {
+      "path": "server/app/agentos.py",
+      "size": 155,
+      "sha256": "7742f13923700ecd6e2095ff96f69021ec0500efac467a94ec0b28201da5d0fe",
+      "modified": false,
+      "upstream_sha256": "7742f13923700ecd6e2095ff96f69021ec0500efac467a94ec0b28201da5d0fe"
+    },
+    {
+      "path": "server/app/handlers.py",
+      "size": 1609,
+      "sha256": "27baa887781b11369db425e1fd616a34981842d246935d2af22e7160cff2d06e",
+      "modified": false,
+      "upstream_sha256": "27baa887781b11369db425e1fd616a34981842d246935d2af22e7160cff2d06e"
+    },
+    {
+      "path": "server/app/hostkeys.py",
+      "size": 1194,
+      "sha256": "771619335795ec15b1dd81624bb67270e656129211a6a6a70f59ffb1ae5cb440",
+      "modified": false,
+      "upstream_sha256": "771619335795ec15b1dd81624bb67270e656129211a6a6a70f59ffb1ae5cb440"
+    },
+    {
+      "path": "server/app/line_editor.py",
+      "size": 7519,
+      "sha256": "00fa8e565e4caad163ea45a239a1153194be00c408c75c1e6ef9d28571abf5a5",
+      "modified": false,
+      "upstream_sha256": "00fa8e565e4caad163ea45a239a1153194be00c408c75c1e6ef9d28571abf5a5"
+    },
+    {
+      "path": "server/app/logging_config.py",
+      "size": 263,
+      "sha256": "2546d7ee0ccd64de6dbc8cb2d1e58d46e1ab097635dc7bd80547bce7fe650b32",
+      "modified": false,
+      "upstream_sha256": "2546d7ee0ccd64de6dbc8cb2d1e58d46e1ab097635dc7bd80547bce7fe650b32"
+    },
+    {
+      "path": "server/app/pow.py",
+      "size": 2728,
+      "sha256": "0d50acce2afcf6d7e3e8d338fa751460e172b382be3863c651ed98a1ffe6f53a",
+      "modified": false,
+      "upstream_sha256": "0d50acce2afcf6d7e3e8d338fa751460e172b382be3863c651ed98a1ffe6f53a"
+    },
+    {
+      "path": "server/app/runner.py",
+      "size": 1875,
+      "sha256": "28673c18eca823296ba701b935e249abd867fd47de021199ee823da44b259f01",
+      "modified": false,
+      "upstream_sha256": "28673c18eca823296ba701b935e249abd867fd47de021199ee823da44b259f01"
+    },
+    {
+      "path": "server/app/server.py",
+      "size": 1494,
+      "sha256": "d330dea5ed2fae243936e8bd68ae51ecca519d428385e805206c4995d3f696b4",
+      "modified": false,
+      "upstream_sha256": "d330dea5ed2fae243936e8bd68ae51ecca519d428385e805206c4995d3f696b4"
+    },
+    {
+      "path": "server/app/settings.py",
+      "size": 1057,
+      "sha256": "308bf68cd64f955e691eecbe937a8383b789fec11b69ed56fc76b8bb06f17477",
+      "modified": false,
+      "upstream_sha256": "308bf68cd64f955e691eecbe937a8383b789fec11b69ed56fc76b8bb06f17477"
+    },
+    {
+      "path": "server/app/ssh_server.py",
+      "size": 169,
+      "sha256": "2a9e6fb27f0f1153e7fb36c3d687fc36e1e1baa6cca28361ee6fdcddba1c831d",
+      "modified": false,
+      "upstream_sha256": "2a9e6fb27f0f1153e7fb36c3d687fc36e1e1baa6cca28361ee6fdcddba1c831d"
+    },
+    {
+      "path": "server/app/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false,
+      "upstream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "modified_files": [
+    "server/.env.example"
+  ],
+  "removed_from_public_package": {
+    "writeup": false,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": []
 }

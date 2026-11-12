@@ -1,6 +1,6 @@
 {
   "id": "sasctf-quals-2026/game-guba",
-  "title": "Escape from Guba I & II",
+  "title": "Escape the Guba I & II",
   "competition": "SAS CTF 2026 Quals",
   "year": 2026,
   "categories": [
@@ -19,21 +19,40 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/game-guba",
-  "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified",
-  "parts": [
+  "preparation_status": "incomplete",
+  "player_files": [
     {
-      "id": "sasctf-quals-2026/game-guba/part-1",
-      "title": "Escape from Guba I"
+      "path": "static/README.md",
+      "size": 83,
+      "sha256": "5a290696e2fa9fded3e60bc110fdf06c9572997bed3fcf3ba35af05a1c243c43",
+      "modified": false,
+      "upstream_sha256": "5a290696e2fa9fded3e60bc110fdf06c9572997bed3fcf3ba35af05a1c243c43"
+    }
+  ],
+  "operator_files": [],
+  "modified_files": [],
+  "removed_from_public_package": {
+    "writeup": true,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": [
+    "https://storage.yandexcloud.net/sas-3/ctf_guba_b9acbc8580f13404d4ae635b0620f516.bsp (~189 MB) - not downloaded",
+    "https://storage.yandexcloud.net/sas-3/v3.7z (~2.6 GB) - not downloaded"
+  ],
+  "tasks": [
+    {
+      "id": "sasctf-quals-2026/game-guba-part-1",
+      "title": "Escape the Guba I",
+      "flag_section": "Flag 1"
     },
     {
-      "id": "sasctf-quals-2026/game-guba/part-2",
-      "title": "Escape from Guba II"
+      "id": "sasctf-quals-2026/game-guba-part-2",
+      "title": "Escape the Guba II",
+      "flag_section": "Flag 2"
     }
   ]
 }

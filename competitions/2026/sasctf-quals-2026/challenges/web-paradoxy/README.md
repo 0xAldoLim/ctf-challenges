@@ -1,5 +1,5 @@
-# paradoxy
+## Title
+paradoxy
 
-Category `web`. Original author [@cotsom](https://github.com/cotsom).
-
-Redistribution permission for the upstream challenge materials could not be verified. See the [competition index](../../README.md) and [manifest](manifest.json).
+## Description
+Your path to becoming a cloud hacker starts here. Can you break out multi-tenancy?

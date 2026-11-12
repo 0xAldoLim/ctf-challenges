@@ -1,5 +1,7 @@
-# XOD Revenge
+## Title
+XOD Revenge
 
-Category `web`. Original author [@paul-axe](https://github.com/paul-axe).
+## Description
+Revenge for what? Ahh...
 
-Redistribution permission for the upstream challenge materials could not be verified. See the [competition index](../../README.md) and [manifest](manifest.json).
+This task is based on Hack.lu CTF's XOD challenge with a little big twist.

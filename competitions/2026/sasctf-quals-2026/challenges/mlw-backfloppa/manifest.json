@@ -15,11 +15,105 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/mlw-backfloppa",
-  "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "preparation_status": "ready",
+  "player_files": [
+    {
+      "path": "static/README.md",
+      "size": 43,
+      "sha256": "ec37b7c7f89f9690e761931a9ed209115bbe463a580b0df9d3f4f7b5678986d2",
+      "modified": false,
+      "upstream_sha256": "ec37b7c7f89f9690e761931a9ed209115bbe463a580b0df9d3f4f7b5678986d2"
+    }
+  ],
+  "operator_files": [
+    {
+      "path": "server/carrier-entrypoint",
+      "size": 558,
+      "sha256": "54f2d3c4d66789201d13d626248c6b68eea8d9ceae174686c78a484694bec33b",
+      "modified": false,
+      "upstream_sha256": "54f2d3c4d66789201d13d626248c6b68eea8d9ceae174686c78a484694bec33b"
+    },
+    {
+      "path": "server/carrier.Dockerfile",
+      "size": 911,
+      "sha256": "dfac7b870ef770790cce0e9bdf0f67f7d2b9eadfe438ba7815803142f2345a8a",
+      "modified": false,
+      "upstream_sha256": "dfac7b870ef770790cce0e9bdf0f67f7d2b9eadfe438ba7815803142f2345a8a"
+    },
+    {
+      "path": "server/compose.yaml",
+      "size": 1187,
+      "sha256": "c232d20025428910feb7b2d8798e0a482ce542f16eb0efe07520a1b14e9657e5",
+      "modified": false,
+      "upstream_sha256": "c232d20025428910feb7b2d8798e0a482ce542f16eb0efe07520a1b14e9657e5"
+    },
+    {
+      "path": "server/Dockerfile",
+      "size": 209,
+      "sha256": "d3a675ce4683e9cdd2d6e6198ef229534b7e41bc2d2468f4b94c85187f17bbfe",
+      "modified": false,
+      "upstream_sha256": "d3a675ce4683e9cdd2d6e6198ef229534b7e41bc2d2468f4b94c85187f17bbfe"
+    },
+    {
+      "path": "server/flag.txt",
+      "size": 17,
+      "sha256": "d26641d6355f50904583601f0a1b9f0ade7818176d27e5610f09edc29984b339",
+      "modified": true,
+      "modification": "reference flag replaced with placeholder"
+    },
+    {
+      "path": "server/go.mod",
+      "size": 129,
+      "sha256": "ce0c5c668e09ca3b9ca55ed56106d6128992b52e554c3d6f38eb0cab3c67d7d3",
+      "modified": false,
+      "upstream_sha256": "ce0c5c668e09ca3b9ca55ed56106d6128992b52e554c3d6f38eb0cab3c67d7d3"
+    },
+    {
+      "path": "server/go.sum",
+      "size": 2227,
+      "sha256": "4616bdf5975c87f401fe5d0806f0fff4f90ccefa081aaaf5302655ea185d08e2",
+      "modified": false,
+      "upstream_sha256": "4616bdf5975c87f401fe5d0806f0fff4f90ccefa081aaaf5302655ea185d08e2"
+    },
+    {
+      "path": "server/main.go",
+      "size": 15429,
+      "sha256": "f81b3e6787980b827456302c9cf177ca0f132b8e40237fbe5309d7f3831897ee",
+      "modified": false,
+      "upstream_sha256": "f81b3e6787980b827456302c9cf177ca0f132b8e40237fbe5309d7f3831897ee"
+    },
+    {
+      "path": "server/q_bpfel.dat",
+      "size": 78952,
+      "sha256": "747d66b6463f67285b1aa2877d9a1a884edceabef0ab76d3212093ee3d33f7c5",
+      "modified": false,
+      "upstream_sha256": "747d66b6463f67285b1aa2877d9a1a884edceabef0ab76d3212093ee3d33f7c5"
+    },
+    {
+      "path": "server/q_bpfel.go",
+      "size": 627,
+      "sha256": "7c976f2309cf8098974dd90512bc73617e73d69ad0d34fb848b59d309ca485bf",
+      "modified": false,
+      "upstream_sha256": "7c976f2309cf8098974dd90512bc73617e73d69ad0d34fb848b59d309ca485bf"
+    },
+    {
+      "path": "server/runtime-session",
+      "size": 483,
+      "sha256": "c3b5ba19d6c88b6cd1603be173430383f613b1e6c49eae122f7707bbaca61119",
+      "modified": false,
+      "upstream_sha256": "c3b5ba19d6c88b6cd1603be173430383f613b1e6c49eae122f7707bbaca61119"
+    }
+  ],
+  "modified_files": [
+    "server/flag.txt"
+  ],
+  "removed_from_public_package": {
+    "writeup": true,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": []
 }

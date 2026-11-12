@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login — Kolobok Jail</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a192f;
+      --panel: #112240;
+      --accent: #64ffda;
+      --text: #e6f1ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background: radial-gradient(circle at top, #0b2942 0, #020c1b 60%);
+      color: var(--text);
+      font-family: 'Fira Code', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    h1 {
+      margin: 20px 0 10px 0;
+      font-size: 28px;
+      color: var(--accent);
+      text-shadow: 0 0 12px rgba(100, 255, 218, 0.5);
+    }
+
+    .auth-card {
+      max-width: 420px;
+      width: 100%;
+      background: var(--panel);
+      border-radius: 8px;
+      border: 1px solid rgba(100, 255, 218, 0.4);
+      padding: 18px 20px 16px 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .auth-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: #8892b0;
+      margin-bottom: 12px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+
+    label {
+      font-size: 12px;
+      color: #8892b0;
+    }
+
+    input {
+      background: #0b192f;
+      border: 1px solid #233554;
+      border-radius: 4px;
+      padding: 8px 10px;
+      color: var(--text);
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+    }
+
+    button {
+      margin-top: 8px;
+      width: 100%;
+      background: transparent;
+      border-radius: 4px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+      padding: 8px 10px;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+    }
+
+    button:hover {
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .msg {
+      font-size: 12px;
+      color: #a8ffeb;
+      margin-bottom: 6px;
+    }
+
+    .error {
+      font-size: 12px;
+      color: #ff6b6b;
+      margin-bottom: 6px;
+    }
+
+    .helper {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #8892b0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Kolobok Jail</h1>
+
+  <div class="auth-card">
+    <div class="auth-title">Login</div>
+
+    {% if message %}
+      <div class="msg">{{ message }}</div>
+    {% endif %}
+
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" action="/login">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" required>
+      </div>
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="helper">
+      <span>No account? <a href="/register">Register</a></span>
+    </div>
+  </div>
+</body>
+</html>

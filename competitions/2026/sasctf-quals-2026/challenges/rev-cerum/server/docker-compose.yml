@@ -1,0 +1,14 @@
+services:
+  license_server:
+    build: .
+    restart: always
+    ports:
+      - "127.0.0.1:13317:13317"
+    volumes:
+      - ./logs:/opt/app/logs
+  ratelimiter:
+    build: nginx
+    ports:
+      - "44330:44330"
+    restart: always
+    network_mode: host

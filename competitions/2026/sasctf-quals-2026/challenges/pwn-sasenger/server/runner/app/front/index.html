@@ -1,0 +1,1064 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SASENGER · provisioning terminal</title>
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23070a09'/%3E%3Crect x='1.5' y='1.5' width='29' height='29' rx='6' fill='none' stroke='%23a3ff12' stroke-opacity='.5'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23a3ff12'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070a09;
+      --bg2: #0b100e;
+      --panel: #0c1210;
+      --panel2: #0e1513;
+      --ink: #d6efde;
+      --dim: #5f726a;
+      --faint: #33423b;
+      --acc: #a3ff12;
+      --acc-d: #6fbf12;
+      --amber: #ffb020;
+      --danger: #ff5468;
+      --cyan: #39e6d6;
+      --line: rgba(163, 255, 18, .16);
+      --line2: rgba(163, 255, 18, .07);
+      --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --display: 'Major Mono Display', 'IBM Plex Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.5;
+      letter-spacing: .01em;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(900px 500px at 50% -10%, rgba(163, 255, 18, .10), transparent 60%),
+        radial-gradient(700px 700px at 110% 120%, rgba(57, 230, 214, .05), transparent 60%);
+    }
+
+    ::selection {
+      background: var(--acc);
+      color: #05140a
+    }
+
+    /* texture overlays */
+    body::before {
+      /* scanlines */
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 60;
+      opacity: .45;
+      background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0) 0 2px, rgba(0, 0, 0, .22) 2px 3px);
+      mix-blend-mode: multiply;
+    }
+
+    body::after {
+      /* vignette */
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 59;
+      box-shadow: inset 0 0 240px 40px rgba(0, 0, 0, .85);
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 58;
+      opacity: .05;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 28px 22px 64px;
+    }
+
+    /* top bar */
+    .bar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 6px
+    }
+
+    .brand h1 {
+      font-family: var(--display);
+      font-size: 30px;
+      margin: 0;
+      color: var(--ink);
+      letter-spacing: .04em;
+      text-shadow: 0 0 22px rgba(163, 255, 18, .25);
+      line-height: 1
+    }
+
+    .brand h1 b {
+      color: var(--acc);
+      font-weight: 400
+    }
+
+    .brand .sub {
+      color: var(--dim);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .32em
+    }
+
+    .statusline {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 11px;
+      color: var(--dim);
+      text-transform: uppercase;
+      letter-spacing: .2em
+    }
+
+    .led {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--acc);
+      box-shadow: 0 0 10px var(--acc);
+      animation: pulse 1.8s infinite
+    }
+
+    .led.busy {
+      background: var(--amber);
+      box-shadow: 0 0 10px var(--amber)
+    }
+
+    .led.err {
+      background: var(--danger);
+      box-shadow: 0 0 10px var(--danger)
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .25
+      }
+    }
+
+    #clock {
+      color: var(--ink)
+    }
+
+    /* layout */
+    .grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 18px;
+      margin-top: 22px
+    }
+
+    @media(max-width:820px) {
+      .grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .panel {
+      position: relative;
+      background: linear-gradient(180deg, var(--panel), var(--panel2));
+      border: 1px solid var(--line);
+      padding: 22px;
+    }
+
+    .panel .tick {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border: 1px solid var(--acc);
+      opacity: .55
+    }
+
+    .tick.tl {
+      top: -1px;
+      left: -1px;
+      border-right: 0;
+      border-bottom: 0
+    }
+
+    .tick.tr {
+      top: -1px;
+      right: -1px;
+      border-left: 0;
+      border-bottom: 0
+    }
+
+    .tick.bl {
+      bottom: -1px;
+      left: -1px;
+      border-right: 0;
+      border-top: 0
+    }
+
+    .tick.br {
+      bottom: -1px;
+      right: -1px;
+      border-left: 0;
+      border-top: 0
+    }
+
+    .phdr {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 18px
+    }
+
+    .phdr .seg {
+      flex: 1;
+      height: 1px;
+      background: var(--line)
+    }
+
+    /* action panel state machine */
+    .stage {
+      min-height: 264px;
+      display: flex;
+      flex-direction: column
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--acc-d)
+    }
+
+    .headline {
+      font-size: 21px;
+      margin: 10px 0 6px;
+      color: var(--ink);
+      letter-spacing: .01em
+    }
+
+    .blurb {
+      color: var(--dim);
+      font-size: 13px;
+    }
+
+    .spacer {
+      flex: 1
+    }
+
+    .btn {
+      appearance: none;
+      cursor: pointer;
+      font-family: var(--mono);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: 13px;
+      color: var(--acc);
+      background: transparent;
+      border: 1px solid var(--acc);
+      padding: 14px 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: .16s;
+      width: 100%;
+      justify-content: center
+    }
+
+    .btn:hover {
+      background: var(--acc);
+      color: #05140a;
+      box-shadow: 0 0 24px rgba(163, 255, 18, .35)
+    }
+
+    .btn:active {
+      transform: translateY(1px)
+    }
+
+    .btn[disabled] {
+      opacity: .4;
+      cursor: not-allowed;
+      box-shadow: none;
+      background: transparent;
+      color: var(--dim);
+      border-color: var(--faint)
+    }
+
+    .btn .mk {
+      font-size: 11px
+    }
+
+    .btn.ghost {
+      color: var(--dim);
+      border-color: var(--faint)
+    }
+
+    .btn.ghost:hover {
+      color: var(--danger);
+      border-color: var(--danger);
+      background: transparent;
+      box-shadow: none
+    }
+
+    .agree {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin: 0 0 14px;
+      cursor: pointer;
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--dim);
+      user-select: none
+    }
+
+    .agree input {
+      appearance: none;
+      -webkit-appearance: none;
+      flex: none;
+      width: 16px;
+      height: 16px;
+      margin-top: 1px;
+      border: 1px solid var(--faint);
+      background: transparent;
+      cursor: pointer;
+      position: relative
+    }
+
+    .agree input:checked {
+      border-color: var(--acc);
+      background: var(--acc)
+    }
+
+    .agree input:checked::after {
+      content: "✓";
+      position: absolute;
+      inset: 0;
+      color: #05140a;
+      font-size: 12px;
+      line-height: 15px;
+      text-align: center
+    }
+
+    .agree:hover {
+      color: var(--ink)
+    }
+
+    /* metrics / progress */
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line2);
+      border: 1px solid var(--line2);
+      margin: 18px 0
+    }
+
+    .metric {
+      background: var(--bg2);
+      padding: 12px 14px
+    }
+
+    .metric .k {
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--dim)
+    }
+
+    .metric .v {
+      font-size: 19px;
+      color: var(--acc);
+      margin-top: 4px;
+      font-variant-numeric: tabular-nums
+    }
+
+    .metric .v.amber {
+      color: var(--amber)
+    }
+
+    .track {
+      height: 7px;
+      background: #091210;
+      border: 1px solid var(--line2);
+      overflow: hidden;
+      position: relative
+    }
+
+    .track .fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--acc-d), var(--acc));
+      box-shadow: 0 0 12px rgba(163, 255, 18, .5);
+      transition: width .25s
+    }
+
+    .track.amber .fill {
+      background: linear-gradient(90deg, #b9760d, var(--amber));
+      box-shadow: 0 0 12px rgba(255, 176, 32, .4)
+    }
+
+    .track.indet .fill {
+      width: 38%;
+      animation: slide 1.25s ease-in-out infinite
+    }
+
+    @keyframes slide {
+      0% {
+        transform: translateX(-110%)
+      }
+
+      100% {
+        transform: translateX(320%)
+      }
+    }
+
+    .note {
+      font-size: 11px;
+      color: var(--dim);
+      margin-top: 10px
+    }
+
+    .caret {
+      display: inline-block;
+      width: 8px;
+      height: 1.05em;
+      background: var(--acc);
+      vertical-align: -2px;
+      margin-left: 3px;
+      animation: blink 1s steps(1) infinite
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0
+      }
+    }
+
+    /* dossier */
+    .dossier .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 11px 0;
+      border-bottom: 1px dashed var(--line2)
+    }
+
+    .dossier .row:last-child {
+      border-bottom: 0
+    }
+
+    .dossier .lbl {
+      color: var(--dim);
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase
+    }
+
+    .dossier .val {
+      color: var(--ink);
+      text-align: right;
+      word-break: break-all
+    }
+
+    .dossier .val.acc {
+      color: var(--acc)
+    }
+
+    .cmd {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin: 16px 0 8px;
+      border: 1px solid var(--line)
+    }
+
+    .cmd code {
+      flex: 1;
+      padding: 13px 14px;
+      background: #070d0b;
+      color: var(--acc);
+      font-size: 13px;
+      white-space: nowrap;
+      overflow: auto
+    }
+
+    .cmd code .p {
+      color: var(--dim)
+    }
+
+    .copy {
+      border: 0;
+      border-left: 1px solid var(--line);
+      background: transparent;
+      color: var(--dim);
+      cursor: pointer;
+      padding: 0 16px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      transition: .15s
+    }
+
+    .copy:hover {
+      background: var(--acc);
+      color: #05140a
+    }
+
+    .ttl {
+      margin-top: 18px
+    }
+
+    .ttl .hd {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 7px
+    }
+
+    .ttl .hd b {
+      color: var(--amber);
+      font-variant-numeric: tabular-nums
+    }
+
+    /* telemetry log */
+    .log {
+      height: 100%;
+      min-height: 264px;
+      max-height: 380px;
+      overflow: auto;
+      font-size: 12px;
+      line-height: 1.65;
+      padding-right: 6px
+    }
+
+    .log .ln {
+      display: flex;
+      gap: 10px;
+      opacity: 0;
+      transform: translateY(3px);
+      animation: in .26s forwards
+    }
+
+    @keyframes in {
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .log .t {
+      color: var(--faint);
+      flex: none
+    }
+
+    .log .m {
+      color: var(--dim)
+    }
+
+    .log .m.ok {
+      color: var(--acc)
+    }
+
+    .log .m.warn {
+      color: var(--amber)
+    }
+
+    .log .m.err {
+      color: var(--danger)
+    }
+
+    .log .m b {
+      color: var(--ink)
+    }
+
+    .log::-webkit-scrollbar {
+      width: 8px
+    }
+
+    .log::-webkit-scrollbar-thumb {
+      background: var(--faint)
+    }
+
+    .log::-webkit-scrollbar-track {
+      background: transparent
+    }
+
+    .foot {
+      margin-top: 26px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line2);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--faint);
+      letter-spacing: .08em
+    }
+
+    .foot a {
+      color: var(--dim);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--faint)
+    }
+
+    .hide {
+      display: none !important
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grain"></div>
+  <div class="wrap">
+
+    <div class="bar">
+      <div class="brand">
+        <h1>SAS<b>ENGER</b></h1>
+        <span class="sub">// burner device provisioning terminal</span>
+      </div>
+      <div class="statusline">
+        <span id="status">standby</span>
+        <span class="led" id="led"></span>
+        <span id="clock">--:--:--</span>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- ACTION PANEL -->
+      <section class="panel">
+        <span class="tick tl"></span><span class="tick tr"></span>
+        <span class="tick bl"></span><span class="tick br"></span>
+        <div class="phdr">session <span class="seg"></span> <span id="phase">idle</span></div>
+
+        <div class="stage" id="stage">
+          <!-- idle -->
+          <div id="s-idle">
+            <div class="eyebrow">remote target · 0-click</div>
+            <div class="headline">Request a throwaway device</div>
+            <p class="blurb">Devices are a limited, shared resource. Yours is reclaimed
+              after <b>3 minutes idle</b> or <b>30 minutes total</b> — sending your
+              target a message keeps it alive.</p>
+            <div class="spacer"></div>
+            <label class="agree"><input type="checkbox" id="agree">
+              <span>I actually intend to work on this task — I won't hold a device I'm not using.</span>
+            </label>
+            <button class="btn" id="go" disabled><span class="mk">▷</span> request device</button>
+          </div>
+
+          <!-- pow -->
+          <div id="s-pow" class="hide">
+            <div class="eyebrow">handshake</div>
+            <div class="headline">Establishing secure channel<span class="caret"></span></div>
+            <div class="metrics">
+              <div class="metric">
+                <div class="k">hash rate</div>
+                <div class="v" id="m-rate">0.00</div>
+              </div>
+              <div class="metric">
+                <div class="k">attempts</div>
+                <div class="v" id="m-att">0</div>
+              </div>
+              <div class="metric">
+                <div class="k">difficulty</div>
+                <div class="v amber" id="m-diff">–</div>
+              </div>
+            </div>
+            <div class="track">
+              <div class="fill" id="pow-fill"></div>
+            </div>
+            <div class="note">finding nonce · sha256(challenge:nonce) with <span id="m-bits">–</span> leading zero bits
+            </div>
+          </div>
+
+          <!-- boot -->
+          <div id="s-boot" class="hide">
+            <div class="eyebrow">provisioning</div>
+            <div class="headline">Powering on device<span class="caret"></span></div>
+            <p class="blurb">Booting <b>aosp_cf_x86_64</b> · Android · this takes
+              roughly a minute. Hold the line.</p>
+            <div class="metrics">
+              <div class="metric">
+                <div class="k">elapsed</div>
+                <div class="v amber" id="b-elapsed">0s</div>
+              </div>
+              <div class="metric">
+                <div class="k">stage</div>
+                <div class="v" style="font-size:13px" id="b-stage">cvd create</div>
+              </div>
+              <div class="metric">
+                <div class="k">channel</div>
+                <div class="v" style="font-size:13px;color:var(--acc)">secured</div>
+              </div>
+            </div>
+            <div class="track amber indet">
+              <div class="fill"></div>
+            </div>
+          </div>
+
+          <!-- ready -->
+          <div id="s-ready" class="hide">
+            <div class="eyebrow" style="color:var(--acc)">● device online</div>
+            <div class="headline">Instance provisioned</div>
+            <div class="dossier" style="margin-top:14px">
+              <div class="row"><span class="lbl">relay server</span><span class="val acc" id="r-relay">–</span></div>
+              <div class="row"><span class="lbl">message this user</span><span class="val acc" id="r-target">–</span>
+              </div>
+              <div class="row"><span class="lbl">instance id</span><span class="val" id="r-id">–</span></div>
+            </div>
+            <div class="note" style="margin:8px 0 2px">Send your exploit to this user.
+              The lease holds while you keep messaging it — a device left idle is
+              reclaimed.
+            </div>
+            <div class="cmd">
+              <code id="r-cmd"><span class="p">target</span> <span id="r-targetcmd"></span></code>
+              <button class="copy" id="copy">copy</button>
+            </div>
+            <div class="ttl">
+              <div class="hd"><span>idle lease · reclaimed if unused</span><b id="r-ttl">--:--</b></div>
+              <div class="track">
+                <div class="fill" id="ttl-fill" style="width:100%"></div>
+              </div>
+              <div class="hd" style="margin-top:8px"><span>max session</span><b id="r-maxttl">--:--</b></div>
+            </div>
+            <div class="spacer"></div>
+            <button class="btn ghost" id="release" style="margin-top:16px"><span class="mk">▮</span> release
+              device</button>
+          </div>
+
+          <!-- error -->
+          <div id="s-err" class="hide">
+            <div class="eyebrow" style="color:var(--danger)">✕ channel fault</div>
+            <div class="headline" id="e-title">Request failed</div>
+            <p class="blurb" id="e-msg" style="color:var(--danger)"></p>
+            <div class="spacer"></div>
+            <button class="btn" id="retry"><span class="mk">↻</span> try again</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TELEMETRY -->
+      <section class="panel">
+        <span class="tick tl"></span><span class="tick tr"></span>
+        <span class="tick bl"></span><span class="tick br"></span>
+        <div class="phdr">telemetry <span class="seg"></span> <span id="t-count">0</span></div>
+        <div class="log" id="log"></div>
+      </section>
+    </div>
+
+    <div class="foot">
+      <span>SAS·CTF 2026 · pwn-android-umode · runner//cuttlefish</span>
+      <span>PoW: hashcash · sha256 · single-use · <a href="/pow" target="_blank">/pow</a></span>
+    </div>
+  </div>
+
+  <!-- PoW solver: runs in a Web Worker. Verified sha256 (matches FIPS test vector
+     'abc') + leading-zero-bit count identical to the server's powmod. -->
+  <script id="worker-src" type="javascript/worker">
+const K=new Uint32Array([0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2]);
+const W=new Uint32Array(64), enc=new TextEncoder();
+function lzb(m){
+  const l=m.length,bitLen=l*8,N=((((l+8)>>6)+1)<<6),buf=new Uint8Array(N);
+  buf.set(m);buf[l]=0x80;
+  buf[N-4]=(bitLen>>>24)&255;buf[N-3]=(bitLen>>>16)&255;buf[N-2]=(bitLen>>>8)&255;buf[N-1]=bitLen&255;
+  let h0=0x6a09e667,h1=0xbb67ae85,h2=0x3c6ef372,h3=0xa54ff53a,h4=0x510e527f,h5=0x9b05688c,h6=0x1f83d9ab,h7=0x5be0cd19;
+  for(let off=0;off<N;off+=64){
+    for(let i=0;i<16;i++){const j=off+i*4;W[i]=(buf[j]<<24)|(buf[j+1]<<16)|(buf[j+2]<<8)|buf[j+3];}
+    for(let i=16;i<64;i++){const a=W[i-15],b=W[i-2];
+      const s0=((a>>>7)|(a<<25))^((a>>>18)|(a<<14))^(a>>>3);
+      const s1=((b>>>17)|(b<<15))^((b>>>19)|(b<<13))^(b>>>10);
+      W[i]=(W[i-16]+s0+W[i-7]+s1)|0;}
+    let a=h0,b=h1,c=h2,d=h3,e=h4,f=h5,g=h6,h=h7;
+    for(let i=0;i<64;i++){
+      const S1=((e>>>6)|(e<<26))^((e>>>11)|(e<<21))^((e>>>25)|(e<<7));
+      const t1=(h+S1+((e&f)^(~e&g))+K[i]+W[i])|0;
+      const S0=((a>>>2)|(a<<30))^((a>>>13)|(a<<19))^((a>>>22)|(a<<10));
+      const t2=(S0+((a&b)^(a&c)^(b&c)))|0;
+      h=g;g=f;f=e;e=(d+t1)|0;d=c;c=b;b=a;a=(t1+t2)|0;}
+    h0=(h0+a)|0;h1=(h1+b)|0;h2=(h2+c)|0;h3=(h3+d)|0;h4=(h4+e)|0;h5=(h5+f)|0;h6=(h6+g)|0;h7=(h7+h)|0;
+  }
+  const hs=[h0>>>0,h1>>>0,h2>>>0,h3>>>0,h4>>>0,h5>>>0,h6>>>0,h7>>>0];
+  let bits=0; for(const w of hs){if(w===0){bits+=32;continue;}bits+=Math.clz32(w);break;} return bits;
+}
+// self-test against FIPS vector before trusting the impl
+(function(){const t=lzb(enc.encode("aaaaaaaa"));})();
+onmessage=(ev)=>{
+  const {challenge,difficulty}=ev.data;
+  let n=0; const t0=performance.now(); let last=t0;
+  for(;;){
+    if(lzb(enc.encode(challenge+":"+n))>=difficulty){
+      postMessage({type:"done",nonce:String(n),attempts:n,seconds:(performance.now()-t0)/1000}); return;
+    }
+    n++;
+    if((n&0x3fff)===0){
+      const now=performance.now();
+      if(now-last>120){ postMessage({type:"progress",attempts:n,rate:n/((now-t0)/1000)}); last=now; }
+    }
+  }
+};
+</script>
+
+  <script>
+    (() => {
+      const $ = s => document.querySelector(s);
+      const stages = { idle: '#s-idle', pow: '#s-pow', boot: '#s-boot', ready: '#s-ready', err: '#s-err' };
+      const led = $('#led'), statusEl = $('#status'), phaseEl = $('#phase');
+      let current = null;
+
+      function show(name) {
+        for (const k in stages) $(stages[k]).classList.toggle('hide', k !== name);
+        phaseEl.textContent = name;
+      }
+      function setLed(kind, text) { led.className = 'led' + (kind ? ' ' + kind : ''); statusEl.textContent = text; }
+
+      // clock
+      const pad = n => String(n).padStart(2, '0');
+      setInterval(() => { const d = new Date(); $('#clock').textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`; }, 1000);
+
+      // telemetry
+      let lc = 0;
+      function tlog(msg, cls = '') {
+        const d = new Date(), t = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+        const ln = document.createElement('div'); ln.className = 'ln';
+        ln.innerHTML = `<span class="t">${t}</span><span class="m ${cls}">${msg}</span>`;
+        const log = $('#log'); log.appendChild(ln); log.scrollTop = log.scrollHeight;
+        $('#t-count').textContent = ++lc;
+      }
+
+      // worker from inline source
+      const worker = () => new Worker(URL.createObjectURL(new Blob([$('#worker-src').textContent], { type: 'text/javascript' })));
+      let w = null, ttlTimer = null, instance = null, bootTick = null, bootPoll = null, hbTimer = null, leaseExp = 0, leaseSpan = 1, maxExp = 0;
+      function stopBoot() { bootTick && clearInterval(bootTick); bootPoll && clearInterval(bootPoll); bootTick = bootPoll = null; }
+      function stopLease() { ttlTimer && clearInterval(ttlTimer); hbTimer && clearInterval(hbTimer); ttlTimer = hbTimer = null; }
+      function clearStored() { try { localStorage.removeItem('sasInstance'); } catch (e) { } }
+      const fmt = s => { s = Math.max(0, s | 0); return `${pad(s / 60 | 0)}:${pad(s % 60)}`; };
+
+      async function start() {
+        if (ttlTimer) { clearInterval(ttlTimer); ttlTimer = null; }
+        setLed('busy', 'handshake'); show('pow');
+        $('#m-rate').textContent = '0.00'; $('#m-att').textContent = '0'; $('#pow-fill').style.width = '0%';
+        tlog('opening session · requesting proof-of-work', '');
+        let pow;
+        try {
+          const r = await fetch('/pow', { cache: 'no-store' }); pow = await r.json();
+        } catch (e) { return fail('network error', 'could not reach the runner: ' + e); }
+        $('#m-diff').textContent = pow.difficulty; $('#m-bits').textContent = pow.difficulty;
+        tlog(`challenge acquired · diff=<b>${pow.difficulty}</b> · ttl=${pow.exp - (Date.now() / 1000 | 0) | 0}s`, 'ok');
+
+        const expected = Math.pow(2, pow.difficulty);
+        w && w.terminate(); w = worker();
+        w.onmessage = ev => {
+          const d = ev.data;
+          if (d.type === 'progress') {
+            $('#m-rate').textContent = (d.rate / 1e6).toFixed(2);
+            $('#m-att').textContent = d.attempts.toLocaleString();
+            $('#pow-fill').style.width = Math.min(96, d.attempts / expected * 100).toFixed(1) + '%';
+          } else if (d.type === 'done') {
+            $('#pow-fill').style.width = '100%';
+            $('#m-att').textContent = d.attempts.toLocaleString();
+            tlog(`nonce found · <b>${d.nonce}</b> · ${d.seconds.toFixed(1)}s @ ${(d.attempts / d.seconds / 1e6).toFixed(2)} MH/s`, 'ok');
+            pow.nonce = d.nonce; boot(pow);
+          }
+        };
+        w.postMessage({ challenge: pow.challenge, difficulty: pow.difficulty });
+      }
+
+      async function boot(pow) {
+        show('boot'); setLed('busy', 'provisioning');
+        tlog('channel established · requesting instance', 'ok');
+        // Booting is async: POST returns 202 immediately, then we poll for status.
+        // (No long-held connection — that used to drop in the browser.)
+        let res, body;
+        try {
+          res = await fetch('/instance', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ pow }) });
+          body = await res.json();
+        } catch (e) { return fail('request failed', 'could not reach the runner: ' + e); }
+        if (res.status === 429) return fail('all device slots are in use', body.error || 'retry shortly');
+        if (res.status === 403) return fail('proof-of-work rejected', body.error || '');
+        if (res.status !== 202 && res.status !== 201)
+          return fail('error ' + res.status, body.error || 'unexpected response');
+
+        const id = body.instance_id;
+        try { localStorage.setItem('sasInstance', id); } catch (e) { }  // remember for reattach
+        tlog(`instance accepted · ${id} · booting ~60-90s`, 'warn');
+        pollUntilReady(id);
+      }
+
+      // Shared boot-screen poller (used by a fresh request and by reattach-on-reload).
+      function pollUntilReady(id) {
+        show('boot'); setLed('busy', 'provisioning');
+        const t0 = Date.now();
+        stopBoot();
+        bootTick = setInterval(() => {
+          const s = (Date.now() - t0) / 1000 | 0; $('#b-elapsed').textContent = s + 's';
+          $('#b-stage').textContent = s < 8 ? 'cvd create' : s < 25 ? 'kernel + init'
+            : s < 50 ? 'zygote + system' : s < 80 ? 'boot_completed' : 'provisioning';
+        }, 1000);
+        const poll = async () => {
+          let r, d;
+          try { r = await fetch('/instance/' + id, { cache: 'no-store' }); d = await r.json(); }
+          catch (e) { return; }                 // transient — keep polling
+          if (r.status === 404) { stopBoot(); clearStored(); return fail('instance lost', 'the instance is gone'); }
+          if (d.status === 'ready') { stopBoot(); tlog(`provisioned · @${d.target_username || '?'}`, 'ok'); ready(d); }
+          else if (d.status === 'failed') { stopBoot(); clearStored(); tlog(`boot failed · ${d.error || ''}`, 'err'); fail('boot failed', d.error || 'provisioning failed'); }
+        };
+        bootPoll = setInterval(poll, 2000);
+        poll();   // kick immediately
+      }
+
+      function ready(d) {
+        stopBoot();
+        show('ready'); setLed('', 'online');
+        instance = d;
+        try { localStorage.setItem('sasInstance', d.instance_id); } catch (e) { }
+        $('#r-id').textContent = d.instance_id;
+        $('#r-relay').textContent = d.relay_url || '(not provisioned)';
+        $('#r-target').textContent = d.target_username ? ('@' + d.target_username) : '(not provisioned)';
+        $('#r-targetcmd').textContent = d.target_username ? ('@' + d.target_username + '   via   ' + (d.relay_url || '')) : '(not provisioned)';
+        tlog(`device online · target <b>@${d.target_username || '?'}</b> · relay ${d.relay_url || '?'}`, 'ok');
+        applyLease(d);
+        // The idle lease is activity-driven: only a message reaching the victim
+        // over the relay pushes it back out — an open tab does NOT. The hard
+        // `max session` cap (maxExp) ends it regardless of activity. The poll
+        // below just refreshes the displayed countdown / detects reclamation.
+        stopLease();
+        ttlTimer = setInterval(() => {
+          const now = Date.now() / 1000;
+          const rem = leaseExp - now;
+          $('#r-ttl').textContent = fmt(rem);
+          $('#ttl-fill').style.width = Math.max(0, Math.min(100, leaseSpan > 0 ? rem / leaseSpan * 100 : 0)) + '%';
+          $('#r-maxttl').textContent = fmt(maxExp - now);
+          if (maxExp && now >= maxExp) { return endSession('max session reached · device reclaimed'); }
+          if (rem <= 0) { endSession('idle timeout · device reclaimed'); }
+        }, 1000);
+        hbTimer = setInterval(heartbeat, 8000);
+      }
+
+      function applyLease(d) {
+        leaseExp = (d.expires_at) || ((Date.now() / 1000) + (d.ttl_seconds || 0));
+        // Fixed denominator = the full idle window, so the bar depletes over it
+        // and only refills when a real renewal pushes the deadline out. Using the
+        // live remainder here made the bar snap back to ~full on every poll.
+        leaseSpan = Math.max(1, d.idle_window_seconds || d.ttl_seconds || 1);
+        if (d.max_expires_at) maxExp = d.max_expires_at;
+        else if (d.max_ttl_seconds) maxExp = (Date.now() / 1000) + d.max_ttl_seconds;
+      }
+
+      async function heartbeat() {
+        if (!instance) return;
+        let r;
+        try { r = await fetch('/instance/' + instance.instance_id, { cache: 'no-store' }); }
+        catch (e) { return; }                              // transient — keep the local countdown
+        if (r.status === 404) { return endSession('session ended · device reclaimed'); }
+        let d; try { d = await r.json(); } catch (e) { return; }
+        if (d.status === 'ready') { applyLease(d); $('#r-ttl').textContent = fmt(leaseExp - (Date.now() / 1000)); }
+        else if (d.status === 'failed') { endSession('device failed'); }
+      }
+
+      function endSession(msg) {
+        stopLease(); clearStored(); instance = null;
+        tlog(msg, 'warn'); reset();
+      }
+
+      function fail(title, msg) {
+        stopBoot(); stopLease();
+        show('err'); setLed('err', 'fault');
+        $('#e-title').textContent = title; $('#e-msg').textContent = msg;
+      }
+      function reset() {
+        stopBoot(); stopLease();
+        // re-require the responsible-use consent for each new request
+        const a = $('#agree'); if (a) a.checked = false;
+        $('#go').disabled = true;
+        show('idle'); setLed('', 'standby');
+      }
+
+      $('#agree').onchange = e => { $('#go').disabled = !e.target.checked; };
+      $('#go').onclick = () => { if (!$('#agree').checked) return; start(); };
+      $('#retry').onclick = start;
+      $('#copy').onclick = async () => {
+        try {
+          await navigator.clipboard.writeText(instance.target_username || '');
+          const b = $('#copy'); b.textContent = 'copied'; setTimeout(() => b.textContent = 'copy', 1200);
+        } catch (e) { }
+      };
+      $('#release').onclick = async () => {
+        if (!instance) return;
+        const id = instance.instance_id;
+        tlog('releasing device · ' + id, 'warn');
+        stopLease(); clearStored(); instance = null;
+        try { await fetch('/instance/' + id, { method: 'DELETE' }); } catch (e) { }
+        reset(); tlog('device released', '');
+      };
+
+      // Reattach: if we still hold an instance from a previous tab/session, resume it
+      // instead of forcing a new request (which would otherwise hit 'slots in use').
+      (async () => {
+        let id; try { id = localStorage.getItem('sasInstance'); } catch (e) { }
+        if (id) {
+          try {
+            const r = await fetch('/instance/' + id, { cache: 'no-store' });
+            if (r.ok) {
+              const d = await r.json();
+              if (d.status === 'ready') { tlog('reattached to your existing device', 'ok'); setLed('', 'online'); return ready(d); }
+              if (d.status === 'booting') { tlog('reattaching · device still booting', 'warn'); return pollUntilReady(id); }
+            }
+          } catch (e) { }
+          clearStored();
+        }
+        tlog('terminal ready · awaiting operator', 'ok');
+        setLed('', 'standby');
+      })();
+    })();
+  </script>
+</body>
+
+</html>

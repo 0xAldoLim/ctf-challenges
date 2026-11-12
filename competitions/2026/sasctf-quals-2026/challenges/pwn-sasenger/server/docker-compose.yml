@@ -1,0 +1,51 @@
+name: sasenger
+
+services:
+  relay:
+    build: ./relay
+    image: sasenger-relay
+    ports:
+      - "8080:8080"
+    environment:
+      - LOG_LEVEL=DEBUG
+      - RELAY_ADMIN_KEY=${RELAY_ADMIN_KEY:?set RELAY_ADMIN_KEY (shared with the runner)}
+      - RELAY_POLL_WAIT_S=25
+      - RELAY_MAX_EVENTS=512
+      - RELAY_MAX_PAYLOAD_B64=524288
+    restart: unless-stopped
+
+  runner:
+    build: ./runner
+    image: sasenger-runner
+    depends_on:
+      - relay
+    ports:
+      - "13337:13337"
+    environment:
+      - LOG_LEVEL=DEBUG
+      - POW_SECRET=${POW_SECRET:?set POW_SECRET (HMAC key for PoW tokens)}
+      - POW_DIFFICULTY=26
+      - POW_TTL_S=300
+      - MAX_INSTANCES=10
+      - INSTANCE_TTL_S=1800
+      - IDLE_TTL_S=180
+      - FAILED_GRACE_S=60
+      - BOOT_TIMEOUT_S=300
+      - CF_IMAGE=cf-host:sas
+      - CF_CPUS=2
+      - CF_MEM_MB=2048
+      - DOCKER_BIN=docker
+      - EXPOSE_CONSOLE=0
+      - CONSOLE_BIND=127.0.0.1
+      - IMAGES_HOST_DIR=${PWD}/images
+      - SCRIPTS_HOST_DIR=${PWD}/scripts
+      - APK_HOST_PATH=${APK_HOST_PATH:?set APK_HOST_PATH to the built app-debug.apk}
+      - KERNEL_HOST_PATH=${PWD}/../sources/cf_kernel/bzImage
+      - RELAY_ADMIN_URL=http://relay:8080
+      - RELAY_PUBLIC_URL=http://${PUBLIC_HOST:?set PUBLIC_HOST}:8080
+      - RELAY_INTERNAL_HOSTPORT=host.docker.internal:8080
+      - RELAY_ADMIN_KEY=${RELAY_ADMIN_KEY:?set RELAY_ADMIN_KEY (shared with the relay)}
+      - FLAG=${FLAG:?set FLAG (delivered to each victim at creation)}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped

@@ -1,0 +1,118 @@
+#!/bin/sh
+set -eu
+
+state_dir="${PARADOXY_STATE_DIR:-/var/lib/paradoxy}"
+base_disk="/opt/paradoxy/rootfs.qcow2"
+controller_disk="${state_dir}/controller.qcow2"
+worker_disk="${state_dir}/worker.qcow2"
+controller_lan_ip="${PARADOXY_CONTROLLER_IP:-172.31.0.10}"
+worker_lan_ip="${PARADOXY_WORKER_IP:-172.31.0.11}"
+lan_port="${PARADOXY_LAN_PORT:-19090}"
+accel="${PARADOXY_ACCEL:-tcg,thread=multi}"
+worker_hostfwd=""
+
+if [ -n "${PARADOXY_DEBUG_WORKER_PORT:-}" ]; then
+  worker_hostfwd=",hostfwd=tcp::${PARADOXY_DEBUG_WORKER_PORT}-:8081"
+fi
+
+case "${accel}" in
+  kvm|kvm,*)
+    cpu_model="${PARADOXY_CPU:-host}"
+    ;;
+  *)
+    cpu_model="${PARADOXY_CPU:-max}"
+    ;;
+esac
+
+mkdir -p "${state_dir}"
+
+init_disk() {
+  disk="$1"
+  if [ ! -s "${disk}" ]; then
+    cp "${base_disk}" "${disk}.tmp"
+    mv "${disk}.tmp" "${disk}"
+  fi
+}
+
+init_disk "${controller_disk}"
+init_disk "${worker_disk}"
+
+controller_pid=""
+worker_pid=""
+
+stop_vms() {
+  if [ -n "${worker_pid}" ]; then
+    kill "${worker_pid}" 2>/dev/null || true
+  fi
+  if [ -n "${controller_pid}" ]; then
+    kill "${controller_pid}" 2>/dev/null || true
+  fi
+  wait 2>/dev/null || true
+}
+
+trap stop_vms INT TERM EXIT
+
+common_append="root=/dev/vda rw rootwait console=ttyS0 systemd.unified_cgroup_hierarchy=0"
+debug_api="${PARADOXY_DEBUG_API:-0}"
+
+qemu-system-x86_64 \
+  -name paradoxy-controller \
+  -machine type=pc \
+  -nodefaults \
+  -no-user-config \
+  -accel "${accel}" \
+  -cpu "${cpu_model}" \
+  -smp "${PARADOXY_CONTROLLER_CPUS:-4}" \
+  -m "${PARADOXY_CONTROLLER_MEMORY:-3072}" \
+  -display none \
+  -serial stdio \
+  -monitor none \
+  -no-reboot \
+  -kernel /opt/paradoxy/vmlinuz \
+  -initrd /opt/paradoxy/initrd.img \
+  -append "${common_append} paradoxy.role=controller paradoxy.controller_ip=${controller_lan_ip} paradoxy.worker_ip=${worker_lan_ip} paradoxy.debug_api=${debug_api}" \
+  -drive "file=${controller_disk},if=none,id=rootdisk,format=qcow2,cache=unsafe" \
+  -device virtio-blk-pci,drive=rootdisk \
+  -netdev user,id=wan0,hostfwd=tcp::8080-:18080,hostfwd=tcp::8081-:8081 \
+  -device virtio-net-pci,netdev=wan0,mac=52:54:00:aa:00:01 \
+  -netdev socket,id=lan0,listen=127.0.0.1:${lan_port} \
+  -device virtio-net-pci,netdev=lan0,mac=52:54:00:aa:00:11 &
+controller_pid="$!"
+
+sleep 2
+
+qemu-system-x86_64 \
+  -name paradoxy-worker \
+  -machine type=pc \
+  -nodefaults \
+  -no-user-config \
+  -accel "${accel}" \
+  -cpu "${cpu_model}" \
+  -smp "${PARADOXY_WORKER_CPUS:-2}" \
+  -m "${PARADOXY_WORKER_MEMORY:-2048}" \
+  -display none \
+  -serial stdio \
+  -monitor none \
+  -no-reboot \
+  -kernel /opt/paradoxy/vmlinuz \
+  -initrd /opt/paradoxy/initrd.img \
+  -append "${common_append} paradoxy.role=worker paradoxy.controller_ip=${controller_lan_ip} paradoxy.worker_ip=${worker_lan_ip} paradoxy.debug_api=${debug_api}" \
+  -drive "file=${worker_disk},if=none,id=rootdisk,format=qcow2,cache=unsafe" \
+  -device virtio-blk-pci,drive=rootdisk \
+  -netdev "user,id=wan0${worker_hostfwd}" \
+  -device virtio-net-pci,netdev=wan0,mac=52:54:00:aa:00:02 \
+  -netdev socket,id=lan0,connect=127.0.0.1:${lan_port} \
+  -device virtio-net-pci,netdev=lan0,mac=52:54:00:aa:00:12 &
+worker_pid="$!"
+
+while :; do
+  if ! kill -0 "${controller_pid}" 2>/dev/null; then
+    wait "${controller_pid}" 2>/dev/null || true
+    exit 1
+  fi
+  if ! kill -0 "${worker_pid}" 2>/dev/null; then
+    wait "${worker_pid}" 2>/dev/null || true
+    exit 1
+  fi
+  sleep 2
+done

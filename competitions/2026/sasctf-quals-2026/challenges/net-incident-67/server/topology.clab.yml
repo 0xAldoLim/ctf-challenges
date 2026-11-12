@@ -1,0 +1,136 @@
+name: bgp-hijack
+
+topology:
+  nodes:
+    # === AS 64501 - CryptoCloud ===
+    cryptocloud:
+      kind: linux
+      image: frr-router:latest
+      binds:
+        - configs/cryptocloud:/etc/frr
+      exec:
+        - ip addr add 10.100.12.1/30 dev eth1
+        - ip addr add 10.100.13.1/30 dev eth2
+        - ip addr add 10.0.1.1/24 dev eth3
+        - ip addr add 10.0.2.1/24 dev eth4
+        - sysctl -w net.ipv4.ip_forward=1
+
+    # === AS 64502 - GlobalNet ===
+    globalnet:
+      kind: linux
+      image: frr-router:latest
+      binds:
+        - configs/globalnet:/etc/frr
+      exec:
+        - ip addr add 10.100.12.2/30 dev eth1
+        - ip addr add 10.100.23.1/30 dev eth2
+        - ip addr add 10.100.24.1/30 dev eth3
+        - ip addr add 10.0.7.2/24 dev eth4
+        - sysctl -w net.ipv4.ip_forward=1
+
+    # === AS 64503 - RegionalLink ===
+    regionallink:
+      kind: linux
+      image: frr-router:latest
+      binds:
+        - configs/regionallink:/etc/frr
+      exec:
+        - ip addr add 10.100.13.2/30 dev eth1
+        - ip addr add 10.100.23.2/30 dev eth2
+        - ip addr add 10.100.35.1/30 dev eth3
+        - ip addr add 10.100.36.1/30 dev eth4
+        - ip addr add 10.0.7.3/24 dev eth5
+        - sysctl -w net.ipv4.ip_forward=1
+
+    # === AS 64504 - Metro-IX ===
+    ixp:
+      kind: linux
+      image: frr-router:latest
+      binds:
+        - configs/ixp:/etc/frr
+      exec:
+        - ip addr add 10.100.24.2/30 dev eth1
+        - ip addr add 10.100.45.1/30 dev eth2
+        - ip addr add 10.100.46.2/30 dev eth3
+        - sysctl -w net.ipv4.ip_forward=1
+
+    # === AS 64505 - Player ISP ===
+    player:
+      kind: linux
+      image: frr-router:latest
+      binds:
+        - configs/player:/etc/frr
+      exec:
+        - ip addr add 10.100.35.2/30 dev eth1
+        - ip addr add 10.100.45.2/30 dev eth2
+        - ip addr add 10.0.5.1/24 dev eth3
+        - sysctl -w net.ipv4.ip_forward=1
+
+    # === AS 64506 - UserNet ===
+    usernet:
+      kind: linux
+      image: frr-router:latest
+      binds:
+        - configs/usernet:/etc/frr
+      exec:
+        - ip addr add 10.100.36.2/30 dev eth1
+        - ip addr add 10.100.46.1/30 dev eth2
+        - ip addr add 10.0.6.1/24 dev eth3
+        - sysctl -w net.ipv4.ip_forward=1
+
+    dns-server:
+      kind: linux
+      image: dns-server:latest
+      exec:
+        - ip addr add 10.0.1.53/24 dev eth1
+        - ip route replace default via 10.0.1.1
+
+    wallet-web:
+      kind: linux
+      image: wallet-web:latest
+      exec:
+        - ip addr add 10.0.2.80/24 dev eth1
+        - ip route replace default via 10.0.2.1
+
+    victim-bot:
+      kind: linux
+      image: victim-bot:latest
+      exec:
+        - ip addr add 10.0.6.100/24 dev eth1
+        - ip route replace default via 10.0.6.1
+
+    rpki-validator:
+      kind: linux
+      image: rpki-validator:latest
+      exec:
+        - ip addr add 10.0.7.1/24 dev eth1
+        - ip route add default via 10.0.7.254
+
+    rpki-bridge:
+      kind: bridge
+
+    player-tools:
+      kind: linux
+      image: player-tools:latest
+      exec:
+        - ip addr add 10.0.5.100/24 dev eth1
+        - ip route replace default via 10.0.5.1
+
+  links:
+    - endpoints: ["cryptocloud:eth1", "globalnet:eth1"]
+    - endpoints: ["cryptocloud:eth2", "regionallink:eth1"]
+    - endpoints: ["globalnet:eth2", "regionallink:eth2"]
+    - endpoints: ["globalnet:eth3", "ixp:eth1"]
+    - endpoints: ["regionallink:eth3", "player:eth1"]
+    - endpoints: ["ixp:eth2", "player:eth2"]
+    - endpoints: ["regionallink:eth4", "usernet:eth1"]
+    - endpoints: ["usernet:eth2", "ixp:eth3"]
+
+    - endpoints: ["cryptocloud:eth3", "dns-server:eth1"]
+    - endpoints: ["cryptocloud:eth4", "wallet-web:eth1"]
+    - endpoints: ["player:eth3", "player-tools:eth1"]
+    - endpoints: ["usernet:eth3", "victim-bot:eth1"]
+
+    - endpoints: ["globalnet:eth4", "rpki-bridge:e1"]
+    - endpoints: ["regionallink:eth5", "rpki-bridge:e2"]
+    - endpoints: ["rpki-validator:eth1", "rpki-bridge:e3"]

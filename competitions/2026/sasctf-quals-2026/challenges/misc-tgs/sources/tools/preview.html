@@ -1,0 +1,899 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TGS Inspector</title>
+<style>
+  :root {
+    --bg: #1a1a1d;
+    --panel: #232328;
+    --border: #34343a;
+    --text: #e4e4e8;
+    --muted: #8a8a92;
+    --accent: #5dade2;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font: 13px/1.4 -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+  }
+  #left {
+    flex: 0 0 560px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-right: 1px solid var(--border);
+    overflow: auto;
+  }
+  #right {
+    flex: 1 1 auto;
+    overflow: auto;
+    padding: 14px;
+    background: var(--panel);
+  }
+  #drop {
+    border: 2px dashed #555;
+    padding: 18px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--muted);
+    transition: 0.15s;
+  }
+  #drop:hover, #drop.over {
+    background: #2a2a2f;
+    border-color: var(--accent);
+    color: var(--text);
+  }
+  #stage {
+    width: 512px;
+    height: 512px;
+    background:
+      linear-gradient(45deg, #2a2a2f 25%, transparent 25%),
+      linear-gradient(-45deg, #2a2a2f 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #2a2a2f 75%),
+      linear-gradient(-45deg, transparent 75%, #2a2a2f 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    align-self: center;
+    transition: background 0.15s;
+    cursor: grab;
+  }
+  #stage.panning { cursor: grabbing; }
+  #stage-coords {
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 11px;
+    color: var(--muted);
+    flex-basis: 100%;
+    text-align: center;
+  }
+  #stage.xray {
+    background: #0d0d10;
+    background-image: none;
+    box-shadow: inset 0 0 0 1px #2c2c32;
+  }
+  #stage2 {
+    width: 256px;
+    height: 256px;
+    background:
+      linear-gradient(45deg, #2a2a2f 25%, transparent 25%),
+      linear-gradient(-45deg, #2a2a2f 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #2a2a2f 75%),
+      linear-gradient(-45deg, transparent 75%, #2a2a2f 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    align-self: center;
+  }
+  #iso-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  #iso-controls button {
+    background: #3a3a40;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font: inherit;
+  }
+  #iso-controls button:hover { background: #46464d; }
+  #iso-controls button:disabled { opacity: 0.4; cursor: default; }
+  #iso-label {
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 12px;
+    color: var(--muted);
+    min-width: 70px;
+    text-align: center;
+  }
+  #iso-meta, #iso-bbox {
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 11px;
+    color: var(--muted);
+    flex-basis: 100%;
+    text-align: center;
+  }
+  #meta {
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 12px;
+    color: var(--muted);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 8px;
+    border-radius: 6px;
+    white-space: pre-wrap;
+  }
+  #controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  #controls button {
+    background: #3a3a40;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font: inherit;
+  }
+  #controls button:hover { background: #46464d; }
+  #controls button.on {
+    background: var(--accent);
+    color: #1a1a1d;
+    border-color: var(--accent);
+  }
+  #controls input[type=range] { flex: 1; }
+  #frame {
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 12px;
+    color: var(--muted);
+    min-width: 90px;
+    text-align: right;
+  }
+  h2 {
+    margin: 0 0 10px;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .tree {
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 12px;
+  }
+  .tree details {
+    margin: 1px 0;
+    padding-left: 14px;
+    border-left: 1px solid #303036;
+  }
+  .tree > details {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .tree summary {
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 3px;
+    list-style: none;
+    user-select: none;
+  }
+  .tree summary::-webkit-details-marker { display: none; }
+  .tree summary:hover { background: #2c2c32; }
+  .tree summary::before {
+    content: "▸";
+    display: inline-block;
+    width: 12px;
+    color: var(--muted);
+    transition: transform 0.1s;
+  }
+  .tree details[open] > summary::before {
+    transform: rotate(90deg);
+  }
+  .tree .leaf summary::before { content: "·"; color: #555; }
+  .tree .props {
+    color: var(--muted);
+    padding: 1px 4px 4px 30px;
+    font-size: 11.5px;
+    white-space: pre-wrap;
+  }
+  .badge {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-size: 10px;
+    margin-right: 6px;
+    color: #1a1a1d;
+    font-weight: 600;
+  }
+  .badge.ly  { background: #8aa9d6; }
+  .badge.gr  { background: #a4d68a; }
+  .badge.sh  { background: #d68a8a; }
+  .badge.el  { background: #d6c08a; }
+  .badge.rc  { background: #d6a98a; }
+  .badge.sr  { background: #d68ad0; }
+  .badge.fl  { background: #f0a060; }
+  .badge.st  { background: #8a90d6; }
+  .badge.tr  { background: #888; }
+  .badge.mm  { background: #8ad6cc; }
+  .badge.tm  { background: #c5c5c5; }
+  .swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+    border: 1px solid #777;
+    border-radius: 2px;
+    margin-right: 4px;
+  }
+  .nm { color: var(--text); font-weight: 600; }
+  .nm-muted { color: var(--muted); }
+  .anim { color: #f0a060; }
+  .pin {
+    background: #3a3a40;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 11px;
+    cursor: pointer;
+    margin-left: 6px;
+  }
+  .pin.on { background: var(--accent); color: #1a1a1d; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lottie-web@5.12.2/build/player/lottie.min.js"></script>
+</head>
+<body>
+<div id="left">
+  <div id="drop">drop a .tgs / .json / .lottie here, or click to pick</div>
+  <input id="file" type="file" accept=".tgs,.json,.lottie" hidden>
+  <div id="meta">no file loaded</div>
+  <div id="stage"></div>
+  <div id="controls">
+    <button id="playpause" title="play / pause">▶</button>
+    <button id="stepback" title="step -1f">◀</button>
+    <button id="stepfwd" title="step +1f">▶</button>
+    <button id="xray" title="X-ray: outlines only">X-ray</button>
+    <input type="range" id="scrub" min="0" max="1" step="0.01" value="0">
+    <span id="frame">—</span>
+    <button id="zoom-reset" title="reset zoom &amp; pan">reset</button>
+    <span id="stage-coords">x=— y=— zoom=1.00x</span>
+  </div>
+  <h2 style="margin-top:8px">Isolated layer</h2>
+  <div id="stage2"></div>
+  <div id="iso-controls">
+    <button id="iso-prev" title="previous layer">◀</button>
+    <span id="iso-label">— / —</span>
+    <button id="iso-next" title="next layer">▶</button>
+    <button id="iso-save" title="save current view as PNG">save PNG</button>
+    <span id="iso-meta"></span>
+    <span id="iso-bbox"></span>
+  </div>
+</div>
+<div id="right">
+  <h2>Structure</h2>
+  <div id="tree" class="tree">load a file to see its layer/shape tree.</div>
+</div>
+
+<script>
+"use strict";
+
+const LAYER_TYPES = {0:"Precomp",1:"Solid",2:"Image",3:"Null",4:"Shape",5:"Text",6:"Audio"};
+const SHAPE_TYPES = {
+  sh:"Path", rc:"Rect", el:"Ellipse", sr:"Star",
+  gr:"Group", tr:"Transform", fl:"Fill", st:"Stroke",
+  gf:"GradientFill", gs:"GradientStroke",
+  mm:"MergePaths", rp:"Repeater", tm:"TrimPath", rd:"RoundCorners", op:"OffsetPath",
+};
+
+let anim = null, currentData = null, xrayMode = false;
+const iso = { list: [], idx: 0, anim: null, lastFrameKey: null };
+const ISO_SIZE = 256;
+const ISO_PAD = 0.1;
+
+const stageView = { base: null, current: null };
+let panState = null;
+
+const $ = (id) => document.getElementById(id);
+
+function hue2rgb(p, q, t){
+  if(t < 0) t += 1;
+  if(t > 1) t -= 1;
+  if(t < 1/6) return p + (q - p) * 6 * t;
+  if(t < 1/2) return q;
+  if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+  return p;
+}
+function hslToRgb(h, s, l){
+  h = ((h % 360) + 360) % 360 / 360;
+  if(s === 0) return [l, l, l];
+  const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+  const p = 2 * l - q;
+  return [hue2rgb(p, q, h + 1/3), hue2rgb(p, q, h), hue2rgb(p, q, h - 1/3)];
+}
+
+function patchShapesXray(items, color){
+  if(!Array.isArray(items)) return;
+  for(const item of items){
+    if(item && item.ty === "gr" && Array.isArray(item.it)){
+      item.it = item.it.filter(c =>
+        c && c.ty !== "fl" && c.ty !== "st" && c.ty !== "gf" && c.ty !== "gs"
+      );
+      const stroke = {
+        ty: "st", nm: "XRayStroke", hd: false,
+        c: { a: 0, k: [color[0], color[1], color[2], 1], ix: 3 },
+        o: { a: 0, k: 90, ix: 4 },
+        w: { a: 0, k: 1.5, ix: 5 },
+        lc: 2, lj: 2, ml: 4,
+      };
+      const trIdx = item.it.findIndex(c => c && c.ty === "tr");
+      if(trIdx >= 0) item.it.splice(trIdx, 0, stroke);
+      else item.it.push(stroke);
+      patchShapesXray(item.it, color);
+    }
+  }
+}
+
+function patchToXray(data){
+  const d = JSON.parse(JSON.stringify(data));
+  const layers = d.layers || [];
+  const total = Math.max(layers.length, 1);
+  layers.forEach((layer, i) => {
+    const hue = (i * 360) / total;
+    const color = hslToRgb(hue, 0.75, 0.62);
+    if(Array.isArray(layer.shapes)) patchShapesXray(layer.shapes, color);
+  });
+  return d;
+}
+
+function rgbHex(c){
+  if(!Array.isArray(c) || c.length < 3) return null;
+  const f = (v) => Math.round(Math.max(0, Math.min(1, v)) * 255).toString(16).padStart(2, "0");
+  return "#" + f(c[0]) + f(c[1]) + f(c[2]);
+}
+
+function isAnimated(prop){
+  if(!prop || typeof prop !== "object") return false;
+  if(prop.a === 1) return true;
+  const k = prop.k;
+  return Array.isArray(k) && k.length > 0 && typeof k[0] === "object" && "t" in k[0];
+}
+
+function fmtProp(prop){
+  if(!prop || typeof prop !== "object") return "—";
+  if(isAnimated(prop)){
+    const kfs = prop.k || [];
+    const first = kfs[0]?.s, last = kfs[kfs.length-1]?.s;
+    return `<span class="anim">animated[${kfs.length} kfs ${JSON.stringify(first)} → ${JSON.stringify(last)}]</span>`;
+  }
+  return `<code>${JSON.stringify(prop.k)}</code>`;
+}
+
+function buildShapeNode(item){
+  const det = document.createElement("details");
+  const sum = document.createElement("summary");
+  const ty = item.ty || "?";
+  const label = SHAPE_TYPES[ty] || ty;
+  const nm = item.nm || "";
+
+  sum.innerHTML = `<span class="badge ${ty}">${ty}</span><span class="nm">${label}</span><span class="nm-muted"> ${escapeHtml(nm)}</span>`;
+  det.appendChild(sum);
+
+  const props = document.createElement("div");
+  props.className = "props";
+
+  if(ty === "sh"){
+    const ks = item.ks || {};
+    const k = ks.k;
+    if(k && typeof k === "object" && !Array.isArray(k)){
+      const verts = k.v || [];
+      if(verts.length){
+        const xs = verts.map(p => p[0]);
+        const ys = verts.map(p => p[1]);
+        props.innerHTML = `verts=${verts.length}  closed=${k.c}  bbox=(${Math.min(...xs).toFixed(1)},${Math.min(...ys).toFixed(1)}) → (${Math.max(...xs).toFixed(1)},${Math.max(...ys).toFixed(1)})`;
+      } else {
+        props.innerHTML = `verts=0`;
+      }
+    } else if(Array.isArray(k)){
+      props.innerHTML = `<span class="anim">animated path (${k.length} kfs)</span>`;
+    }
+  } else if(ty === "el"){
+    props.innerHTML = `p=${fmtProp(item.p)}  s=${fmtProp(item.s)}`;
+  } else if(ty === "rc"){
+    props.innerHTML = `p=${fmtProp(item.p)}  s=${fmtProp(item.s)}  r=${fmtProp(item.r)}`;
+  } else if(ty === "sr"){
+    props.innerHTML = `pts=${fmtProp(item.pt)}  or=${fmtProp(item.or)}  ir=${fmtProp(item.ir)}  rot=${fmtProp(item.r)}`;
+  } else if(ty === "fl"){
+    const k = item.c?.k;
+    if(Array.isArray(k) && typeof k[0] === "number"){
+      const hex = rgbHex(k);
+      props.innerHTML = `<span class="swatch" style="background:${hex}"></span>${hex}  opacity=${fmtProp(item.o)}`;
+    } else {
+      props.innerHTML = `color=${fmtProp(item.c)}  opacity=${fmtProp(item.o)}`;
+    }
+  } else if(ty === "st"){
+    const k = item.c?.k;
+    let head = "color=animated";
+    if(Array.isArray(k) && typeof k[0] === "number"){
+      const hex = rgbHex(k);
+      head = `<span class="swatch" style="background:${hex}"></span>${hex}`;
+    }
+    props.innerHTML = `${head}  width=${fmtProp(item.w)}  opacity=${fmtProp(item.o)}`;
+  } else if(ty === "tr"){
+    props.innerHTML = `p=${fmtProp(item.p)}\na=${fmtProp(item.a)}\ns=${fmtProp(item.s)}  r=${fmtProp(item.r)}  o=${fmtProp(item.o)}`;
+  } else if(ty === "tm"){
+    props.innerHTML = `start=${fmtProp(item.s)}  end=${fmtProp(item.e)}  offset=${fmtProp(item.o)}  m=${item.m}`;
+  }
+
+  if(props.innerHTML){
+    det.appendChild(props);
+  }
+
+  if(ty === "gr" && Array.isArray(item.it)){
+    item.it.forEach(c => det.appendChild(buildShapeNode(c)));
+  }
+  return det;
+}
+
+function escapeHtml(s){
+  return String(s ?? "").replace(/[&<>"']/g, m =>
+    ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])
+  );
+}
+
+function buildLayerNode(layer, idx){
+  const det = document.createElement("details");
+  det.open = idx < 6;
+  const sum = document.createElement("summary");
+  const tyName = LAYER_TYPES[layer.ty] || layer.ty;
+  sum.innerHTML =
+    `<span class="badge ly">#${idx}</span>` +
+    `<span class="nm">${tyName}</span>` +
+    `<span class="nm-muted"> ind=${layer.ind} ${escapeHtml(layer.nm)} ` +
+    `${layer.parent ? "parent=" + layer.parent : ""} [${layer.ip}..${layer.op}]</span>`;
+  det.appendChild(sum);
+
+  const props = document.createElement("div");
+  props.className = "props";
+  const ks = layer.ks || {};
+  props.innerHTML =
+    `transform:\n  p=${fmtProp(ks.p)}\n  a=${fmtProp(ks.a)}\n` +
+    `  s=${fmtProp(ks.s)}  r=${fmtProp(ks.r)}  o=${fmtProp(ks.o)}`;
+  det.appendChild(props);
+
+  (layer.shapes || []).forEach(sh => det.appendChild(buildShapeNode(sh)));
+  return det;
+}
+
+function renderTree(data){
+  const tree = $("tree");
+  tree.innerHTML = "";
+  (data.layers || []).forEach((l, i) => tree.appendChild(buildLayerNode(l, i)));
+}
+
+function isoDocForLayer(srcLayer, srcData){
+  const allLayers = srcData.layers || [];
+  const byInd = new Map();
+  for(const l of allLayers){
+    if(l.ind != null && !byInd.has(l.ind)) byInd.set(l.ind, l);
+  }
+
+  const chain = [];
+  const seen = new Set();
+  let cur = srcLayer;
+  while(cur){
+    if(cur.ind != null){
+      if(seen.has(cur.ind)) break;
+      seen.add(cur.ind);
+    }
+    chain.push(cur);
+    cur = (cur.parent != null) ? byInd.get(cur.parent) : null;
+  }
+
+  const isoLayers = chain.map((l, idx) => {
+    const c = JSON.parse(JSON.stringify(l));
+    if(idx > 0){
+      c.shapes = [];
+      c.hasMask = false;
+      delete c.masksProperties;
+      delete c.ef;
+    }
+    return c;
+  });
+
+  return {
+    v: srcData.v || "5.7.2",
+    fr: srcData.fr || 24,
+    ip: srcData.ip || 0,
+    op: srcData.op || 60,
+    w: srcData.w || ISO_SIZE,
+    h: srcData.h || ISO_SIZE,
+    nm: "iso",
+    ddd: 0,
+    assets: [],
+    layers: isoLayers,
+  };
+}
+
+function saveIsoAsPng(outSize = 1024){
+  const svg = $("stage2").querySelector("svg");
+  if(!svg || !iso.list.length) return;
+  const entry = iso.list[iso.idx];
+  const frame = anim
+    ? (anim.currentFrame ?? 0) + (currentData?.ip ?? 0)
+    : (currentData?.ip ?? 0);
+
+  const cloned = svg.cloneNode(true);
+  cloned.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+  cloned.setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
+  cloned.setAttribute("width", outSize);
+  cloned.setAttribute("height", outSize);
+
+  const svgStr = new XMLSerializer().serializeToString(cloned);
+  const svgBlob = new Blob([svgStr], { type: "image/svg+xml;charset=utf-8" });
+  const svgUrl = URL.createObjectURL(svgBlob);
+
+  const img = new Image();
+  img.onload = () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = outSize;
+    canvas.height = outSize;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, outSize, outSize);
+    URL.revokeObjectURL(svgUrl);
+    canvas.toBlob((pngBlob) => {
+      if(!pngBlob) return;
+      const dlUrl = URL.createObjectURL(pngBlob);
+      const a = document.createElement("a");
+      a.href = dlUrl;
+      a.download = `layer-${entry.layer.ind ?? entry.idx}-frame-${Math.round(frame)}.png`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(dlUrl);
+    }, "image/png");
+  };
+  img.onerror = () => {
+    URL.revokeObjectURL(svgUrl);
+    console.error("failed to load SVG into image for PNG export");
+  };
+  img.src = svgUrl;
+}
+
+function fitIsoToViewport(retries){
+  const left = retries ?? 5;
+  const svg = $("stage2").querySelector("svg");
+  if(!svg){
+    if(left > 0) requestAnimationFrame(() => fitIsoToViewport(left - 1));
+    return;
+  }
+  let bb;
+  try { bb = svg.getBBox(); } catch { return; }
+  if(!bb || bb.width === 0 || bb.height === 0){
+    $("iso-bbox").textContent = "  bbox=empty";
+    if(left > 0) requestAnimationFrame(() => fitIsoToViewport(left - 1));
+    return;
+  }
+  const cx = bb.x + bb.width / 2;
+  const cy = bb.y + bb.height / 2;
+  const size = Math.max(bb.width, bb.height) / (1 - 2 * ISO_PAD);
+  svg.setAttribute("viewBox",
+    `${cx - size/2} ${cy - size/2} ${size} ${size}`);
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+  $("iso-bbox").textContent =
+    `  bbox=(${bb.x.toFixed(1)}, ${bb.y.toFixed(1)}) ` +
+    `${bb.width.toFixed(1)}×${bb.height.toFixed(1)}`;
+}
+
+function activeShapeLayers(data, frame){
+  return (data.layers || [])
+    .map((layer, idx) => ({ layer, idx }))
+    .filter(({ layer }) =>
+      layer.ty === 4 &&
+      (layer.ip ?? 0) <= frame &&
+      frame < (layer.op ?? 0) &&
+      Array.isArray(layer.shapes) && layer.shapes.length);
+}
+
+function syncIsoFrame(frame){
+  if(!iso.anim || !currentData) return;
+  iso.anim.goToAndStop(frame - (currentData.ip || 0), true);
+  requestAnimationFrame(fitIsoToViewport);
+}
+
+function rebuildIso(frame){
+  if(!currentData) return;
+  const intFrame = Math.floor(frame);
+  const list = activeShapeLayers(currentData, intFrame);
+  const key = list.map(e => e.idx).join(",");
+  if(key !== iso.lastFrameKey){
+    iso.lastFrameKey = key;
+    iso.list = list;
+    if(iso.idx >= iso.list.length) iso.idx = Math.max(0, iso.list.length - 1);
+    renderIso(frame);
+  } else {
+    syncIsoFrame(frame);
+  }
+}
+
+function renderIso(frame){
+  if(iso.anim){ iso.anim.destroy(); iso.anim = null; }
+  $("iso-prev").disabled = iso.list.length < 2;
+  $("iso-next").disabled = iso.list.length < 2;
+  if(!iso.list.length){
+    $("iso-label").textContent = "0 / 0";
+    $("iso-meta").textContent = "no active shape layers in this frame";
+    $("iso-bbox").textContent = "";
+    return;
+  }
+  const entry = iso.list[iso.idx];
+  $("iso-label").textContent = `${iso.idx + 1} / ${iso.list.length}`;
+  $("iso-meta").textContent =
+    `layer #${entry.idx}  ind=${entry.layer.ind}  ${JSON.stringify(entry.layer.nm)}`;
+  const doc = isoDocForLayer(entry.layer, currentData);
+  if(!doc) return;
+  iso.anim = lottie.loadAnimation({
+    container: $("stage2"),
+    renderer: "svg",
+    loop: false,
+    autoplay: false,
+    animationData: doc,
+  });
+  const f = frame ?? (anim ? anim.currentFrame + (currentData.ip || 0) : currentData.ip);
+  iso.anim.addEventListener("DOMLoaded", () => syncIsoFrame(f));
+  syncIsoFrame(f);
+}
+
+function updatePlayPauseIcon(){
+  $("playpause").textContent = (anim && !anim.isPaused) ? "⏸" : "▶";
+}
+
+function getStageSvg(){
+  return $("stage").querySelector("svg");
+}
+
+function applyStageView(){
+  const svg = getStageSvg();
+  if(!svg || !stageView.current) return;
+  const [x, y, w, h] = stageView.current;
+  svg.setAttribute("viewBox", `${x} ${y} ${w} ${h}`);
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+}
+
+function stagePixelToUser(mx, my){
+  if(!stageView.current) return [0, 0];
+  const rect = $("stage").getBoundingClientRect();
+  const [vx, vy, vw, vh] = stageView.current;
+  return [vx + (mx / rect.width) * vw, vy + (my / rect.height) * vh];
+}
+
+function updateStageCoords(mx, my){
+  if(!stageView.base || !stageView.current){
+    $("stage-coords").textContent = "x=— y=— zoom=—";
+    return;
+  }
+  const [ux, uy] = stagePixelToUser(mx, my);
+  const zoom = stageView.base[2] / stageView.current[2];
+  $("stage-coords").textContent =
+    `x=${ux.toFixed(3)}  y=${uy.toFixed(3)}  zoom=${zoom.toFixed(2)}x`;
+}
+
+function resetStageView(){
+  if(!stageView.base) return;
+  stageView.current = [...stageView.base];
+  applyStageView();
+}
+
+function mountLottie(data){
+  if(anim){ anim.destroy(); anim = null; }
+  anim = lottie.loadAnimation({
+    container: $("stage"),
+    renderer: "svg",
+    loop: true,
+    autoplay: true,
+    animationData: JSON.parse(JSON.stringify(data)),
+  });
+  anim.addEventListener("DOMLoaded", () => requestAnimationFrame(applyStageView));
+  anim.addEventListener("enterFrame", e => {
+    const f = e.currentTime + data.ip;
+    $("scrub").value = f;
+    $("frame").textContent = `${f.toFixed(1)} / ${data.op}`;
+    rebuildIso(f);
+  });
+  updatePlayPauseIcon();
+}
+
+function applyMode(seekFrame){
+  if(!currentData) return;
+  let prevFrame = currentData.ip;
+  let wasPaused = false;
+  if(anim){
+    prevFrame = (anim.currentFrame ?? 0) + currentData.ip;
+    wasPaused = anim.isPaused;
+  }
+  if(seekFrame !== undefined) prevFrame = seekFrame;
+
+  mountLottie(xrayMode ? patchToXray(currentData) : currentData);
+  anim.goToAndStop(prevFrame - currentData.ip, true);
+  if(!wasPaused) anim.play();
+
+  $("stage").classList.toggle("xray", xrayMode);
+  $("xray").classList.toggle("on", xrayMode);
+}
+
+function loadData(data){
+  currentData = data;
+  iso.lastFrameKey = null;
+  iso.idx = 0;
+  stageView.base = [0, 0, data.w, data.h];
+  stageView.current = [0, 0, data.w, data.h];
+
+  const dur = ((data.op - data.ip) / Math.max(data.fr, 1)).toFixed(3);
+  $("meta").textContent =
+    `version=${data.v}    size=${data.w}x${data.h}    fps=${data.fr}\n` +
+    `frames=${data.ip}..${data.op} (${dur}s)    tgs=${data.tgs ?? "-"}\n` +
+    `name=${JSON.stringify(data.nm)}    layers=${data.layers?.length ?? 0}`;
+
+  renderTree(data);
+
+  const scrub = $("scrub");
+  scrub.min = data.ip;
+  scrub.max = data.op;
+  scrub.step = 0.1;
+  scrub.value = data.ip;
+
+  applyMode(data.ip);
+}
+
+$("scrub").oninput = () => {
+  if(anim && currentData){
+    const f = parseFloat($("scrub").value);
+    anim.goToAndStop(f - currentData.ip, true);
+    rebuildIso(f);
+  }
+};
+$("iso-prev").onclick = () => {
+  if(iso.list.length < 2) return;
+  iso.idx = (iso.idx - 1 + iso.list.length) % iso.list.length;
+  renderIso(parseFloat($("scrub").value));
+};
+$("iso-next").onclick = () => {
+  if(iso.list.length < 2) return;
+  iso.idx = (iso.idx + 1) % iso.list.length;
+  renderIso(parseFloat($("scrub").value));
+};
+$("iso-save").onclick = () => saveIsoAsPng();
+$("playpause").onclick = () => {
+  if(!anim) return;
+  anim.isPaused ? anim.play() : anim.pause();
+  updatePlayPauseIcon();
+};
+$("stepfwd").onclick = () => {
+  if(!anim || !currentData) return;
+  anim.pause();
+  const t = Math.min(parseFloat($("scrub").value) + 1, currentData.op);
+  $("scrub").value = t;
+  anim.goToAndStop(t - currentData.ip, true);
+  rebuildIso(t);
+  updatePlayPauseIcon();
+};
+$("stepback").onclick = () => {
+  if(!anim || !currentData) return;
+  anim.pause();
+  const t = Math.max(parseFloat($("scrub").value) - 1, currentData.ip);
+  $("scrub").value = t;
+  anim.goToAndStop(t - currentData.ip, true);
+  rebuildIso(t);
+  updatePlayPauseIcon();
+};
+$("xray").onclick = () => { xrayMode = !xrayMode; applyMode(); };
+$("zoom-reset").onclick = resetStageView;
+
+$("stage").addEventListener("wheel", (e) => {
+  if(!stageView.current) return;
+  e.preventDefault();
+  const rect = $("stage").getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  const [vx, vy, vw, vh] = stageView.current;
+  const factor = e.deltaY > 0 ? 1.15 : 1 / 1.15;
+  const new_vw = vw * factor;
+  const new_vh = vh * factor;
+  const minSpan = 0.01;
+  const maxSpan = stageView.base ? stageView.base[2] * 100 : Infinity;
+  if(new_vw < minSpan || new_vh < minSpan) return;
+  if(new_vw > maxSpan || new_vh > maxSpan) return;
+  const new_vx = vx + (mx / rect.width) * (vw - new_vw);
+  const new_vy = vy + (my / rect.height) * (vh - new_vh);
+  stageView.current = [new_vx, new_vy, new_vw, new_vh];
+  applyStageView();
+  updateStageCoords(mx, my);
+}, { passive: false });
+
+$("stage").addEventListener("mousedown", (e) => {
+  if(!stageView.current) return;
+  if(e.button !== 0 && e.button !== 1) return;
+  e.preventDefault();
+  panState = {
+    sx: e.clientX, sy: e.clientY,
+    vb: [...stageView.current],
+  };
+  $("stage").classList.add("panning");
+});
+
+$("stage").addEventListener("mousemove", (e) => {
+  const rect = $("stage").getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  if(panState){
+    const [vx0, vy0, vw, vh] = panState.vb;
+    const dx = (e.clientX - panState.sx) * vw / rect.width;
+    const dy = (e.clientY - panState.sy) * vh / rect.height;
+    stageView.current = [vx0 - dx, vy0 - dy, vw, vh];
+    applyStageView();
+  }
+  updateStageCoords(mx, my);
+});
+
+$("stage").addEventListener("mouseleave", () => {
+  $("stage-coords").textContent =
+    stageView.base
+      ? `x=—  y=—  zoom=${(stageView.base[2] / stageView.current[2]).toFixed(2)}x`
+      : "x=— y=— zoom=—";
+});
+
+window.addEventListener("mouseup", () => {
+  if(panState){ panState = null; $("stage").classList.remove("panning"); }
+});
+
+$("stage").addEventListener("dblclick", resetStageView);
+
+function ingest(bytes){
+  let text;
+  try {
+    text = new TextDecoder().decode(pako.ungzip(bytes));
+  } catch {
+    text = new TextDecoder().decode(bytes);
+  }
+  try {
+    loadData(JSON.parse(text));
+  } catch (e) {
+    $("meta").textContent = "parse error: " + e.message;
+  }
+}
+
+function handleFile(f){
+  if(!f) return;
+  f.arrayBuffer().then(b => ingest(new Uint8Array(b)));
+}
+
+const drop = $("drop");
+const fileInput = $("file");
+drop.onclick = () => fileInput.click();
+fileInput.onchange = () => handleFile(fileInput.files[0]);
+["dragenter","dragover"].forEach(ev =>
+  drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); })
+);
+["dragleave","drop"].forEach(ev =>
+  drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); })
+);
+drop.addEventListener("drop", e => {
+  e.preventDefault();
+  handleFile(e.dataTransfer.files?.[0]);
+});
+</script>
+</body>
+</html>

@@ -15,11 +15,761 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/rev-cerum",
-  "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "preparation_status": "ready",
+  "player_files": [
+    {
+      "path": "static/Cerum.vst3",
+      "size": 17421312,
+      "sha256": "0970670573a39aba31d6f20e5617f061d195760bb7c2cb41c5ef181f1d0e6943",
+      "modified": false,
+      "upstream_sha256": "0970670573a39aba31d6f20e5617f061d195760bb7c2cb41c5ef181f1d0e6943"
+    }
+  ],
+  "operator_files": [
+    {
+      "path": "server/.gitignore",
+      "size": 37,
+      "sha256": "2312f71feb87e7ded9fb25a5f67a7e09254f7b4373596cd12a4d2efc23e71179",
+      "modified": false,
+      "upstream_sha256": "2312f71feb87e7ded9fb25a5f67a7e09254f7b4373596cd12a4d2efc23e71179"
+    },
+    {
+      "path": "server/docker-compose.yml",
+      "size": 254,
+      "sha256": "7b4569a1a8c90e1843b825aaf03e2d689207790e9a5d8c929015db1120d87ae6",
+      "modified": false,
+      "upstream_sha256": "7b4569a1a8c90e1843b825aaf03e2d689207790e9a5d8c929015db1120d87ae6"
+    },
+    {
+      "path": "server/Dockerfile",
+      "size": 290,
+      "sha256": "8300cb01f546a390fd6585142b078c140a15bbbeac41c26667c509b7e4b1baf1",
+      "modified": false,
+      "upstream_sha256": "8300cb01f546a390fd6585142b078c140a15bbbeac41c26667c509b7e4b1baf1"
+    },
+    {
+      "path": "server/license_server.py",
+      "size": 12349,
+      "sha256": "2f6aa7a46a5fd6ee3e9fd93649cbf8b468b468681b76a8de84adb1eb4e471e53",
+      "modified": false,
+      "upstream_sha256": "2f6aa7a46a5fd6ee3e9fd93649cbf8b468b468681b76a8de84adb1eb4e471e53"
+    },
+    {
+      "path": "server/requirements.txt",
+      "size": 35,
+      "sha256": "8319bfda95da00dc317f58af0fc284c2cf9a088edd8c684bde7abc4e7a8db590",
+      "modified": false,
+      "upstream_sha256": "8319bfda95da00dc317f58af0fc284c2cf9a088edd8c684bde7abc4e7a8db590"
+    },
+    {
+      "path": "server/utils.py",
+      "size": 3551,
+      "sha256": "22454f293d5882894b6310ccd6c24706735d6949d9c5b6a7a71b070a4545e3f2",
+      "modified": false,
+      "upstream_sha256": "22454f293d5882894b6310ccd6c24706735d6949d9c5b6a7a71b070a4545e3f2"
+    },
+    {
+      "path": "server/data/ca.crt",
+      "size": 1818,
+      "sha256": "148bd6ae1cb3c041b40f5b54c1f087d8e30e9bcd528fe2cd6ba64936a8250b89",
+      "modified": false,
+      "upstream_sha256": "148bd6ae1cb3c041b40f5b54c1f087d8e30e9bcd528fe2cd6ba64936a8250b89"
+    },
+    {
+      "path": "server/data/ca.key",
+      "size": 3272,
+      "sha256": "9dbd1b87bfbe898295786d1a267f65983d2174f472d87b161f9d6f13e9badfac",
+      "modified": false,
+      "upstream_sha256": "9dbd1b87bfbe898295786d1a267f65983d2174f472d87b161f9d6f13e9badfac"
+    },
+    {
+      "path": "server/data/client.crt",
+      "size": 1509,
+      "sha256": "456e8fda655a9754bdcc7f8d6d1c02ff2d722c2518f0009ef87afd647bb15c74",
+      "modified": false,
+      "upstream_sha256": "456e8fda655a9754bdcc7f8d6d1c02ff2d722c2518f0009ef87afd647bb15c74"
+    },
+    {
+      "path": "server/data/client.key",
+      "size": 1704,
+      "sha256": "1eadb462a9b13cf1d39a421752a2b3c9180147e636f2946c6383767d55d423bc",
+      "modified": false,
+      "upstream_sha256": "1eadb462a9b13cf1d39a421752a2b3c9180147e636f2946c6383767d55d423bc"
+    },
+    {
+      "path": "server/data/config.json",
+      "size": 497,
+      "sha256": "63574a7063eb02acd29b9923c326e466d9560cdbe5aa8d33e6cacacd11b6784c",
+      "modified": false,
+      "upstream_sha256": "63574a7063eb02acd29b9923c326e466d9560cdbe5aa8d33e6cacacd11b6784c"
+    },
+    {
+      "path": "server/data/lic.key",
+      "size": 1704,
+      "sha256": "42b657aa870d91918247179cad785d55502751dc75eae55d11e17274cfa09970",
+      "modified": false,
+      "upstream_sha256": "42b657aa870d91918247179cad785d55502751dc75eae55d11e17274cfa09970"
+    },
+    {
+      "path": "server/data/lic.pub",
+      "size": 451,
+      "sha256": "f1c23eb0bd1a2792cbcf65e1b31680797b275eeecb341190ff8036fd5c380647",
+      "modified": false,
+      "upstream_sha256": "f1c23eb0bd1a2792cbcf65e1b31680797b275eeecb341190ff8036fd5c380647"
+    },
+    {
+      "path": "server/data/server.crt",
+      "size": 1554,
+      "sha256": "f0aefba1118597faafc49671500a8738158f7cdaafcf49a30ec1c59b04f64d38",
+      "modified": false,
+      "upstream_sha256": "f0aefba1118597faafc49671500a8738158f7cdaafcf49a30ec1c59b04f64d38"
+    },
+    {
+      "path": "server/data/server.key",
+      "size": 1704,
+      "sha256": "964b7cc7b341cc39584aa7635b6eefb2cf26fdd1dba48d8845c5f5c45e5caadb",
+      "modified": false,
+      "upstream_sha256": "964b7cc7b341cc39584aa7635b6eefb2cf26fdd1dba48d8845c5f5c45e5caadb"
+    },
+    {
+      "path": "server/datadev/ca.crt",
+      "size": 1830,
+      "sha256": "9d2e33b41f5d2d90010baf1260d64e574d171feb23905f4961d757cd6255d9e2",
+      "modified": false,
+      "upstream_sha256": "9d2e33b41f5d2d90010baf1260d64e574d171feb23905f4961d757cd6255d9e2"
+    },
+    {
+      "path": "server/datadev/ca.key",
+      "size": 3272,
+      "sha256": "3a703d26f9b59327b3dedcc8cff3a098e96c69481060bc5cdb2d414b948b4283",
+      "modified": false,
+      "upstream_sha256": "3a703d26f9b59327b3dedcc8cff3a098e96c69481060bc5cdb2d414b948b4283"
+    },
+    {
+      "path": "server/datadev/client.crt",
+      "size": 1509,
+      "sha256": "87ef0f9dc0a168a416eeec0774250d476424d9d83aaa662784b5828633e8d297",
+      "modified": false,
+      "upstream_sha256": "87ef0f9dc0a168a416eeec0774250d476424d9d83aaa662784b5828633e8d297"
+    },
+    {
+      "path": "server/datadev/client.key",
+      "size": 1704,
+      "sha256": "a0c3e261a52001d9537bb82650827dc260a7c20a16692dfee5025bbb66bf3143",
+      "modified": false,
+      "upstream_sha256": "a0c3e261a52001d9537bb82650827dc260a7c20a16692dfee5025bbb66bf3143"
+    },
+    {
+      "path": "server/datadev/config.json",
+      "size": 513,
+      "sha256": "6c3d9ea450cc6532a61b9a40fb9e02509b0666e14d35b53f043c13ce3392495a",
+      "modified": false,
+      "upstream_sha256": "6c3d9ea450cc6532a61b9a40fb9e02509b0666e14d35b53f043c13ce3392495a"
+    },
+    {
+      "path": "server/datadev/lic.key",
+      "size": 1704,
+      "sha256": "42b657aa870d91918247179cad785d55502751dc75eae55d11e17274cfa09970",
+      "modified": false,
+      "upstream_sha256": "42b657aa870d91918247179cad785d55502751dc75eae55d11e17274cfa09970"
+    },
+    {
+      "path": "server/datadev/lic.pub",
+      "size": 451,
+      "sha256": "f1c23eb0bd1a2792cbcf65e1b31680797b275eeecb341190ff8036fd5c380647",
+      "modified": false,
+      "upstream_sha256": "f1c23eb0bd1a2792cbcf65e1b31680797b275eeecb341190ff8036fd5c380647"
+    },
+    {
+      "path": "server/datadev/server.crt",
+      "size": 1549,
+      "sha256": "62a11cfe17a265be3d2e41eaa2d3b904a4e3b33ab0bfa83d99c6505a445e29d4",
+      "modified": false,
+      "upstream_sha256": "62a11cfe17a265be3d2e41eaa2d3b904a4e3b33ab0bfa83d99c6505a445e29d4"
+    },
+    {
+      "path": "server/datadev/server.key",
+      "size": 1704,
+      "sha256": "1c65116effd95d32fff151825b3669ad90ed436d6e3bc18fcdc2545f34cad7ea",
+      "modified": false,
+      "upstream_sha256": "1c65116effd95d32fff151825b3669ad90ed436d6e3bc18fcdc2545f34cad7ea"
+    },
+    {
+      "path": "server/nginx/Dockerfile",
+      "size": 148,
+      "sha256": "b875343b98039e598e170c801a60b766518eb6171cb0c22cc2e87e6e540e7d9b",
+      "modified": false,
+      "upstream_sha256": "b875343b98039e598e170c801a60b766518eb6171cb0c22cc2e87e6e540e7d9b"
+    },
+    {
+      "path": "server/nginx/ratelimiter.conf",
+      "size": 310,
+      "sha256": "2e4c1aa383b22ceb45a4d307d15e0d9faea96001a1539ac4f7751cc43aa98473",
+      "modified": false,
+      "upstream_sha256": "2e4c1aa383b22ceb45a4d307d15e0d9faea96001a1539ac4f7751cc43aa98473"
+    },
+    {
+      "path": "sources/Cerum/.gitignore",
+      "size": 191,
+      "sha256": "24cdad5f18bae85d2699eff792bfa959a26f1f6040947b8c136125029ffaca33",
+      "modified": false,
+      "upstream_sha256": "24cdad5f18bae85d2699eff792bfa959a26f1f6040947b8c136125029ffaca33"
+    },
+    {
+      "path": "sources/Cerum/Cerum.RPP",
+      "size": 2523,
+      "sha256": "1b9efcefdd49323274dd8456bfd3eec7abd57c93638761927444863397ecf4ae",
+      "modified": false,
+      "upstream_sha256": "1b9efcefdd49323274dd8456bfd3eec7abd57c93638761927444863397ecf4ae"
+    },
+    {
+      "path": "sources/Cerum/Cerum.sln",
+      "size": 1831,
+      "sha256": "c55869f5760704ffcef4d8c4383849eb706214a2696c80cc8e41a5488fc34641",
+      "modified": false,
+      "upstream_sha256": "c55869f5760704ffcef4d8c4383849eb706214a2696c80cc8e41a5488fc34641"
+    },
+    {
+      "path": "sources/Cerum/CMakeLists.txt",
+      "size": 865,
+      "sha256": "0a33f627497b9e20877ae3a094e63ede1a8494a955d088e135f8ad37cf78bda3",
+      "modified": false,
+      "upstream_sha256": "0a33f627497b9e20877ae3a094e63ede1a8494a955d088e135f8ad37cf78bda3"
+    },
+    {
+      "path": "sources/Cerum/config/Cerum-win.props",
+      "size": 2998,
+      "sha256": "539c2cad69378c32527cf046a2c7eee9a10bf604f83805745ea66072c8f449e7",
+      "modified": false,
+      "upstream_sha256": "539c2cad69378c32527cf046a2c7eee9a10bf604f83805745ea66072c8f449e7"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/adler32.c",
+      "size": 4964,
+      "sha256": "9cd1443a24ff2a3053961695bd432035c58347386a420d3388232376ebabe211",
+      "modified": false,
+      "upstream_sha256": "9cd1443a24ff2a3053961695bd432035c58347386a420d3388232376ebabe211"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/compress.c",
+      "size": 2613,
+      "sha256": "86f802c16a965e7a28737e3730b4e576c5ba40981753967e3e30916f4dc1b4b1",
+      "modified": false,
+      "upstream_sha256": "86f802c16a965e7a28737e3730b4e576c5ba40981753967e3e30916f4dc1b4b1"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/crc32.c",
+      "size": 31605,
+      "sha256": "8fd16f0a7714d51c89c2eb37eb98ec15e8a4dc57ba343e7b7398b19144039fda",
+      "modified": false,
+      "upstream_sha256": "8fd16f0a7714d51c89c2eb37eb98ec15e8a4dc57ba343e7b7398b19144039fda"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/crc32.h",
+      "size": 591749,
+      "sha256": "9a2223575183ac2ee8a247f20bf3ac066e8bd0140369556bdbdffc777435749e",
+      "modified": false,
+      "upstream_sha256": "9a2223575183ac2ee8a247f20bf3ac066e8bd0140369556bdbdffc777435749e"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/deflate.c",
+      "size": 81731,
+      "sha256": "3b956337350f94c34987750f785587ef33d9c89ceaebb7c2afb189c956360cbe",
+      "modified": false,
+      "upstream_sha256": "3b956337350f94c34987750f785587ef33d9c89ceaebb7c2afb189c956360cbe"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/deflate.h",
+      "size": 14041,
+      "sha256": "48baf016326d8d5e3e32ac8153cc7e22f854b8e6834830b167b998a7fb1e7989",
+      "modified": false,
+      "upstream_sha256": "48baf016326d8d5e3e32ac8153cc7e22f854b8e6834830b167b998a7fb1e7989"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/gzclose.c",
+      "size": 668,
+      "sha256": "35ea6e991a63095f797d8c4cc25817fac7a7155c2ba7dcdbbf648f7871c7ea40",
+      "modified": false,
+      "upstream_sha256": "35ea6e991a63095f797d8c4cc25817fac7a7155c2ba7dcdbbf648f7871c7ea40"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/gzguts.h",
+      "size": 6676,
+      "sha256": "716fa648aca1bb06c219d7b97ad4846d8479206143bc39557bfd8283f5783e04",
+      "modified": false,
+      "upstream_sha256": "716fa648aca1bb06c219d7b97ad4846d8479206143bc39557bfd8283f5783e04"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/gzlib.c",
+      "size": 16270,
+      "sha256": "042c2be8ec67ad525a2812e508de7381c6766dde903acf5ae6ac4fa6b541946d",
+      "modified": false,
+      "upstream_sha256": "042c2be8ec67ad525a2812e508de7381c6766dde903acf5ae6ac4fa6b541946d"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/gzread.c",
+      "size": 19918,
+      "sha256": "72e481aca07b0b85a9783237b85dc67ff3a4c1d19878d0cec69f58d38634867b",
+      "modified": false,
+      "upstream_sha256": "72e481aca07b0b85a9783237b85dc67ff3a4c1d19878d0cec69f58d38634867b"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/gzwrite.c",
+      "size": 19237,
+      "sha256": "469b1e58932ea11bdda2a153f6655f7b3c13254240fae157181b49ed1bc93b47",
+      "modified": false,
+      "upstream_sha256": "469b1e58932ea11bdda2a153f6655f7b3c13254240fae157181b49ed1bc93b47"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/infback.c",
+      "size": 22669,
+      "sha256": "62df9a6dd3eef126f1d81d0ad7a534504610dec44482b0a472b61c93cbab6554",
+      "modified": false,
+      "upstream_sha256": "62df9a6dd3eef126f1d81d0ad7a534504610dec44482b0a472b61c93cbab6554"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/inffast.c",
+      "size": 12924,
+      "sha256": "e6ef64ce5dc0a4cd5c7ad08ceeb2b2a698b8447f6bd156057caeb2edab68c0cb",
+      "modified": false,
+      "upstream_sha256": "e6ef64ce5dc0a4cd5c7ad08ceeb2b2a698b8447f6bd156057caeb2edab68c0cb"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/inffast.h",
+      "size": 422,
+      "sha256": "05cc5dc9ff1da7b8b52a4bd8bda0d8a5c236a2f39efe84b941516ea13857e6c5",
+      "modified": false,
+      "upstream_sha256": "05cc5dc9ff1da7b8b52a4bd8bda0d8a5c236a2f39efe84b941516ea13857e6c5"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/inffixed.h",
+      "size": 6332,
+      "sha256": "237ba710f090e432b62ebf963bee8b302867e9691406b2d3f8ee89ee7bfef9b0",
+      "modified": false,
+      "upstream_sha256": "237ba710f090e432b62ebf963bee8b302867e9691406b2d3f8ee89ee7bfef9b0"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/inflate.c",
+      "size": 55519,
+      "sha256": "34c998ce0037c0537c04b03b276f680b945f9b2c9d1e01b287605bd6879f7fd2",
+      "modified": false,
+      "upstream_sha256": "34c998ce0037c0537c04b03b276f680b945f9b2c9d1e01b287605bd6879f7fd2"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/inflate.h",
+      "size": 6685,
+      "sha256": "8da74aeae6029ed3bf4785abc828d529eae6f3afa23b2f26a7194768068e49b3",
+      "modified": false,
+      "upstream_sha256": "8da74aeae6029ed3bf4785abc828d529eae6f3afa23b2f26a7194768068e49b3"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/inftrees.c",
+      "size": 13024,
+      "sha256": "5d4f335221d2dc76f17abd2577d92c2d7baf68fa6d7f23373b360830493d1563",
+      "modified": false,
+      "upstream_sha256": "5d4f335221d2dc76f17abd2577d92c2d7baf68fa6d7f23373b360830493d1563"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/inftrees.h",
+      "size": 2920,
+      "sha256": "0a0fcaf2ae2fae57426bdc06637270e9bba974f35202cadbdba479d946e6409d",
+      "modified": false,
+      "upstream_sha256": "0a0fcaf2ae2fae57426bdc06637270e9bba974f35202cadbdba479d946e6409d"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/ioapi.c",
+      "size": 7740,
+      "sha256": "6dff11ded396f5e3147c632a639423e80ced6705bf7bf75d21cda0c571fdf86b",
+      "modified": false,
+      "upstream_sha256": "6dff11ded396f5e3147c632a639423e80ced6705bf7bf75d21cda0c571fdf86b"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/ioapi.h",
+      "size": 7100,
+      "sha256": "6d2f2c3520dfc3061ea9128a1afb843f5cfe8d7317adcefe3a45884bc06e06a1",
+      "modified": false,
+      "upstream_sha256": "6d2f2c3520dfc3061ea9128a1afb843f5cfe8d7317adcefe3a45884bc06e06a1"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/trees.c",
+      "size": 40937,
+      "sha256": "f63c68c16c05fcd196050529d1a0e7657960e4136b9987d90a6ac3e58a964b0f",
+      "modified": false,
+      "upstream_sha256": "f63c68c16c05fcd196050529d1a0e7657960e4136b9987d90a6ac3e58a964b0f"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/trees.h",
+      "size": 8472,
+      "sha256": "bb0a9d3ca88ee00c81adb7c636e73b97085f6ef1b52d6d58edbe2b6dc3adeb4d",
+      "modified": false,
+      "upstream_sha256": "bb0a9d3ca88ee00c81adb7c636e73b97085f6ef1b52d6d58edbe2b6dc3adeb4d"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/uncompr.c",
+      "size": 2911,
+      "sha256": "04dca5e31b3b8a17d1806426f66f0c539f4184d657e149d40be07070c6227b52",
+      "modified": false,
+      "upstream_sha256": "04dca5e31b3b8a17d1806426f66f0c539f4184d657e149d40be07070c6227b52"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/unzip.c",
+      "size": 67640,
+      "sha256": "10881ab576f49fe0825a21f77e322ece6ee88d34ed66fb3a3ce7a22f4b6cd2d9",
+      "modified": false,
+      "upstream_sha256": "10881ab576f49fe0825a21f77e322ece6ee88d34ed66fb3a3ce7a22f4b6cd2d9"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/unzip.h",
+      "size": 16448,
+      "sha256": "2ff9df0b1da7499adc806bc0ec098ef1c7b9d361a8fd5b08a98299a1a4e88399",
+      "modified": false,
+      "upstream_sha256": "2ff9df0b1da7499adc806bc0ec098ef1c7b9d361a8fd5b08a98299a1a4e88399"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/zconf.h",
+      "size": 16298,
+      "sha256": "9c0087f31cd45fe4bfa0ca79b51df2c69d67c44f2fbb2223d7cf9ab8d971c360",
+      "modified": false,
+      "upstream_sha256": "9c0087f31cd45fe4bfa0ca79b51df2c69d67c44f2fbb2223d7cf9ab8d971c360"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/zip.c",
+      "size": 65492,
+      "sha256": "588e9914d1de1d0814dd86ba09ffd1189684b9b5a034488b7300d65d81fa7667",
+      "modified": false,
+      "upstream_sha256": "588e9914d1de1d0814dd86ba09ffd1189684b9b5a034488b7300d65d81fa7667"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/zip.h",
+      "size": 15517,
+      "sha256": "99ad45c0b546b5fd0ee3d0819ff057840a892a3d6dbacc85b757a35a43047398",
+      "modified": false,
+      "upstream_sha256": "99ad45c0b546b5fd0ee3d0819ff057840a892a3d6dbacc85b757a35a43047398"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/zlib.h",
+      "size": 96835,
+      "sha256": "37b280a3ba92f94c79a27de672b6cba2c8a8fec20daa46a42eb75c3f36b44958",
+      "modified": false,
+      "upstream_sha256": "37b280a3ba92f94c79a27de672b6cba2c8a8fec20daa46a42eb75c3f36b44958"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/zlib_import.h",
+      "size": 1434,
+      "sha256": "36ccce573a70e9060eea3c294829cb0bf51460bb63df9c7ccd454880a28a6662",
+      "modified": false,
+      "upstream_sha256": "36ccce573a70e9060eea3c294829cb0bf51460bb63df9c7ccd454880a28a6662"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/zutil.c",
+      "size": 7179,
+      "sha256": "8ced40d8c88588811edd2bdb35b7439983d5e1f8e9e32b8a3b244731f3c317b7",
+      "modified": false,
+      "upstream_sha256": "8ced40d8c88588811edd2bdb35b7439983d5e1f8e9e32b8a3b244731f3c317b7"
+    },
+    {
+      "path": "sources/Cerum/dependencies/zlib/zutil.h",
+      "size": 6677,
+      "sha256": "dddb2dc7a1dc339ecf2c8e089b366f08bb731c0839c7110240d17ce731bb4fea",
+      "modified": false,
+      "upstream_sha256": "dddb2dc7a1dc339ecf2c8e089b366f08bb731c0839c7110240d17ce731bb4fea"
+    },
+    {
+      "path": "sources/Cerum/include/base64.h",
+      "size": 197,
+      "sha256": "3e250f9a0090e57a2609700af86db51f41f59a2b194b3ff036c63a813a549a90",
+      "modified": false,
+      "upstream_sha256": "3e250f9a0090e57a2609700af86db51f41f59a2b194b3ff036c63a813a549a90"
+    },
+    {
+      "path": "sources/Cerum/include/Cerum.h",
+      "size": 1881,
+      "sha256": "2e07ff7dc2a5757e1ba2d9ddad182de50d45bdcc28166403f52bd0f6bd3124bf",
+      "modified": false,
+      "upstream_sha256": "2e07ff7dc2a5757e1ba2d9ddad182de50d45bdcc28166403f52bd0f6bd3124bf"
+    },
+    {
+      "path": "sources/Cerum/include/Cerum_DSP.h",
+      "size": 9430,
+      "sha256": "ff0b8e2b259da218bd79d653231401937dc996d5d17a6726a6603469ba80ce9b",
+      "modified": false,
+      "upstream_sha256": "ff0b8e2b259da218bd79d653231401937dc996d5d17a6726a6603469ba80ce9b"
+    },
+    {
+      "path": "sources/Cerum/include/ComputeShaderControl.h",
+      "size": 2251,
+      "sha256": "3393c15501cbaafab2bb4e7cd7412eb9d41fb2a76e722e73d13139d178866987",
+      "modified": false,
+      "upstream_sha256": "3393c15501cbaafab2bb4e7cd7412eb9d41fb2a76e722e73d13139d178866987"
+    },
+    {
+      "path": "sources/Cerum/include/config.h",
+      "size": 910,
+      "sha256": "8b41cca71917891e7b3e0abb77637d28e8a6272347014ac2b2380aae653ad1d6",
+      "modified": false,
+      "upstream_sha256": "8b41cca71917891e7b3e0abb77637d28e8a6272347014ac2b2380aae653ad1d6"
+    },
+    {
+      "path": "sources/Cerum/include/fake.h",
+      "size": 5267,
+      "sha256": "b7023d63e72000256e3a77e50681841a26572a53a9fa18687269e5b09a54e9f0",
+      "modified": false,
+      "upstream_sha256": "b7023d63e72000256e3a77e50681841a26572a53a9fa18687269e5b09a54e9f0"
+    },
+    {
+      "path": "sources/Cerum/include/globals.h",
+      "size": 1826,
+      "sha256": "ea5eeb9474d23b0b747bce148e4a1e5bb33db0f3524e6748ebad35b664bb3b87",
+      "modified": false,
+      "upstream_sha256": "ea5eeb9474d23b0b747bce148e4a1e5bb33db0f3524e6748ebad35b664bb3b87"
+    },
+    {
+      "path": "sources/Cerum/include/hwid.hpp",
+      "size": 7310,
+      "sha256": "3b50f5275e760f17662463301ded6494eb0939b50dfa0a0ebd465d10d7195350",
+      "modified": false,
+      "upstream_sha256": "3b50f5275e760f17662463301ded6494eb0939b50dfa0a0ebd465d10d7195350"
+    },
+    {
+      "path": "sources/Cerum/include/int_obfuscate.h",
+      "size": 4939,
+      "sha256": "a287de340a3d412810c2ee1ac2e450fb9a3be3ea6fdb3f53c88f36f2d1e89f4f",
+      "modified": false,
+      "upstream_sha256": "a287de340a3d412810c2ee1ac2e450fb9a3be3ea6fdb3f53c88f36f2d1e89f4f"
+    },
+    {
+      "path": "sources/Cerum/include/iohelp.hpp",
+      "size": 430,
+      "sha256": "2bac16803563e95a9882794298a033e6bd7eb60e48e3202c5c61b47a71edba21",
+      "modified": false,
+      "upstream_sha256": "2bac16803563e95a9882794298a033e6bd7eb60e48e3202c5c61b47a71edba21"
+    },
+    {
+      "path": "sources/Cerum/include/lazy_importer.h",
+      "size": 21378,
+      "sha256": "89d21a4878893345f39f0c4e6272c03aa85a49a2f1a48d2533ff42252af6c9ff",
+      "modified": false,
+      "upstream_sha256": "89d21a4878893345f39f0c4e6272c03aa85a49a2f1a48d2533ff42252af6c9ff"
+    },
+    {
+      "path": "sources/Cerum/include/licensing_client.hpp",
+      "size": 1173,
+      "sha256": "00a27526e43eae6488789d59227d559d93b22d07373579935f7a8d110cf3760b",
+      "modified": false,
+      "upstream_sha256": "00a27526e43eae6488789d59227d559d93b22d07373579935f7a8d110cf3760b"
+    },
+    {
+      "path": "sources/Cerum/include/lineq.h",
+      "size": 23111532,
+      "sha256": "d33dd4dd5ff4e19a3087221e6ee4b28e012f88a84dc3f32ee857de8de6542a45",
+      "modified": false,
+      "upstream_sha256": "d33dd4dd5ff4e19a3087221e6ee4b28e012f88a84dc3f32ee857de8de6542a45"
+    },
+    {
+      "path": "sources/Cerum/include/Note.h",
+      "size": 813,
+      "sha256": "a453c82e2669ad1dd66993b9af956ddb4e09d57658e5effbb5bdfb57b3f3ee2d",
+      "modified": false,
+      "upstream_sha256": "a453c82e2669ad1dd66993b9af956ddb4e09d57658e5effbb5bdfb57b3f3ee2d"
+    },
+    {
+      "path": "sources/Cerum/include/obfusheader.h",
+      "size": 26936,
+      "sha256": "46cd6739ebebbea32817eb5c47faff38fdb96b04fcb00432c37048b6dc24037c",
+      "modified": false,
+      "upstream_sha256": "46cd6739ebebbea32817eb5c47faff38fdb96b04fcb00432c37048b6dc24037c"
+    },
+    {
+      "path": "sources/Cerum/include/ptr_obfuscate.h",
+      "size": 12097,
+      "sha256": "f0b53c86b69c1e5dbd1fa04edcd670c16c570d033a3c4aa56f2a02559b08d60b",
+      "modified": false,
+      "upstream_sha256": "f0b53c86b69c1e5dbd1fa04edcd670c16c570d033a3c4aa56f2a02559b08d60b"
+    },
+    {
+      "path": "sources/Cerum/include/rsa.h",
+      "size": 345,
+      "sha256": "0597306e2b2c952c5e543a3a4286dc355ead802d24bb431da3d21aa7db351796",
+      "modified": false,
+      "upstream_sha256": "0597306e2b2c952c5e543a3a4286dc355ead802d24bb431da3d21aa7db351796"
+    },
+    {
+      "path": "sources/Cerum/include/simplehash.h",
+      "size": 1718,
+      "sha256": "d0173f89a200172b07db31f905758ae46b859b222ccc8f1dc7ff736ed46c0a61",
+      "modified": false,
+      "upstream_sha256": "d0173f89a200172b07db31f905758ae46b859b222ccc8f1dc7ff736ed46c0a61"
+    },
+    {
+      "path": "sources/Cerum/include/startup.h",
+      "size": 225,
+      "sha256": "79d73177453707e7a816ef9ea0aaf650171eec8922359f6719f7c9d00f8f4f4c",
+      "modified": false,
+      "upstream_sha256": "79d73177453707e7a816ef9ea0aaf650171eec8922359f6719f7c9d00f8f4f4c"
+    },
+    {
+      "path": "sources/Cerum/include/str_obfuscate.h",
+      "size": 9671,
+      "sha256": "4577605fc98e10aafb860a7057d7ce02a169b03459efbe91aeaef13e18d77f9a",
+      "modified": false,
+      "upstream_sha256": "4577605fc98e10aafb860a7057d7ce02a169b03459efbe91aeaef13e18d77f9a"
+    },
+    {
+      "path": "sources/Cerum/include/xtea.h",
+      "size": 271,
+      "sha256": "7d7024064c956067625783f19f78975889cb6a95aeb03b63df0468d0cd872a3c",
+      "modified": false,
+      "upstream_sha256": "7d7024064c956067625783f19f78975889cb6a95aeb03b63df0468d0cd872a3c"
+    },
+    {
+      "path": "sources/Cerum/projects/Cerum-vst3.vcxproj",
+      "size": 27019,
+      "sha256": "24b08373d86135a06ca43caea7fb622841f6a0a09ecfd8da550d4e2c32921918",
+      "modified": false,
+      "upstream_sha256": "24b08373d86135a06ca43caea7fb622841f6a0a09ecfd8da550d4e2c32921918"
+    },
+    {
+      "path": "sources/Cerum/projects/Cerum-vst3.vcxproj.filters",
+      "size": 27527,
+      "sha256": "37b12db1753dee6b9b6238e95956a84c414f9f947eda386464cacc63e90b8de9",
+      "modified": false,
+      "upstream_sha256": "37b12db1753dee6b9b6238e95956a84c414f9f947eda386464cacc63e90b8de9"
+    },
+    {
+      "path": "sources/Cerum/resources/eula1.bin",
+      "size": 24087,
+      "sha256": "9c864936e0a6ed34439d00d65d726476ff4e6c95413f17b9d1804251a38d0822",
+      "modified": false,
+      "upstream_sha256": "9c864936e0a6ed34439d00d65d726476ff4e6c95413f17b9d1804251a38d0822"
+    },
+    {
+      "path": "sources/Cerum/resources/main.rc",
+      "size": 2186,
+      "sha256": "9f1caabdbaa9385e92d23d6162f18bac3f038057471de634e8cfef744dffc710",
+      "modified": false,
+      "upstream_sha256": "9f1caabdbaa9385e92d23d6162f18bac3f038057471de634e8cfef744dffc710"
+    },
+    {
+      "path": "sources/Cerum/resources/resource.h",
+      "size": 532,
+      "sha256": "f08031b84c292f0c1c58937128794636337634fc3373539b13b3fa4751c7a91b",
+      "modified": false,
+      "upstream_sha256": "f08031b84c292f0c1c58937128794636337634fc3373539b13b3fa4751c7a91b"
+    },
+    {
+      "path": "sources/Cerum/resources/fonts/Roboto-Regular.ttf",
+      "size": 145348,
+      "sha256": "b2efabca5ea4bc56eea829713706b5cd0788b82aca153bd4adde9b1573933b4f",
+      "modified": false,
+      "upstream_sha256": "b2efabca5ea4bc56eea829713706b5cd0788b82aca153bd4adde9b1573933b4f"
+    },
+    {
+      "path": "sources/Cerum/scripts/postbuild-win.bat",
+      "size": 2467,
+      "sha256": "521e047998c0976846f10cf638bed3a648507b5a1d3721256d88f213e20d6647",
+      "modified": false,
+      "upstream_sha256": "521e047998c0976846f10cf638bed3a648507b5a1d3721256d88f213e20d6647"
+    },
+    {
+      "path": "sources/Cerum/scripts/prebuild-win.bat",
+      "size": 213,
+      "sha256": "752932f5c7087097786ce2ced27ac9f7c3e08436990f548e697d581b18c38ccb",
+      "modified": false,
+      "upstream_sha256": "752932f5c7087097786ce2ced27ac9f7c3e08436990f548e697d581b18c38ccb"
+    },
+    {
+      "path": "sources/Cerum/scripts/prepare_resources-win.py",
+      "size": 3037,
+      "sha256": "a55192194370f09f9b9663780e6dafa5e839fdf0e2cc72cc886555fd61ae5340",
+      "modified": false,
+      "upstream_sha256": "a55192194370f09f9b9663780e6dafa5e839fdf0e2cc72cc886555fd61ae5340"
+    },
+    {
+      "path": "sources/Cerum/scripts/rtti_obfuscator.py",
+      "size": 10114,
+      "sha256": "5c81de959c5efa1f53af5488daf1ba316d7f978515ae564bfa979d9555949e37",
+      "modified": false,
+      "upstream_sha256": "5c81de959c5efa1f53af5488daf1ba316d7f978515ae564bfa979d9555949e37"
+    },
+    {
+      "path": "sources/Cerum/src/base64.cpp",
+      "size": 2689,
+      "sha256": "cbf3b235b99e156f9de17ca77493a7ef69569fd8ec83d8b89e15c72a0d284c82",
+      "modified": false,
+      "upstream_sha256": "cbf3b235b99e156f9de17ca77493a7ef69569fd8ec83d8b89e15c72a0d284c82"
+    },
+    {
+      "path": "sources/Cerum/src/Cerum.cpp",
+      "size": 27774,
+      "sha256": "b85fd053de93ba9478baaed2e69723ee74a4d6025505d75808e538b22c2d879c",
+      "modified": false,
+      "upstream_sha256": "b85fd053de93ba9478baaed2e69723ee74a4d6025505d75808e538b22c2d879c"
+    },
+    {
+      "path": "sources/Cerum/src/ComputeShaderControl.cpp",
+      "size": 8940,
+      "sha256": "90a6022bb16e8b1ebe80533929d28d05b5d92cc93a4100ad2a9c061db8073f3d",
+      "modified": false,
+      "upstream_sha256": "90a6022bb16e8b1ebe80533929d28d05b5d92cc93a4100ad2a9c061db8073f3d"
+    },
+    {
+      "path": "sources/Cerum/src/Globals.cpp",
+      "size": 22825,
+      "sha256": "2fec002436088c32effce619c6c6321e5e206b1c69b5fa8ce3829afeb96d826f",
+      "modified": false,
+      "upstream_sha256": "2fec002436088c32effce619c6c6321e5e206b1c69b5fa8ce3829afeb96d826f"
+    },
+    {
+      "path": "sources/Cerum/src/iohelp.cpp",
+      "size": 2795,
+      "sha256": "c184853d60ec913184212756dd2edb0322e8f62b5216993de7ec569b1767f6e8",
+      "modified": false,
+      "upstream_sha256": "c184853d60ec913184212756dd2edb0322e8f62b5216993de7ec569b1767f6e8"
+    },
+    {
+      "path": "sources/Cerum/src/licensing_client.cpp",
+      "size": 16680,
+      "sha256": "33483481364d64647ca520edf17ff3fa1a0dd3277b8c98f032e1ebb5ed328bb1",
+      "modified": false,
+      "upstream_sha256": "33483481364d64647ca520edf17ff3fa1a0dd3277b8c98f032e1ebb5ed328bb1"
+    },
+    {
+      "path": "sources/Cerum/src/rsa.cpp",
+      "size": 1178,
+      "sha256": "371ca18f6356702b818b7abbb237e2c7f40da66d01ced518d1fa421ac009eb14",
+      "modified": false,
+      "upstream_sha256": "371ca18f6356702b818b7abbb237e2c7f40da66d01ced518d1fa421ac009eb14"
+    },
+    {
+      "path": "sources/Cerum/src/Startup.cpp",
+      "size": 6534,
+      "sha256": "0f430d296761f8a9335cb7f503266a4af1256114e862d853316747f4d3b9a4a4",
+      "modified": false,
+      "upstream_sha256": "0f430d296761f8a9335cb7f503266a4af1256114e862d853316747f4d3b9a4a4"
+    },
+    {
+      "path": "sources/Cerum/src/xtea.cpp",
+      "size": 1301,
+      "sha256": "e377c48ff5c3be32c8e8aefc16fdb7d6c614417334ff202e4e293da6d9eccfd9",
+      "modified": false,
+      "upstream_sha256": "e377c48ff5c3be32c8e8aefc16fdb7d6c614417334ff202e4e293da6d9eccfd9"
+    }
+  ],
+  "modified_files": [],
+  "removed_from_public_package": {
+    "writeup": true,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": [
+      {
+        "path": "sources/Cerum/resources/flag.jpg",
+        "reason": "Image resource named flag.jpg; may show the answer. Excluded pending review."
+      }
+    ]
+  },
+  "missing_or_external_dependencies": [
+    "sources/Cerum/resources/flag.jpg - Image resource named flag.jpg; may show the answer. Excluded pending review."
+  ]
 }

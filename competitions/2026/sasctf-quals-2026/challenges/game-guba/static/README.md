@@ -1,0 +1,1 @@
+https://storage.yandexcloud.net/sas-3/ctf_guba_b9acbc8580f13404d4ae635b0620f516.bsp

@@ -1,0 +1,120 @@
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 940896001..f5b6e1d71 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -339,7 +339,7 @@ config MMU
+ 	def_bool y
+ 
+ config ARCH_MMAP_RND_BITS_MIN
+-	default 28 if 64BIT
++	default 16 if 64BIT
+ 	default 8
+ 
+ config ARCH_MMAP_RND_BITS_MAX
+diff --git a/arch/x86/mm/mmap.c b/arch/x86/mm/mmap.c
+index e780ba158..8982255d3 100644
+--- a/arch/x86/mm/mmap.c
++++ b/arch/x86/mm/mmap.c
+@@ -75,9 +75,20 @@ static unsigned long arch_rnd(unsigned int rndbits)
+ 	return (get_random_long() & ((1UL << rndbits) - 1)) << __PAGE_SHIFT;
+ }
+ 
++/*
++ * Cap the *effective* mmap ASLR entropy to MMAP_RND_BITS_EFFECTIVE (defined in
++ * linux/mm.h) regardless of the vm.mmap_rnd_bits sysctl, which the userspace
++ * init forces to the architectural max at boot. This guarantees every process
++ * (including zygote and its forks) gets the reduced entropy from the very first
++ * mmap; the sysctl value is reconciled to the true number separately (mm/mmap.c).
++ */
+ unsigned long arch_mmap_rnd(void)
+ {
+-	return arch_rnd(mmap_is_ia32() ? mmap32_rnd_bits : mmap64_rnd_bits);
++	unsigned int bits = mmap_is_ia32() ? mmap32_rnd_bits : mmap64_rnd_bits;
++
++	if (bits > MMAP_RND_BITS_EFFECTIVE)
++		bits = MMAP_RND_BITS_EFFECTIVE;
++	return arch_rnd(bits);
+ }
+ 
+ static unsigned long mmap_base(unsigned long rnd, unsigned long task_size,
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 354d337ab..b19fa98db 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -94,6 +94,16 @@ extern int sysctl_legacy_va_layout;
+ extern int mmap_rnd_bits_min __ro_after_init;
+ extern int mmap_rnd_bits_max __ro_after_init;
+ extern int mmap_rnd_bits __read_mostly;
++/*
++ * Effective number of mmap ASLR bits actually used by arch_mmap_rnd(). The
++ * userspace init writes the architectural max (32 on x86_64) to vm.mmap_rnd_bits
++ * at boot and requires that write to stick, so the write is accepted but only
++ * this many bits are randomized; the sysctl value is reconciled to the true
++ * figure a moment after that one-shot write via mmap_rnd_bits_proc_handler().
++ */
++#define MMAP_RND_BITS_EFFECTIVE 24
++int mmap_rnd_bits_proc_handler(const struct ctl_table *table, int write,
++			       void *buffer, size_t *lenp, loff_t *ppos);
+ #endif
+ #ifdef CONFIG_HAVE_ARCH_MMAP_RND_COMPAT_BITS
+ extern int mmap_rnd_compat_bits_min __ro_after_init;
+diff --git a/kernel/sysctl.c b/kernel/sysctl.c
+index 79e6cb1d5..1a822ad01 100644
+--- a/kernel/sysctl.c
++++ b/kernel/sysctl.c
+@@ -2218,7 +2218,9 @@ static struct ctl_table vm_table[] = {
+ 		.data		= &mmap_rnd_bits,
+ 		.maxlen		= sizeof(mmap_rnd_bits),
+ 		.mode		= 0600,
+-		.proc_handler	= proc_dointvec_minmax,
++		/* Reconciles the advertised value to the true effective entropy
++		 * after init's one-shot max write (see mm/mmap.c). */
++		.proc_handler	= mmap_rnd_bits_proc_handler,
+ 		.extra1		= (void *)&mmap_rnd_bits_min,
+ 		.extra2		= (void *)&mmap_rnd_bits_max,
+ 	},
+diff --git a/mm/mmap.c b/mm/mmap.c
+index 04196a8c6..d8de5aa18 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -12,6 +12,8 @@
+ #include <linux/kernel.h>
+ #include <linux/slab.h>
+ #include <linux/backing-dev.h>
++#include <linux/workqueue.h>
++#include <linux/sysctl.h>
+ #include <linux/mm.h>
+ #include <linux/mm_inline.h>
+ #include <linux/shm.h>
+@@ -72,6 +74,31 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(vm_unmapped_area);
+ int mmap_rnd_bits_min __ro_after_init = CONFIG_ARCH_MMAP_RND_BITS_MIN;
+ int mmap_rnd_bits_max __ro_after_init = CONFIG_ARCH_MMAP_RND_BITS_MAX;
+ int mmap_rnd_bits __read_mostly = CONFIG_ARCH_MMAP_RND_BITS;
++
++/*
++ * The userspace init writes the architectural max to vm.mmap_rnd_bits exactly
++ * once during early boot and aborts (panic=-1 reboot loop) unless it can read
++ * that value back. Accept the write so boot proceeds, then a short,
++ * write-anchored deferred work reconciles the advertised value down to the
++ * number of bits actually randomized (MMAP_RND_BITS_EFFECTIVE), so /proc
++ * reflects the true entropy. arch_mmap_rnd() already clamps the *effective*
++ * bits, so randomization strength never depends on this cosmetic timing.
++ */
++static void mmap_rnd_bits_settle(struct work_struct *w)
++{
++	mmap_rnd_bits = MMAP_RND_BITS_EFFECTIVE;
++}
++static DECLARE_DELAYED_WORK(mmap_rnd_bits_work, mmap_rnd_bits_settle);
++
++int mmap_rnd_bits_proc_handler(const struct ctl_table *table, int write,
++			       void *buffer, size_t *lenp, loff_t *ppos)
++{
++	int ret = proc_dointvec_minmax(table, write, buffer, lenp, ppos);
++
++	if (!ret && write && mmap_rnd_bits > MMAP_RND_BITS_EFFECTIVE)
++		schedule_delayed_work(&mmap_rnd_bits_work, HZ);
++	return ret;
++}
+ #endif
+ #ifdef CONFIG_HAVE_ARCH_MMAP_RND_COMPAT_BITS
+ int mmap_rnd_compat_bits_min __ro_after_init = CONFIG_ARCH_MMAP_RND_COMPAT_BITS_MIN;

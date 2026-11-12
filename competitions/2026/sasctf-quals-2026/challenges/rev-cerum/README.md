@@ -1,5 +1,5 @@
-# Cerum
+## Title
+Cerum
 
-Category `reverse`. Original author [@avoidcode](https://github.com/avoidcode).
-
-Redistribution permission for the upstream challenge materials could not be verified. See the [competition index](../../README.md) and [manifest](manifest.json).
+## Description
+Recently I've stumbled upon a nieche composition. "Take the phone, hat!" - the singer bellowed in a deep, rumbling voice. So grandiose, so musical! No matter what the costs are, I will be like him.

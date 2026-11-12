@@ -15,11 +15,84 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/pwn-snaking",
-  "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "preparation_status": "ready",
+  "player_files": [
+    {
+      "path": "static/snaking.zip",
+      "size": 3993,
+      "sha256": "97ba27503dad0d911a70851da3d09cb98283ddb179fe49c39bd19bcc1a63c8f1",
+      "modified": false,
+      "upstream_sha256": "97ba27503dad0d911a70851da3d09cb98283ddb179fe49c39bd19bcc1a63c8f1"
+    }
+  ],
+  "operator_files": [
+    {
+      "path": "server/docker-compose.yaml",
+      "size": 180,
+      "sha256": "1d024b5b00b0aa05736c381c55bacec2d2f080a842fdbcb9c872d9e3788d45e8",
+      "modified": false,
+      "upstream_sha256": "1d024b5b00b0aa05736c381c55bacec2d2f080a842fdbcb9c872d9e3788d45e8"
+    },
+    {
+      "path": "server/Dockerfile",
+      "size": 793,
+      "sha256": "3f234fc50b0a1d73d2396b37eb8d76bce855de0418b33d342c9fe54fc1b51ffc",
+      "modified": false,
+      "upstream_sha256": "3f234fc50b0a1d73d2396b37eb8d76bce855de0418b33d342c9fe54fc1b51ffc"
+    },
+    {
+      "path": "server/flag.txt",
+      "size": 16,
+      "sha256": "47662c0bd342147025381499917ed72bcd868c0e8057c980a15f9ea90c175132",
+      "modified": true,
+      "modification": "reference flag replaced with placeholder"
+    },
+    {
+      "path": "server/jnius.security",
+      "size": 26,
+      "sha256": "b3e7575fe6f9f083fb40ef83c7673f20271f1bc96363a004d4eff24a3b8f5d91",
+      "modified": false,
+      "upstream_sha256": "b3e7575fe6f9f083fb40ef83c7673f20271f1bc96363a004d4eff24a3b8f5d91"
+    },
+    {
+      "path": "server/main.py",
+      "size": 3752,
+      "sha256": "77bdfff48dac0fe1fa6b3e8e7a2ff410e14297fc4a89b7dfec61f243fd2203ac",
+      "modified": false,
+      "upstream_sha256": "77bdfff48dac0fe1fa6b3e8e7a2ff410e14297fc4a89b7dfec61f243fd2203ac"
+    },
+    {
+      "path": "server/restrict.policy",
+      "size": 12,
+      "sha256": "84d25729e1fe2154eb87e2336d8b147f9fb00966218c044165406ca4eca685d3",
+      "modified": false,
+      "upstream_sha256": "84d25729e1fe2154eb87e2336d8b147f9fb00966218c044165406ca4eca685d3"
+    },
+    {
+      "path": "server/run.sh",
+      "size": 80,
+      "sha256": "6f095b110ba0a6b7d40722dd94dcc1dedce6755307f8a22921e3ebb56c56c5b9",
+      "modified": false,
+      "upstream_sha256": "6f095b110ba0a6b7d40722dd94dcc1dedce6755307f8a22921e3ebb56c56c5b9"
+    },
+    {
+      "path": "server/wrapper.py",
+      "size": 1021,
+      "sha256": "6f1ab92321b8bbd140eb03fda0fac07b6777bdbcc33922b79d12a407a330b2bd",
+      "modified": false,
+      "upstream_sha256": "6f1ab92321b8bbd140eb03fda0fac07b6777bdbcc33922b79d12a407a330b2bd"
+    }
+  ],
+  "modified_files": [
+    "server/flag.txt"
+  ],
+  "removed_from_public_package": {
+    "writeup": false,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": []
 }

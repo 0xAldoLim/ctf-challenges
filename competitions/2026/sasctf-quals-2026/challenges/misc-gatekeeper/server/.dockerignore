@@ -1,0 +1,2 @@
+# raw QEMU binary is unused (the .7z is decompressed in-build); keep it out of the context
+qemu-system-riscv64

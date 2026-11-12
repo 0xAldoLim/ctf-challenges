@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package proto.storage;
+option go_package = "nslp-cli/package/proto/storage";
+
+service StorageService {
+  rpc Create (CreateRequest) returns (Empty);
+  rpc Keys (KeysRequest) returns (KeysResponse);
+  rpc Get (GetRequest) returns (GetResponse);
+  rpc Set (SetRequest) returns (Empty);
+  rpc List (ListRequest) returns (ListResponse);
+}
+
+message Empty {}
+
+message CreateRequest {
+  string billing_id = 1;
+  string name = 2;
+}
+
+message KeysRequest {
+  string billing_id = 1;
+  string name = 2;
+}
+
+message KeysResponse {
+  repeated string keys = 1;
+}
+
+message GetRequest {
+  string billing_id = 1;
+  string name = 2;
+  string key = 3;
+}
+
+message GetResponse {
+  string value = 1;
+}
+
+message SetRequest {
+  string billing_id = 1;
+  string name = 2;
+  string key = 3;
+  string value = 4;
+}
+
+message ListRequest {
+  string billing_id = 1;
+}
+
+message ListResponse {
+  repeated string names = 1;
+}

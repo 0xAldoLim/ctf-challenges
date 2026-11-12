@@ -1,0 +1,14 @@
+services:
+  vm:
+    container_name: net-incident-67
+    restart: unless-stopped
+    ports:
+      - "2222:2222"
+      - "2223:2223"
+      # - "10022:10022" # optional for debugging
+    environment:
+      # FLAG: "${FLAG:?FLAG is required}"
+      VM_MEMORY: "${VM_MEMORY:-1024}"
+      VM_CPUS: "${VM_CPUS:-1}"
+    devices:
+      - /dev/kvm:/dev/kvm

@@ -1,0 +1,46 @@
+services:
+  runtime-session:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: runtime-session:latest
+    container_name: runtime-session
+    command: ["sleep", "infinity"]
+    network_mode: "none"
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,noexec,size=16m
+      - /home/app:rw,nosuid,nodev,size=16m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    user: app
+    working_dir: /home/app
+    pids_limit: 64
+    mem_limit: 128m
+    cpus: 0.25
+    restart: unless-stopped
+
+  carrier:
+    build:
+      context: .
+      dockerfile: carrier.Dockerfile
+    image: ebpf-carrier-server:latest
+    container_name: ebpf-carrier-server
+    depends_on:
+      - runtime-session
+    privileged: true
+    network_mode: host
+    pid: host
+    environment:
+      RUNTIME_SESSION_CONTAINER: runtime-session
+      CARRIER_IFACE: ${CARRIER_IFACE:-}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /sys/fs/bpf:/sys/fs/bpf
+      - /sys/kernel/tracing:/sys/kernel/tracing
+      - /sys/kernel/debug:/sys/kernel/debug
+      - /sys/kernel/btf:/sys/kernel/btf:ro
+      - /lib/modules:/lib/modules:ro
+    restart: unless-stopped

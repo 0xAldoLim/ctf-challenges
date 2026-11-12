@@ -1,0 +1,12 @@
+[Unit]
+Description=paradoxy internal bootstrap API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 /usr/local/sbin/paradoxy-bootstrap-api.py
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

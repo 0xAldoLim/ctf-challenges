@@ -1,0 +1,636 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+FINAL_FLAG="${FINAL_FLAG:-SAS{placeholder}}"
+INNER_POD_CIDR="${INNER_POD_CIDR:-10.244.0.0/16}"
+INNER_SERVICE_CIDR="${INNER_SERVICE_CIDR:-10.96.0.0/12}"
+INNER_CLUSTER_DNS="${INNER_CLUSTER_DNS:-10.96.0.10}"
+KUBELET_EVICTION_HARD="${KUBELET_EVICTION_HARD:-nodefs.available<1Gi,imagefs.available<1Gi}"
+KUBELET_IMAGE_GC_HIGH_THRESHOLD="${KUBELET_IMAGE_GC_HIGH_THRESHOLD:-95}"
+KUBELET_IMAGE_GC_LOW_THRESHOLD="${KUBELET_IMAGE_GC_LOW_THRESHOLD:-85}"
+K0S_DB_TMPFS_SIZE="${K0S_DB_TMPFS_SIZE:-512m}"
+K0S_COMPONENT_HEALTHY_TIMEOUT="${K0S_COMPONENT_HEALTHY_TIMEOUT:-15m}"
+K0S_CONTROLLER_DISABLE_COMPONENTS="${K0S_CONTROLLER_DISABLE_COMPONENTS:-metrics-server,helm}"
+K0S_BIN_PATH="${K0S_BIN_PATH:-/var/lib/k0s/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin}"
+KUBECTL_REQUEST_TIMEOUT="${KUBECTL_REQUEST_TIMEOUT:-600s}"
+KUBE_APISERVER_REQUEST_TIMEOUT="${KUBE_APISERVER_REQUEST_TIMEOUT:-10m}"
+CONTROLLER_RCE_USER="${CONTROLLER_RCE_USER:-ubb}"
+CONTROLLER_RCE_UID="${CONTROLLER_RCE_UID:-994}"
+BOOTSTRAP_BODY="${PARADOXY_BOOTSTRAP_BODY:-}"
+
+if [[ -n "${BOOTSTRAP_BODY}" && "${BOOTSTRAP_BODY}" != "start" ]]; then
+  FINAL_FLAG="${BOOTSTRAP_BODY}"
+fi
+
+export K0S_COMPONENT_HEALTHY_TIMEOUT
+export PATH="${K0S_BIN_PATH}"
+
+log() {
+  printf '[paradoxy-bootstrap] %s\n' "$*"
+}
+
+kctl() {
+  k0s kubectl --request-timeout="${KUBECTL_REQUEST_TIMEOUT}" "$@"
+}
+
+kctl_timed() {
+  local duration="$1"
+  shift
+  timeout "${duration}" k0s kubectl --request-timeout="${KUBECTL_REQUEST_TIMEOUT}" "$@"
+}
+
+kctl_probe() {
+  timeout 30s k0s kubectl --request-timeout=20s "$@"
+}
+
+retry_cmd() {
+  local attempts="$1"
+  local delay="$2"
+  local i=1
+  shift 2
+
+  while true; do
+    if "$@"; then
+      return 0
+    fi
+    if [[ "${i}" -ge "${attempts}" ]]; then
+      return 1
+    fi
+    log "retry ${i}/${attempts}: $*"
+    i=$((i + 1))
+    sleep "${delay}"
+  done
+}
+
+cmdline_value() {
+  local key="$1"
+  tr ' ' '\n' </proc/cmdline | awk -F= -v key="$key" '$1 == key { print substr($0, length(key) + 2) }' | tail -n1
+}
+
+ROLE="${PARADOXY_ROLE:-$(cmdline_value paradoxy.role)}"
+CONTROLLER_IP="${PARADOXY_CONTROLLER_IP:-$(cmdline_value paradoxy.controller_ip)}"
+WORKER_IP="${PARADOXY_WORKER_IP:-$(cmdline_value paradoxy.worker_ip)}"
+
+if [[ -z "${ROLE}" || -z "${CONTROLLER_IP}" || -z "${WORKER_IP}" ]]; then
+  echo "missing role/controller/worker values in kernel cmdline" >&2
+  exit 1
+fi
+
+wait_k0s_api() {
+  for _ in $(seq 1 600); do
+    if timeout 20s k0s status >/dev/null 2>&1 &&
+      timeout 20s k0s kubectl --request-timeout=15s version --short >/dev/null 2>&1; then
+      return 0
+    fi
+    sleep 2
+  done
+
+  journalctl -u k0scontroller -n 160 --no-pager || true
+  return 1
+}
+
+approve_pending_kubelet_csrs() {
+  local line
+  local name
+  local username
+  local conditions
+
+  while IFS=$'\t' read -r name username conditions; do
+    [[ -n "${name}" ]] || continue
+    [[ "${username}" == system:bootstrap:* ]] || continue
+    [[ "${conditions}" != *Approved* ]] || continue
+    [[ "${conditions}" != *Denied* ]] || continue
+
+    log "approving kubelet CSR ${name} for ${username}"
+    kctl_timed 60s certificate approve "${name}" || true
+  done < <(
+    kctl_probe get csr -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.username}{"\t"}{range .status.conditions[*]}{.type}{","}{end}{"\n"}{end}' 2>/dev/null || true
+  )
+}
+
+wait_worker_node_ready() {
+  for i in $(seq 1 180); do
+    if (( i % 5 == 1 )); then
+      approve_pending_kubelet_csrs
+    fi
+
+    if kctl_probe get node k0s-worker >/dev/null 2>&1 &&
+      kctl_probe get node k0s-worker -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}' 2>/dev/null | grep -q True; then
+      return 0
+    fi
+    if (( i % 20 == 0 )); then
+      log "waiting worker node Ready ${i}/180"
+      kctl_timed 30s get nodes -o wide || true
+      kctl_timed 30s get csr -o wide || true
+    fi
+    sleep 3
+  done
+
+  kctl_timed 60s get nodes -o wide || true
+  kctl_timed 60s get csr || true
+  return 1
+}
+
+wait_worker_node_registered() {
+  for i in $(seq 1 180); do
+    if (( i % 5 == 1 )); then
+      approve_pending_kubelet_csrs
+    fi
+
+    if kctl_probe get node k0s-worker >/dev/null 2>&1; then
+      return 0
+    fi
+    if (( i % 20 == 0 )); then
+      log "waiting worker node registration ${i}/180"
+      kctl_timed 30s get nodes -o wide || true
+      kctl_timed 30s get csr -o wide || true
+    fi
+    sleep 3
+  done
+
+  kctl_timed 60s get nodes -o wide || true
+  kctl_timed 60s get csr || true
+  return 1
+}
+
+ensure_kubelet_bootstrap_config() {
+  local configmap="kubelet-config-default-1.25"
+  local manifest="/tmp/paradoxy-kubelet-bootstrap-config.yaml"
+
+  log "ensuring kubelet bootstrap config"
+  cat > "${manifest}" <<EOF
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubelet-config-default-1.25
+  namespace: kube-system
+data:
+  kubelet: |
+    apiVersion: kubelet.config.k8s.io/v1beta1
+    kind: KubeletConfiguration
+    clusterDNS:
+      - ${INNER_CLUSTER_DNS}
+    clusterDomain: cluster.local
+    cgroupsPerQOS: true
+    eventRecordQPS: 0
+    failSwapOn: false
+    rotateCertificates: true
+    serverTLSBootstrap: true
+    tlsCipherSuites:
+      - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+      - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+      - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
+      - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+      - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+      - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubelet-config-default-windows-1.25
+  namespace: kube-system
+data:
+  kubelet: |
+    apiVersion: kubelet.config.k8s.io/v1beta1
+    kind: KubeletConfiguration
+    clusterDNS:
+      - ${INNER_CLUSTER_DNS}
+    clusterDomain: cluster.local
+    cgroupsPerQOS: false
+    eventRecordQPS: 0
+    failSwapOn: false
+    rotateCertificates: true
+    serverTLSBootstrap: true
+    tlsCipherSuites:
+      - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+      - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+      - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
+      - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+      - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+      - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: system:bootstrappers:kubelet-configmaps
+  namespace: kube-system
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    resourceNames:
+      - kubelet-config-default-1.25
+      - kubelet-config-default-windows-1.25
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: system:bootstrappers:kubelet-configmaps
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: system:bootstrappers:kubelet-configmaps
+subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:bootstrappers
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:nodes
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: system:bootstrappers:node-bootstrapper
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:node-bootstrapper
+subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:bootstrappers
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: system:bootstrappers:node-client-autoapprove
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:certificates.k8s.io:certificatesigningrequests:nodeclient
+subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:bootstrappers
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: system:nodes:node-client-renewal-autoapprove
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:certificates.k8s.io:certificatesigningrequests:selfnodeclient
+subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:nodes
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: system:nodes:node
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:node
+subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:nodes
+EOF
+  if retry_cmd 3 10 kctl apply -f "${manifest}"; then
+    log "kubelet bootstrap config applied"
+  else
+    log "kubelet bootstrap config apply did not return cleanly; continuing because slow apiserver may have persisted it"
+  fi
+
+  if kctl_timed 120s -n kube-system get configmap "${configmap}" >/dev/null 2>&1 &&
+    kctl_timed 120s -n kube-system get rolebinding system:bootstrappers:kubelet-configmaps >/dev/null 2>&1 &&
+    kctl_timed 120s get clusterrolebinding system:bootstrappers:node-bootstrapper >/dev/null 2>&1 &&
+    kctl_timed 120s get clusterrolebinding system:nodes:node >/dev/null 2>&1; then
+    if kctl_timed 120s auth can-i get "configmap/${configmap}" \
+        -n kube-system \
+        --as=system:bootstrap:paradoxy \
+        --as-group=system:bootstrappers 2>/dev/null | grep -q '^yes$' &&
+      kctl_timed 120s auth can-i create certificatesigningrequests.certificates.k8s.io \
+        --as=system:bootstrap:paradoxy \
+        --as-group=system:bootstrappers 2>/dev/null | grep -q '^yes$' &&
+      kctl_timed 120s auth can-i create nodes \
+        --as=system:node:k0s-worker \
+        --as-group=system:nodes 2>/dev/null | grep -q '^yes$'; then
+      log "kubelet bootstrap RBAC confirmed"
+    else
+      log "kubelet bootstrap objects exist; continuing without slow auth self-check"
+    fi
+  else
+    log "kubelet bootstrap objects not confirmed quickly; continuing after successful apply"
+  fi
+
+  return 0
+}
+
+wait_system_workloads() {
+  retry_cmd 5 10 kctl -n kube-system rollout status ds/kube-proxy --timeout=600s
+  retry_cmd 5 10 kctl -n kube-system rollout status ds/kube-router --timeout=600s
+  retry_cmd 5 10 kctl -n kube-system rollout status ds/konnectivity-agent --timeout=600s
+  retry_cmd 5 10 kctl -n kube-system rollout status deploy/coredns --timeout=600s
+}
+
+wait_worker_bootstrap_api() {
+  for _ in $(seq 1 120); do
+    if curl -fsS --max-time 3 "http://${WORKER_IP}:8081/healthz" >/dev/null 2>&1; then
+      return 0
+    fi
+    sleep 2
+  done
+  return 1
+}
+
+create_worker_token() {
+  local token
+  local last_error
+
+  last_error="$(mktemp)"
+  for _ in $(seq 1 30); do
+    if token="$(timeout 120s k0s token create --role worker --expiry 24h --wait 2>"${last_error}")" &&
+      [[ -n "${token}" ]]; then
+      rm -f "${last_error}"
+      printf '%s\n' "${token}"
+      return 0
+    fi
+    sleep 5
+  done
+
+  cat "${last_error}" >&2 || true
+  rm -f "${last_error}"
+  return 1
+}
+
+wait_worker_konnectivity_files() {
+  local addr="$1"
+
+  for _ in $(seq 1 60); do
+    if curl -fsS --max-time 5 "http://${WORKER_IP}:8081/konnectivity-ready?addr=${addr}" >/dev/null 2>&1; then
+      return 0
+    fi
+    sleep 2
+  done
+  return 1
+}
+
+write_containerd_config() {
+  cat > /etc/k0s/containerd.toml <<'EOF'
+version = 2
+
+[plugins."io.containerd.grpc.v1.cri".containerd]
+  snapshotter = "native"
+  disable_snapshot_annotations = true
+
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+  runtime_type = "io.containerd.runc.v2"
+
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+  SystemdCgroup = false
+EOF
+}
+
+write_resolv_conf() {
+  systemctl stop systemd-resolved.service >/dev/null 2>&1 || true
+  systemctl disable systemd-resolved.service >/dev/null 2>&1 || true
+  rm -f /etc/resolv.conf
+  cat > /etc/resolv.conf <<'EOF'
+nameserver 10.0.2.3
+nameserver 1.1.1.1
+nameserver 8.8.8.8
+options timeout:2 attempts:3
+EOF
+  cp /etc/resolv.conf /etc/k0s/resolv.conf
+}
+
+write_k0s_config() {
+  cat > /etc/k0s/k0s.yaml <<EOF
+apiVersion: k0s.k0sproject.io/v1beta1
+kind: ClusterConfig
+metadata:
+  name: k0s
+spec:
+  api:
+    address: ${CONTROLLER_IP}
+    externalAddress: ${CONTROLLER_IP}
+    extraArgs:
+      request-timeout: ${KUBE_APISERVER_REQUEST_TIMEOUT}
+    sans:
+      - 127.0.0.1
+      - ${CONTROLLER_IP}
+      - paradoxy-lab
+  network:
+    provider: kuberouter
+    podCIDR: ${INNER_POD_CIDR}
+    serviceCIDR: ${INNER_SERVICE_CIDR}
+EOF
+}
+
+unmount_k0s_db_tmpfs() {
+  if mountpoint -q /var/lib/k0s/db 2>/dev/null; then
+    umount /var/lib/k0s/db || true
+  fi
+}
+
+mount_k0s_db_tmpfs() {
+  mkdir -p /var/lib/k0s/db
+  if ! mountpoint -q /var/lib/k0s/db 2>/dev/null; then
+    mount -t tmpfs -o "size=${K0S_DB_TMPFS_SIZE},mode=0777" tmpfs /var/lib/k0s/db
+  fi
+}
+
+reset_k0s() {
+  k0s stop >/dev/null 2>&1 || true
+  systemctl stop k0scontroller >/dev/null 2>&1 || true
+  systemctl stop k0sworker >/dev/null 2>&1 || true
+  unmount_k0s_db_tmpfs
+  k0s reset >/dev/null 2>&1 || true
+}
+
+install_k0s_bins() {
+  mkdir -p /var/lib/k0s/bin
+  find /var/lib/k0s/bin -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+  find /opt/paradoxy/k0s-bin -mindepth 1 -maxdepth 1 -type f -print0 |
+    while IFS= read -r -d '' bin; do
+      ln -s "${bin}" "/var/lib/k0s/bin/$(basename "${bin}")"
+    done
+}
+
+install_k0s_images() {
+  mkdir -p /var/lib/k0s/images
+  find /var/lib/k0s/images -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+  find /opt/paradoxy/k0s-images -mindepth 1 -maxdepth 1 -type f -print0 |
+    while IFS= read -r -d '' image; do
+      cp "${image}" "/var/lib/k0s/images/$(basename "${image}")"
+    done
+}
+
+prepare_common() {
+  mkdir -p /root/konnectivity-agent-token /etc/k0s /opt/paradoxy/web
+  install_k0s_bins
+  install_k0s_images
+  write_containerd_config
+  write_resolv_conf
+}
+
+write_web_kubeconfig() {
+  local token ca_data
+
+  for _ in $(seq 1 60); do
+    token="$(kctl -n task get secret paradoxy-web-token -o jsonpath='{.data.token}' 2>/dev/null | base64 -d || true)"
+    ca_data="$(kctl -n task get secret paradoxy-web-token -o 'jsonpath={.data.ca\.crt}' 2>/dev/null || true)"
+
+    if [[ -n "${token}" && -n "${ca_data}" ]]; then
+      cat > /opt/paradoxy/web/config <<EOF
+apiVersion: v1
+kind: Config
+clusters:
+- name: paradoxy
+  cluster:
+    certificate-authority-data: ${ca_data}
+    server: https://${CONTROLLER_IP}:6443
+contexts:
+- name: paradoxy-web
+  context:
+    cluster: paradoxy
+    namespace: task
+    user: paradoxy-web
+current-context: paradoxy-web
+users:
+- name: paradoxy-web
+  user:
+    token: ${token}
+EOF
+      chown paradoxy-web:paradoxy-web /opt/paradoxy/web/config
+      chmod 0400 /opt/paradoxy/web/config
+      return 0
+    fi
+
+    sleep 2
+  done
+
+  kctl -n task get serviceaccount,secret,role,rolebinding || true
+  return 1
+}
+
+enable_controller_user_manager() {
+  log "enabling controller user manager for ${CONTROLLER_RCE_USER}:${CONTROLLER_RCE_UID}"
+  for i in $(seq 1 60); do
+    if getent passwd "${CONTROLLER_RCE_USER}" >/dev/null; then
+      timeout 30s loginctl enable-linger "${CONTROLLER_RCE_USER}" || true
+      timeout 30s systemctl start "user@${CONTROLLER_RCE_UID}.service" || true
+      if [[ -S "/run/user/${CONTROLLER_RCE_UID}/bus" ]] &&
+        [[ -S "/run/user/${CONTROLLER_RCE_UID}/systemd/private" ]]; then
+        return 0
+      fi
+    fi
+    log "waiting controller user manager ${i}/60"
+    sleep 2
+  done
+
+  getent passwd "${CONTROLLER_RCE_USER}" || true
+  loginctl list-users || true
+  ls -la "/run/user/${CONTROLLER_RCE_UID}" || true
+  return 1
+}
+
+bootstrap_worker_remote() {
+  local token="$1"
+
+  wait_worker_bootstrap_api
+  printf '%s' "${token}" |
+    curl -fsS --max-time 1200 --data-binary @- "http://${WORKER_IP}:8081/bootstrap"
+}
+
+bootstrap_controller() {
+  log "configuring controller node"
+  hostnamectl set-hostname k0s-controller || hostname k0s-controller
+  reset_k0s
+  prepare_common
+  printf '%s\n' "${FINAL_FLAG}" > /flag.txt
+  chown "${CONTROLLER_RCE_UID}:${CONTROLLER_RCE_UID}" /flag.txt
+  chmod 0400 /flag.txt
+  write_k0s_config
+  mount_k0s_db_tmpfs
+
+  log "starting controller"
+  k0s install --force \
+    -e "K0S_COMPONENT_HEALTHY_TIMEOUT=${K0S_COMPONENT_HEALTHY_TIMEOUT}" \
+    -e "PATH=${K0S_BIN_PATH}" \
+    controller --config /etc/k0s/k0s.yaml --disable-components "${K0S_CONTROLLER_DISABLE_COMPONENTS}"
+  k0s start
+  wait_k0s_api
+  ensure_kubelet_bootstrap_config
+  enable_controller_user_manager
+
+  log "joining worker"
+  worker_token="$(create_worker_token)"
+  bootstrap_worker_remote "${worker_token}"
+
+  log "waiting worker registration"
+  wait_worker_node_registered
+
+  log "waiting system workloads"
+  wait_system_workloads
+
+  log "waiting worker Ready"
+  wait_worker_node_ready
+  retry_cmd 10 10 kctl label node k0s-worker paradoxy.io/role=worker --overwrite
+
+  log "applying challenge manifest"
+  retry_cmd 10 10 kctl apply -f /opt/paradoxy/deploy.yml
+  konnectivity_addr="${CONTROLLER_IP}:8132"
+  retry_cmd 10 10 kctl -n task patch configmap paradoxy-konnectivity \
+    --type merge \
+    -p "{\"data\":{\"konnectivity_addr\":\"${konnectivity_addr}\"}}"
+  wait_worker_konnectivity_files "${konnectivity_addr}"
+
+  log "writing web kubeconfig"
+  write_web_kubeconfig
+  systemctl restart paradoxy-web.service
+
+  kctl get nodes -o wide
+  kctl get pods -A -o wide
+
+  log "removing admin kubeconfig"
+  rm -f /var/lib/k0s/pki/admin.conf
+  log "bootstrap complete"
+}
+
+bootstrap_worker() {
+  local token
+
+  token="$(printf '%s' "${BOOTSTRAP_BODY}" | tr -d '\r\n')"
+  if [[ -z "${token}" || "${token}" == "start" ]]; then
+    echo "worker bootstrap requires a worker join token in POST body" >&2
+    exit 1
+  fi
+
+  log "configuring worker node"
+  hostnamectl set-hostname k0s-worker || hostname k0s-worker
+  reset_k0s
+  prepare_common
+  rm -f /flag.txt
+  printf '%s' "${token}" > /root/k0s-worker.token
+  chmod 0400 /root/k0s-worker.token
+
+  log "starting worker"
+  k0s install --force \
+    -e "K0S_COMPONENT_HEALTHY_TIMEOUT=${K0S_COMPONENT_HEALTHY_TIMEOUT}" \
+    -e "PATH=${K0S_BIN_PATH}" \
+    worker \
+    --token-file /root/k0s-worker.token \
+    --kubelet-extra-args="--node-ip=${WORKER_IP} --resolv-conf=/etc/k0s/resolv.conf --eviction-hard=${KUBELET_EVICTION_HARD} --image-gc-high-threshold=${KUBELET_IMAGE_GC_HIGH_THRESHOLD} --image-gc-low-threshold=${KUBELET_IMAGE_GC_LOW_THRESHOLD}"
+  k0s start
+  log "worker start returned"
+}
+
+case "${ROLE}" in
+  controller)
+    bootstrap_controller
+    ;;
+  worker)
+    bootstrap_worker
+    ;;
+  *)
+    echo "unknown paradoxy.role=${ROLE}" >&2
+    exit 1
+    ;;
+esac

@@ -1,0 +1,38 @@
+services:
+  app:
+    container_name: kolobok
+    build: .
+    ports:
+      - "13348:5000"
+    environment:
+      FLAG: SAS{placeholder}
+      SECRET_KEY: SFAjknafsu23ouf23uodnkq$#!
+      JWT_SECRET: ASFoi23ofi1-OSFMio3232jfwe0efNFM
+      POSTGRES_DB: auth_data
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Efinuewf1243100894fdjnkxsfjknddsjnkgjdgsdf
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: postgres:15
+    container_name: kolobok-db
+    environment:
+      POSTGRES_DB: auth_data
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Efinuewf1243100894fdjnkxsfjknddsjnkgjdgsdf
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d auth_data"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres-data:

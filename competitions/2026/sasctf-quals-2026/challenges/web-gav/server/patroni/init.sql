@@ -1,0 +1,13 @@
+CREATE ROLE ctfuser LOGIN PASSWORD 'ctfpassword';
+CREATE DATABASE ctfdb OWNER ctfuser;
+
+\connect ctfdb
+
+CREATE EXTENSION IF NOT EXISTS postgis;
+ALTER DATABASE ctfdb SET postgis.gdal_enabled_drivers = 'BAG';
+
+ALTER ROLE ctfuser NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION;
+
+REVOKE CREATE ON SCHEMA public FROM PUBLIC;
+GRANT USAGE ON SCHEMA public TO ctfuser;
+GRANT CREATE ON SCHEMA public TO ctfuser;

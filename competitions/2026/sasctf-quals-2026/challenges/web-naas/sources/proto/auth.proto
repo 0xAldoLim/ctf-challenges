@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package proto.auth;
+option go_package = "nslp-cli/package/proto/auth";
+
+service AuthService {
+  rpc Register (RegisterRequest) returns (RegisterResponse);
+  rpc Login (LoginRequest) returns (LoginResponse);
+}
+
+message RegisterRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message RegisterResponse {
+  string message = 1;
+}
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string message = 1;
+  optional string token = 2; 
+}

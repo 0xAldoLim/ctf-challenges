@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>paradoxy</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --border: #d7dde5;
+      --muted: #667085;
+      --text: #182230;
+      --accent: #0f766e;
+      --accent-dark: #115e59;
+      --bad: #b42318;
+      --warn: #b54708;
+      --ok: #067647;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 20px 40px;
+    }
+
+    header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 700;
+    }
+
+    .subtle {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(340px, 0.9fr) minmax(520px, 1.4fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .panel-body {
+      padding: 16px;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    input {
+      min-width: 0;
+      width: 100%;
+      height: 40px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0 11px;
+      color: var(--text);
+      font: 14px var(--mono);
+      background: #fff;
+    }
+
+    button {
+      height: 40px;
+      border: 0;
+      border-radius: 6px;
+      padding: 0 14px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background: #98a2b3;
+      cursor: not-allowed;
+    }
+
+    button.secondary {
+      background: #344054;
+    }
+
+    button.danger {
+      background: var(--bad);
+    }
+
+    button.compact {
+      height: 32px;
+      padding: 0 10px;
+      font-size: 12px;
+    }
+
+    pre {
+      margin: 0;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #f8fafc;
+      padding: 12px;
+      font: 12px/1.45 var(--mono);
+      color: #243547;
+    }
+
+    .message {
+      min-height: 22px;
+      color: var(--muted);
+      font-size: 13px;
+      white-space: pre-wrap;
+    }
+
+    .message.error {
+      color: var(--bad);
+    }
+
+    .stats {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 2px 9px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .pill.ok {
+      color: var(--ok);
+      border-color: #abefc6;
+      background: #ecfdf3;
+    }
+
+    .pill.warn {
+      color: var(--warn);
+      border-color: #fedf89;
+      background: #fffaeb;
+    }
+
+    .pill.bad {
+      color: var(--bad);
+      border-color: #fecdca;
+      background: #fef3f2;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th,
+    td {
+      padding: 10px 9px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      background: #f8fafc;
+    }
+
+    td.code {
+      font-family: var(--mono);
+      font-size: 12px;
+      word-break: break-word;
+    }
+
+    .reason {
+      max-width: 420px;
+      color: var(--muted);
+      white-space: pre-wrap;
+    }
+
+    .reason strong {
+      color: var(--text);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .log-panel {
+      margin-top: 18px;
+    }
+
+    .log-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #logOutput {
+      min-height: 180px;
+      max-height: 420px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .empty {
+      padding: 28px 16px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        padding: 18px 12px 28px;
+      }
+
+      header,
+      .grid {
+        display: block;
+      }
+
+      .panel {
+        margin-bottom: 14px;
+      }
+
+      form {
+        grid-template-columns: 1fr;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>paradoxy</h1>
+        <div class="subtle">Submit an image and inspect the pod state in namespace task.</div>
+      </div>
+      <div class="stats">
+        <span class="pill" id="totalPods">Pods: 0/5</span>
+        <span class="pill ok" id="runningPods">Running: 0</span>
+        <span class="pill bad" id="failedPods">Failed: 0</span>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section class="panel">
+        <div class="panel-head">
+          <h2 class="panel-title">Create Pod</h2>
+        </div>
+        <div class="panel-body">
+          <form id="imageForm">
+            <input type="text" id="imageInput" autocomplete="off" spellcheck="false" placeholder="registry/image:tag" />
+            <button id="sendBtn" type="submit">Run</button>
+          </form>
+          <div class="message" id="responseText"></div>
+          <pre><code>apiVersion: v1
+kind: Pod
+metadata:
+  namespace: task
+spec:
+  activeDeadlineSeconds: 900
+  serviceAccountName: gopher
+  nodeSelector:
+    paradoxy.io/role: worker
+  containers:
+    - name: gopher
+      image: &lt;YOUR-IMAGE&gt;
+      securityContext:
+        runAsNonRoot: true
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+            - ALL
+      volumeMounts:
+        - name: konnectivity-agent-token
+          mountPath: /root/konnectivity-agent-token
+          readOnly: true
+        - name: tmp
+          mountPath: /tmp
+  volumes:
+    - name: konnectivity-agent-token
+      hostPath:
+        path: /root/konnectivity-agent-token
+        type: Directory
+    - name: tmp
+      emptyDir: {}</code></pre>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2 class="panel-title">Submitted Pods</h2>
+          <button id="refreshBtn" type="button">Refresh</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Status</th>
+                <th>Age</th>
+                <th>Why</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="podRows">
+              <tr><td class="empty" colspan="6">No submitted pods yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <section class="panel log-panel" id="logPanel" hidden>
+      <div class="panel-head">
+        <div>
+          <h2 class="panel-title">Pod Logs</h2>
+          <div class="subtle" id="logTitle"></div>
+        </div>
+        <div class="actions">
+          <button id="refreshLogsBtn" class="compact secondary" type="button">Refresh</button>
+          <button id="closeLogsBtn" class="compact secondary" type="button">Close</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <pre id="logOutput"></pre>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById('imageForm');
+    const sendBtn = document.getElementById('sendBtn');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const imageInput = document.getElementById('imageInput');
+    const responseText = document.getElementById('responseText');
+    const podRows = document.getElementById('podRows');
+    const totalPods = document.getElementById('totalPods');
+    const runningPods = document.getElementById('runningPods');
+    const failedPods = document.getElementById('failedPods');
+    const logPanel = document.getElementById('logPanel');
+    const logTitle = document.getElementById('logTitle');
+    const logOutput = document.getElementById('logOutput');
+    const refreshLogsBtn = document.getElementById('refreshLogsBtn');
+    const closeLogsBtn = document.getElementById('closeLogsBtn');
+    const maxPods = 5;
+    let currentLogPod = '';
+
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, (ch) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[ch]));
+    }
+
+    function ageText(seconds) {
+      if (seconds < 60) return `${seconds}s`;
+      if (seconds < 3600) return `${Math.floor(seconds / 60)}m`;
+      return `${Math.floor(seconds / 3600)}h ${Math.floor((seconds % 3600) / 60)}m`;
+    }
+
+    function statusClass(pod) {
+      if (pod.ready) return 'ok';
+      if (pod.phase === 'Failed' || pod.reason) return 'bad';
+      return 'warn';
+    }
+
+    function statusText(pod) {
+      if (pod.ready) return 'Running';
+      if (pod.reason) return pod.reason;
+      return pod.phase || 'Unknown';
+    }
+
+    function reasonText(pod) {
+      const parts = [];
+      if (pod.reason) parts.push(`<strong>${escapeHtml(pod.reason)}</strong>`);
+      if (pod.message) parts.push(escapeHtml(pod.message));
+      if (pod.events && pod.events.length) {
+        const latest = pod.events.slice(-2).map((event) => {
+          const type = event.type ? `${event.type} ` : '';
+          const count = event.count > 1 ? ` x${event.count}` : '';
+          return `${type}${event.reason}${count}: ${event.message}`;
+        });
+        parts.push(...latest.map(escapeHtml));
+      }
+      return parts.length ? parts.join('\n') : 'No warnings reported.';
+    }
+
+    async function readJson(res) {
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || res.statusText);
+      return data;
+    }
+
+    async function loadPods() {
+      const res = await fetch('/api/pods', { cache: 'no-store' });
+      const data = await readJson(res);
+
+      const pods = data.pods || [];
+      totalPods.textContent = `Pods: ${data.count || 0}/${maxPods}`;
+      runningPods.textContent = `Running: ${pods.filter((pod) => pod.ready).length}`;
+      failedPods.textContent = `Failed: ${pods.filter((pod) => pod.phase === 'Failed' || pod.reason).length}`;
+
+      if (!pods.length) {
+        podRows.innerHTML = '<tr><td class="empty" colspan="6">No submitted pods yet.</td></tr>';
+        return;
+      }
+
+      podRows.innerHTML = pods.map((pod) => `
+        <tr>
+          <td class="code">${escapeHtml(pod.name)}</td>
+          <td class="code">${escapeHtml(pod.image)}</td>
+          <td><span class="pill ${statusClass(pod)}">${escapeHtml(statusText(pod))}</span></td>
+          <td>${ageText(pod.ageSeconds || 0)}</td>
+          <td class="reason">${reasonText(pod)}</td>
+          <td>
+            <div class="actions">
+              <button class="compact secondary" type="button" data-action="logs" data-pod="${escapeHtml(pod.name)}">Logs</button>
+              <button class="compact danger" type="button" data-action="delete" data-pod="${escapeHtml(pod.name)}">Kill</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function showLogs(name) {
+      currentLogPod = name;
+      logPanel.hidden = false;
+      logTitle.textContent = name;
+      logOutput.textContent = 'Loading logs...';
+
+      const res = await fetch(`/api/pods/${encodeURIComponent(name)}/logs`, { cache: 'no-store' });
+      const data = await readJson(res);
+      logOutput.textContent = data.logs || '(no logs yet)';
+    }
+
+    async function deletePod(name) {
+      if (!window.confirm(`Kill pod ${name}?`)) return;
+
+      const res = await fetch(`/api/pods/${encodeURIComponent(name)}`, { method: 'DELETE' });
+      const data = await readJson(res);
+      responseText.className = 'message';
+      responseText.textContent = data.message || `Deleted pod ${name}`;
+      if (currentLogPod === name) {
+        currentLogPod = '';
+        logPanel.hidden = true;
+        logOutput.textContent = '';
+      }
+      await loadPods();
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const imageValue = imageInput.value.trim();
+      if (!imageValue) return;
+
+      sendBtn.disabled = true;
+      responseText.className = 'message';
+      responseText.textContent = 'Creating pod...';
+
+      try {
+        const res = await fetch('/api/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image: imageValue })
+        });
+        const data = await readJson(res);
+        responseText.textContent = data.message;
+        imageInput.value = '';
+        await loadPods();
+      } catch (err) {
+        responseText.className = 'message error';
+        responseText.textContent = err.message;
+      } finally {
+        sendBtn.disabled = false;
+      }
+    });
+
+    podRows.addEventListener('click', async (event) => {
+      const button = event.target.closest('button[data-action]');
+      if (!button) return;
+
+      const name = button.dataset.pod;
+      button.disabled = true;
+      responseText.className = 'message';
+
+      try {
+        if (button.dataset.action === 'logs') {
+          await showLogs(name);
+        } else if (button.dataset.action === 'delete') {
+          await deletePod(name);
+        }
+      } catch (err) {
+        responseText.className = 'message error';
+        responseText.textContent = err.message;
+      } finally {
+        button.disabled = false;
+      }
+    });
+
+    refreshLogsBtn.addEventListener('click', () => {
+      if (!currentLogPod) return;
+      showLogs(currentLogPod).catch((err) => {
+        responseText.className = 'message error';
+        responseText.textContent = err.message;
+      });
+    });
+
+    closeLogsBtn.addEventListener('click', () => {
+      currentLogPod = '';
+      logPanel.hidden = true;
+      logOutput.textContent = '';
+    });
+
+    refreshBtn.addEventListener('click', () => {
+      loadPods().catch((err) => {
+        responseText.className = 'message error';
+        responseText.textContent = err.message;
+      });
+    });
+
+    loadPods().catch((err) => {
+      responseText.className = 'message error';
+      responseText.textContent = err.message;
+    });
+    setInterval(() => loadPods().catch(() => {}), 4000);
+  </script>
+</body>
+</html>

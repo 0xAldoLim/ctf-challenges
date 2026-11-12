@@ -15,11 +15,537 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/pwn-sasenger",
-  "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "preparation_status": "ready",
+  "player_files": [
+    {
+      "path": "static/sasenger-player.zip",
+      "size": 29467575,
+      "sha256": "e076326a753d8f7c7ee63b757ade338a97b8744e46dcd770ee5ced73ba058a8f",
+      "modified": false,
+      "upstream_sha256": "e076326a753d8f7c7ee63b757ade338a97b8744e46dcd770ee5ced73ba058a8f"
+    }
+  ],
+  "operator_files": [
+    {
+      "path": ".gitignore",
+      "size": 120,
+      "sha256": "60a6c006b85ebeb646f03ab27c299415d35f71a54f893a1f9b9290091ebe236e",
+      "modified": false,
+      "upstream_sha256": "60a6c006b85ebeb646f03ab27c299415d35f71a54f893a1f9b9290091ebe236e"
+    },
+    {
+      "path": "server/.gitignore",
+      "size": 73,
+      "sha256": "789c041e44efca7d92d599e17d0c9058f8def8d4cdaadc4f1c38f186bcf6b40b",
+      "modified": false,
+      "upstream_sha256": "789c041e44efca7d92d599e17d0c9058f8def8d4cdaadc4f1c38f186bcf6b40b"
+    },
+    {
+      "path": "server/docker-compose.yml",
+      "size": 1572,
+      "sha256": "db00a0f7d1a5e917c80085ceacc72b739161ea3a2acbba258115844c8938371c",
+      "modified": false,
+      "upstream_sha256": "db00a0f7d1a5e917c80085ceacc72b739161ea3a2acbba258115844c8938371c"
+    },
+    {
+      "path": "server/cuttlefish/Dockerfile",
+      "size": 886,
+      "sha256": "38d183ebd4ba08f947db337f678a5a69b375de145a55cb61308db68323379ac0",
+      "modified": false,
+      "upstream_sha256": "38d183ebd4ba08f947db337f678a5a69b375de145a55cb61308db68323379ac0"
+    },
+    {
+      "path": "server/relay/Dockerfile",
+      "size": 312,
+      "sha256": "975848dc450a7b493f9ecccd5be71d09600d840b24582b2aedfd3cdcd4da0044",
+      "modified": false,
+      "upstream_sha256": "975848dc450a7b493f9ecccd5be71d09600d840b24582b2aedfd3cdcd4da0044"
+    },
+    {
+      "path": "server/relay/entrypoint.sh",
+      "size": 315,
+      "sha256": "4db3735af312551c2c992d07905ae8b01d102ec8c1b5e8c965edd620e51badd9",
+      "modified": false,
+      "upstream_sha256": "4db3735af312551c2c992d07905ae8b01d102ec8c1b5e8c965edd620e51badd9"
+    },
+    {
+      "path": "server/relay/app/env.py",
+      "size": 338,
+      "sha256": "cd0e4d54b9131003056e4e65b03580fae4d43ef9d6535e8375eb80c5b4fd2bd7",
+      "modified": false,
+      "upstream_sha256": "cd0e4d54b9131003056e4e65b03580fae4d43ef9d6535e8375eb80c5b4fd2bd7"
+    },
+    {
+      "path": "server/relay/app/relay.py",
+      "size": 9325,
+      "sha256": "40a96c7156a880ffcd125577afe42b9ccb374f8e5629282de44096dee7575e93",
+      "modified": false,
+      "upstream_sha256": "40a96c7156a880ffcd125577afe42b9ccb374f8e5629282de44096dee7575e93"
+    },
+    {
+      "path": "server/relay/app/requirements.txt",
+      "size": 30,
+      "sha256": "dd1f860f1058d12a45d986f86e23d924b467b3c0ac39c0b2650fd262351de10d",
+      "modified": false,
+      "upstream_sha256": "dd1f860f1058d12a45d986f86e23d924b467b3c0ac39c0b2650fd262351de10d"
+    },
+    {
+      "path": "server/runner/client.py",
+      "size": 2408,
+      "sha256": "7002036feeb66f752e9f03264e6c66e3a4c1752a7858c6e5c1c3442d2003e8f8",
+      "modified": false,
+      "upstream_sha256": "7002036feeb66f752e9f03264e6c66e3a4c1752a7858c6e5c1c3442d2003e8f8"
+    },
+    {
+      "path": "server/runner/Dockerfile",
+      "size": 907,
+      "sha256": "a6ecb34e01b5582f7e8aea2271687e4ce6dd5ddf5ad34ed4667a28b47a61da89",
+      "modified": false,
+      "upstream_sha256": "a6ecb34e01b5582f7e8aea2271687e4ce6dd5ddf5ad34ed4667a28b47a61da89"
+    },
+    {
+      "path": "server/runner/entrypoint.sh",
+      "size": 317,
+      "sha256": "f70c3f5f84e2f6f7b3da992ade13b1ed56273a7d58803a935d318f372ab1c5b7",
+      "modified": false,
+      "upstream_sha256": "f70c3f5f84e2f6f7b3da992ade13b1ed56273a7d58803a935d318f372ab1c5b7"
+    },
+    {
+      "path": "server/runner/app/cvd.py",
+      "size": 15285,
+      "sha256": "c189a06302cfb7db425268e1ca5ca6c85ae4ddf2caea7ca068a536abb6b782fd",
+      "modified": false,
+      "upstream_sha256": "c189a06302cfb7db425268e1ca5ca6c85ae4ddf2caea7ca068a536abb6b782fd"
+    },
+    {
+      "path": "server/runner/app/env.py",
+      "size": 338,
+      "sha256": "cd0e4d54b9131003056e4e65b03580fae4d43ef9d6535e8375eb80c5b4fd2bd7",
+      "modified": false,
+      "upstream_sha256": "cd0e4d54b9131003056e4e65b03580fae4d43ef9d6535e8375eb80c5b4fd2bd7"
+    },
+    {
+      "path": "server/runner/app/powmod.py",
+      "size": 1928,
+      "sha256": "d435c74f5fe35247c04a6ac118626975db5f61c62e2fef14b9b19de4c9e92c3e",
+      "modified": false,
+      "upstream_sha256": "d435c74f5fe35247c04a6ac118626975db5f61c62e2fef14b9b19de4c9e92c3e"
+    },
+    {
+      "path": "server/runner/app/requirements.txt",
+      "size": 30,
+      "sha256": "dd1f860f1058d12a45d986f86e23d924b467b3c0ac39c0b2650fd262351de10d",
+      "modified": false,
+      "upstream_sha256": "dd1f860f1058d12a45d986f86e23d924b467b3c0ac39c0b2650fd262351de10d"
+    },
+    {
+      "path": "server/runner/app/service.py",
+      "size": 2788,
+      "sha256": "19de9c1297a30db478630bf03b1fa3e203387be8af0740f959f8b43a2727ae74",
+      "modified": false,
+      "upstream_sha256": "19de9c1297a30db478630bf03b1fa3e203387be8af0740f959f8b43a2727ae74"
+    },
+    {
+      "path": "server/runner/app/front/index.html",
+      "size": 33709,
+      "sha256": "025ce38e1c14c8aba565e534712367a8d90563c949e3f14a442fba895bb5548f",
+      "modified": false,
+      "upstream_sha256": "025ce38e1c14c8aba565e534712367a8d90563c949e3f14a442fba895bb5548f"
+    },
+    {
+      "path": "server/scripts/build_gdbserver.sh",
+      "size": 680,
+      "sha256": "8b055582f3d5ca9eb304337dad8f8b72b4a988fad23c5c23ac2d1c04de654cf6",
+      "modified": false,
+      "upstream_sha256": "8b055582f3d5ca9eb304337dad8f8b72b4a988fad23c5c23ac2d1c04de654cf6"
+    },
+    {
+      "path": "server/scripts/cf_dev.sh",
+      "size": 1755,
+      "sha256": "ed3c09768624ffdd5d66cd6dee3ce2db4b40208066b405a879e3de1b075246ed",
+      "modified": false,
+      "upstream_sha256": "ed3c09768624ffdd5d66cd6dee3ce2db4b40208066b405a879e3de1b075246ed"
+    },
+    {
+      "path": "server/scripts/cf_entrypoint.sh",
+      "size": 2166,
+      "sha256": "543f402010cc6fafff43e8a3ebb6d08699ee0704b7ffbc536f57e75e2f79ed5a",
+      "modified": false,
+      "upstream_sha256": "543f402010cc6fafff43e8a3ebb6d08699ee0704b7ffbc536f57e75e2f79ed5a"
+    },
+    {
+      "path": "server/scripts/cf_interactive.sh",
+      "size": 1753,
+      "sha256": "f3af3eaa8d41ef8b2470fa9d357fe660e9a4c237a45b4182b072f9c5f777b56e",
+      "modified": false,
+      "upstream_sha256": "f3af3eaa8d41ef8b2470fa9d357fe660e9a4c237a45b4182b072f9c5f777b56e"
+    },
+    {
+      "path": "server/scripts/dev.sh",
+      "size": 12598,
+      "sha256": "9ea4ccf1dc430855249b55ef608129f1a40e3b90abc4ce4eb9757be781176f90",
+      "modified": false,
+      "upstream_sha256": "9ea4ccf1dc430855249b55ef608129f1a40e3b90abc4ce4eb9757be781176f90"
+    },
+    {
+      "path": "server/scripts/fetch_images.sh",
+      "size": 507,
+      "sha256": "bc164d8fd8d7c468bb0154f2937a8fe52304505809bd65fe4ff657f8c2ddf46d",
+      "modified": false,
+      "upstream_sha256": "bc164d8fd8d7c468bb0154f2937a8fe52304505809bd65fe4ff657f8c2ddf46d"
+    },
+    {
+      "path": "server/scripts/interactive.sh",
+      "size": 892,
+      "sha256": "32e65fdf88bc9b326e77f5cfd46f3c73ec5cb5b8089713e0b193f20d4e82fa6c",
+      "modified": false,
+      "upstream_sha256": "32e65fdf88bc9b326e77f5cfd46f3c73ec5cb5b8089713e0b193f20d4e82fa6c"
+    },
+    {
+      "path": "server/scripts/pack_player_package.sh",
+      "size": 1442,
+      "sha256": "2a6e3fb063e5c59a2f99310188edde782917a41f10048bd2c33e044e2ac58e3d",
+      "modified": false,
+      "upstream_sha256": "2a6e3fb063e5c59a2f99310188edde782917a41f10048bd2c33e044e2ac58e3d"
+    },
+    {
+      "path": "server/scripts/provision_guest.sh",
+      "size": 1223,
+      "sha256": "88aa66ea185613106d8df8ab8eab5641fd457e8d4cf386ad1ff3e37ae4849bf1",
+      "modified": false,
+      "upstream_sha256": "88aa66ea185613106d8df8ab8eab5641fd457e8d4cf386ad1ff3e37ae4849bf1"
+    },
+    {
+      "path": "sources/cf_kernel/0001-sasctf-mmap-rnd-bits.patch",
+      "size": 4744,
+      "sha256": "36ca644bab8125467d480d7ca3e7f2569ecac35c737f22cf701fae7c263ab41b",
+      "modified": false,
+      "upstream_sha256": "36ca644bab8125467d480d7ca3e7f2569ecac35c737f22cf701fae7c263ab41b"
+    },
+    {
+      "path": "sources/cf_kernel/bzImage",
+      "size": 22635520,
+      "sha256": "d02e86b999006ab47231a71263f8034dc339c595c248563d3b71869a5159b682",
+      "modified": false,
+      "upstream_sha256": "d02e86b999006ab47231a71263f8034dc339c595c248563d3b71869a5159b682"
+    },
+    {
+      "path": "sources/cf_kernel/workspace_status.json",
+      "size": 87,
+      "sha256": "03ed5cff82df50a5983bd109eb07ef5f4bca3753813a2985f0d75f3102c8b18d",
+      "modified": false,
+      "upstream_sha256": "03ed5cff82df50a5983bd109eb07ef5f4bca3753813a2985f0d75f3102c8b18d"
+    },
+    {
+      "path": "sources/sasenger/.gitignore",
+      "size": 62,
+      "sha256": "2346e4b0c1de222e92be4deb03738ccf9dd10c3264b7e62a1d9a5b1bacc28eaf",
+      "modified": false,
+      "upstream_sha256": "2346e4b0c1de222e92be4deb03738ccf9dd10c3264b7e62a1d9a5b1bacc28eaf"
+    },
+    {
+      "path": "sources/sasenger/build.gradle.kts",
+      "size": 217,
+      "sha256": "61cd8e15a65a3ded440013250aa5c2bbc875158d0cf2db2e8fc5185ec3c69105",
+      "modified": false,
+      "upstream_sha256": "61cd8e15a65a3ded440013250aa5c2bbc875158d0cf2db2e8fc5185ec3c69105"
+    },
+    {
+      "path": "sources/sasenger/gradle.properties",
+      "size": 377,
+      "sha256": "6c9dec0b9aefed9fa7af3adff053a12deaea4fe12b1298d5c38d72c5ee058f08",
+      "modified": false,
+      "upstream_sha256": "6c9dec0b9aefed9fa7af3adff053a12deaea4fe12b1298d5c38d72c5ee058f08"
+    },
+    {
+      "path": "sources/sasenger/gradlew",
+      "size": 8762,
+      "sha256": "a3648413b47ef77af21d5ebc36c687c7d103aaef3e17f33de7d4f080a6f300a3",
+      "modified": false,
+      "upstream_sha256": "a3648413b47ef77af21d5ebc36c687c7d103aaef3e17f33de7d4f080a6f300a3"
+    },
+    {
+      "path": "sources/sasenger/gradlew.bat",
+      "size": 2872,
+      "sha256": "2209f919a22528af59a2af2ad97e8d056cca18e39f7d87aa3fd549a73b180150",
+      "modified": false,
+      "upstream_sha256": "2209f919a22528af59a2af2ad97e8d056cca18e39f7d87aa3fd549a73b180150"
+    },
+    {
+      "path": "sources/sasenger/settings.gradle.kts",
+      "size": 327,
+      "sha256": "b3d1e7027e3340046aab36d34fd5f35c718ebf58cc6f53f32197449ecb5db43b",
+      "modified": false,
+      "upstream_sha256": "b3d1e7027e3340046aab36d34fd5f35c718ebf58cc6f53f32197449ecb5db43b"
+    },
+    {
+      "path": "sources/sasenger/app/build.gradle.kts",
+      "size": 1916,
+      "sha256": "1ffed9eaf4c515fb7d3e1b96da68e7110d4a66b219b4305ba1b3739d8a434703",
+      "modified": false,
+      "upstream_sha256": "1ffed9eaf4c515fb7d3e1b96da68e7110d4a66b219b4305ba1b3739d8a434703"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/AndroidManifest.xml",
+      "size": 1272,
+      "sha256": "8edf1931cf5f48f599724647a3d2355b57243828088a336f8bedfc954a214ad9",
+      "modified": false,
+      "upstream_sha256": "8edf1931cf5f48f599724647a3d2355b57243828088a336f8bedfc954a214ad9"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/cpp/arena.hpp",
+      "size": 3038,
+      "sha256": "f73de1016431fe808491c05666c1eba6beede92e570e1956ec0091404326f572",
+      "modified": false,
+      "upstream_sha256": "f73de1016431fe808491c05666c1eba6beede92e570e1956ec0091404326f572"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/cpp/bitmap.hpp",
+      "size": 3002,
+      "sha256": "aa856b0c7ec1cfffcf677f9d21ae5f7a7b7634ccf8f755a4c86f2d906517fe5e",
+      "modified": false,
+      "upstream_sha256": "aa856b0c7ec1cfffcf677f9d21ae5f7a7b7634ccf8f755a4c86f2d906517fe5e"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/cpp/CMakeLists.txt",
+      "size": 623,
+      "sha256": "676926dbabeccffd1540a68a4a1d54b8e3a1a2ba5872523392285364bf89c727",
+      "modified": false,
+      "upstream_sha256": "676926dbabeccffd1540a68a4a1d54b8e3a1a2ba5872523392285364bf89c727"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/cpp/message.cpp",
+      "size": 11915,
+      "sha256": "450f3729408cf03f29c15038a7cfb41019ffade252c8f13d5bcf66210ef34fe9",
+      "modified": false,
+      "upstream_sha256": "450f3729408cf03f29c15038a7cfb41019ffade252c8f13d5bcf66210ef34fe9"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/cpp/message.hpp",
+      "size": 2034,
+      "sha256": "11fd831f37c66a8aa7a1c7c5e0a2f74921f173fc99b8e9a944ef45474d3b03a4",
+      "modified": false,
+      "upstream_sha256": "11fd831f37c66a8aa7a1c7c5e0a2f74921f173fc99b8e9a944ef45474d3b03a4"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/cpp/sasmedia.cpp",
+      "size": 4051,
+      "sha256": "e3ed96feb77a2fa084a853016dd78531cdad3b46262a0ec2f1601ed46500fc59",
+      "modified": false,
+      "upstream_sha256": "e3ed96feb77a2fa084a853016dd78531cdad3b46262a0ec2f1601ed46500fc59"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/cpp/tools/fuzz.sh",
+      "size": 1971,
+      "sha256": "d9a56c494c753b00a20f368836ec1887c2210ca94842e8867090364f9e27bb30",
+      "modified": false,
+      "upstream_sha256": "d9a56c494c753b00a20f368836ec1887c2210ca94842e8867090364f9e27bb30"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/cpp/tools/fuzz_message.cpp",
+      "size": 782,
+      "sha256": "a810ca3a98cde2d15b096a77fb243c5a9a0da4afda921c0f58e75cef3e64af13",
+      "modified": false,
+      "upstream_sha256": "a810ca3a98cde2d15b096a77fb243c5a9a0da4afda921c0f58e75cef3e64af13"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/cpp/tools/host_message.cpp",
+      "size": 6934,
+      "sha256": "c64274b88576c3d1e465beba9e04675395c813dd582f8f96433e1dba61c06fdd",
+      "modified": false,
+      "upstream_sha256": "c64274b88576c3d1e465beba9e04675395c813dd582f8f96433e1dba61c06fdd"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/SasengerApp.kt",
+      "size": 233,
+      "sha256": "ab54d92210d5b7ca43df5b2ce98472c306a482f717acbcf9e00180a77f6a5e7a",
+      "modified": false,
+      "upstream_sha256": "ab54d92210d5b7ca43df5b2ce98472c306a482f717acbcf9e00180a77f6a5e7a"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/core/Account.kt",
+      "size": 117,
+      "sha256": "b7d63105e5b6a50782a95ce82307ad5de793283a746b99994eabd2cda2986786",
+      "modified": false,
+      "upstream_sha256": "b7d63105e5b6a50782a95ce82307ad5de793283a746b99994eabd2cda2986786"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/core/MessageContainer.kt",
+      "size": 2301,
+      "sha256": "67c0cd934724ca8d9458c24a4fb57cfd80698c643a7bb2997e8a7cac9007a57a",
+      "modified": false,
+      "upstream_sha256": "67c0cd934724ca8d9458c24a4fb57cfd80698c643a7bb2997e8a7cac9007a57a"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/core/MessageStore.kt",
+      "size": 4548,
+      "sha256": "679346c72baf9f6d8c2556ddb3233d799210fcf529bc283357c502a30db96a3a",
+      "modified": false,
+      "upstream_sha256": "679346c72baf9f6d8c2556ddb3233d799210fcf529bc283357c502a30db96a3a"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/core/Repository.kt",
+      "size": 9005,
+      "sha256": "e2acc1dca4f5f46e7fb67755f79e06baf50cc82a4f9056c97a07933a2dbc9f8d",
+      "modified": false,
+      "upstream_sha256": "e2acc1dca4f5f46e7fb67755f79e06baf50cc82a4f9056c97a07933a2dbc9f8d"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/media/MediaCodec.kt",
+      "size": 185,
+      "sha256": "1f6715fb1d39e991196dea26eaac95f0f8281ac8a6e66066f4db96a8365350ad",
+      "modified": false,
+      "upstream_sha256": "1f6715fb1d39e991196dea26eaac95f0f8281ac8a6e66066f4db96a8365350ad"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/media/MessagePart.kt",
+      "size": 454,
+      "sha256": "4624d34e0f09612cf5176751749df193451d04de46406e8fe9e2676b1a54149e",
+      "modified": false,
+      "upstream_sha256": "4624d34e0f09612cf5176751749df193451d04de46406e8fe9e2676b1a54149e"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/media/StickerPack.kt",
+      "size": 860,
+      "sha256": "2b2f1b9072a9916e9cba5a31c13f57ae1a813c514834ffc02e34b1466a8f1be7",
+      "modified": false,
+      "upstream_sha256": "2b2f1b9072a9916e9cba5a31c13f57ae1a813c514834ffc02e34b1466a8f1be7"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/model/Message.kt",
+      "size": 353,
+      "sha256": "9d63e22e9876bac8a44f1a41218acb61d283fea06ed2b26c5ae5eb756a8454bb",
+      "modified": false,
+      "upstream_sha256": "9d63e22e9876bac8a44f1a41218acb61d283fea06ed2b26c5ae5eb756a8454bb"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/net/RelayClient.kt",
+      "size": 4079,
+      "sha256": "1be8d94a7c51606701d84f0888c6cf399204957b7c2b0e54350e0cd68cf6c314",
+      "modified": false,
+      "upstream_sha256": "1be8d94a7c51606701d84f0888c6cf399204957b7c2b0e54350e0cd68cf6c314"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/service/MessengerService.kt",
+      "size": 1565,
+      "sha256": "0d067ef010302afc5cc39b03ab531fd91e544a1cc4388b756fafe71efd6dde4a",
+      "modified": false,
+      "upstream_sha256": "0d067ef010302afc5cc39b03ab531fd91e544a1cc4388b756fafe71efd6dde4a"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/ui/AuthScreen.kt",
+      "size": 6105,
+      "sha256": "e7826f6e3fbbe9bc9544ef7546d352139f7e15ea02b90dfe83cdb1a5b3a336f6",
+      "modified": false,
+      "upstream_sha256": "e7826f6e3fbbe9bc9544ef7546d352139f7e15ea02b90dfe83cdb1a5b3a336f6"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/ui/ChatScreen.kt",
+      "size": 15749,
+      "sha256": "ae8f45079566abc89c8a77b57e5bfe07f2185e8d1e221ae5c73ccdd09140beb8",
+      "modified": false,
+      "upstream_sha256": "ae8f45079566abc89c8a77b57e5bfe07f2185e8d1e221ae5c73ccdd09140beb8"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/ui/HomeScreen.kt",
+      "size": 7503,
+      "sha256": "672cc759b4c3a560b09dee338d999c28d6ac2eff66827551a448a6c6ca554ce1",
+      "modified": false,
+      "upstream_sha256": "672cc759b4c3a560b09dee338d999c28d6ac2eff66827551a448a6c6ca554ce1"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/ui/MainActivity.kt",
+      "size": 2223,
+      "sha256": "cb077067c240ae73128459c43ff7e0719c8c1747baf576f2b7bd966c39dccc7c",
+      "modified": false,
+      "upstream_sha256": "cb077067c240ae73128459c43ff7e0719c8c1747baf576f2b7bd966c39dccc7c"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/ui/theme/Color.kt",
+      "size": 543,
+      "sha256": "7101af02d575fc820e7bf31c326460119b79e97b0e496852b45e631ca0de64fa",
+      "modified": false,
+      "upstream_sha256": "7101af02d575fc820e7bf31c326460119b79e97b0e496852b45e631ca0de64fa"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/ui/theme/Theme.kt",
+      "size": 766,
+      "sha256": "e9e066377aa3850e8b31d6da561e10767a6b8f530a55667891bd84d7909e047b",
+      "modified": false,
+      "upstream_sha256": "e9e066377aa3850e8b31d6da561e10767a6b8f530a55667891bd84d7909e047b"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/java/com/sasctf/sasenger/ui/theme/Type.kt",
+      "size": 1872,
+      "sha256": "2f798729b5c802fdd827d9ec484fec7e1f7614bb3db26aaf1a201b6c9e244de4",
+      "modified": false,
+      "upstream_sha256": "2f798729b5c802fdd827d9ec484fec7e1f7614bb3db26aaf1a201b6c9e244de4"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/res/font/manrope.ttf",
+      "size": 165420,
+      "sha256": "d0639be45d0af36e798172419d7bd173c4bd4f29e2b76cbb69db1d11bf8b0a40",
+      "modified": false,
+      "upstream_sha256": "d0639be45d0af36e798172419d7bd173c4bd4f29e2b76cbb69db1d11bf8b0a40"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/res/font/sora.ttf",
+      "size": 111400,
+      "sha256": "84ff7096ae3ec6c8be47d906d1a0ba4de7f2ce78c615275c77301964a316e16c",
+      "modified": false,
+      "upstream_sha256": "84ff7096ae3ec6c8be47d906d1a0ba4de7f2ce78c615275c77301964a316e16c"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/res/layout/activity_main.xml",
+      "size": 2925,
+      "sha256": "cea739642c9265a4b4084ec1ed808892031e8c4378cf7db139d59fdda1d30892",
+      "modified": false,
+      "upstream_sha256": "cea739642c9265a4b4084ec1ed808892031e8c4378cf7db139d59fdda1d30892"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/res/values/colors.xml",
+      "size": 105,
+      "sha256": "f2c83edcfbd9985200b4c7296a971cb1673a9ffd871d1551e799a519c283f558",
+      "modified": false,
+      "upstream_sha256": "f2c83edcfbd9985200b4c7296a971cb1673a9ffd871d1551e799a519c283f558"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/res/values/strings.xml",
+      "size": 110,
+      "sha256": "edc93ee5ac25d114bb6abf59dca2751648e2b983149df39742c4d4aaf2630c94",
+      "modified": false,
+      "upstream_sha256": "edc93ee5ac25d114bb6abf59dca2751648e2b983149df39742c4d4aaf2630c94"
+    },
+    {
+      "path": "sources/sasenger/app/src/main/res/values/themes.xml",
+      "size": 426,
+      "sha256": "e35feba4d17c47852bed70e80d76e233f334cbb7770f31b379610215042fe95c",
+      "modified": false,
+      "upstream_sha256": "e35feba4d17c47852bed70e80d76e233f334cbb7770f31b379610215042fe95c"
+    },
+    {
+      "path": "sources/sasenger/gradle/wrapper/gradle-wrapper.jar",
+      "size": 43583,
+      "sha256": "2db75c40782f5e8ba1fc278a5574bab070adccb2d21ca5a6e5ed840888448046",
+      "modified": false,
+      "upstream_sha256": "2db75c40782f5e8ba1fc278a5574bab070adccb2d21ca5a6e5ed840888448046"
+    },
+    {
+      "path": "sources/sasenger/gradle/wrapper/gradle-wrapper.properties",
+      "size": 253,
+      "sha256": "23b7b98fa7f086c7310fb49d39084bdb472003a03f3b8508b43098f381d53114",
+      "modified": false,
+      "upstream_sha256": "23b7b98fa7f086c7310fb49d39084bdb472003a03f3b8508b43098f381d53114"
+    }
+  ],
+  "modified_files": [],
+  "removed_from_public_package": {
+    "writeup": true,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": []
 }

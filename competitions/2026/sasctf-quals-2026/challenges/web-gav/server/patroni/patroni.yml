@@ -1,0 +1,66 @@
+scope: ctf-cluster
+name: pg-patroni
+
+watchdog:
+  mode: off
+
+etcd:
+  host: etcd:2379
+
+restapi:
+  listen: 0.0.0.0:8008
+  connect_address: "pg-patroni:8008"
+  auth: 'username:keklol13376767abcsdawdawdafe4adawd'
+
+bootstrap:
+  post_init: /bin/sh -c "psql -U postgres -f /init.sql"
+  dcs:
+    ttl: 30
+    loop_wait: 10
+    retry_timeout: 10
+    maximum_lag_on_failover: 1048576
+    postgresql:
+      use_pg_rewind: true
+      parameters:
+        archive_command: cd /
+        archive_mode: always
+        max_connections: 550
+        max_locks_per_transaction: 512
+        max_worker_processes: 27
+
+initdb:
+  - encoding: UTF8
+  - data-checksums
+
+pg_hba:
+  - local all all md5
+  - host replication replicator 10.5.0.0/16 md5
+  - host all all 127.0.0.1/32 md5
+  - host replication replicator 127.0.0.1/32 md5
+  - host all all 0.0.0.0/0 md5
+
+postgresql:
+  parameters: {}
+  pgpass: /var/lib/postgresql/.pgpass
+  listen: 0.0.0.0:5432
+  connect_address: "pg-patroni:5432"
+  data_dir: /var/lib/postgresql/data/ctf-cluster
+  bin_dir: /usr/local/bin
+  pg_rewind:
+    username: postgres
+    password: keklol13376767abcsdawdawdafe4adawd
+  pg_hba:
+    - local all all md5
+    - host replication replicator 10.5.0.0/16 md5
+    - host replication replicator 127.0.0.1/32 md5
+    - host all all 127.0.0.1/32 md5
+    - host all all 0.0.0.0/0 md5
+  replication:
+    username: replicator
+    password: keklol13376767abcsdawdawdafe4adawd
+  superuser:
+    username: postgres
+    password: keklol13376767abcsdawdawdafe4adawd
+  admin:
+    username: admin
+    password: keklol13376767abcsdawdawdafe4adawd

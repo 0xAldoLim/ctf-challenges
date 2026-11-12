@@ -15,11 +15,119 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/misc-kolobok",
+  "preparation_status": "source_only",
   "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "operator_files": [
+    {
+      "path": ".gitignore",
+      "size": 7403,
+      "sha256": "778a558cb93cc4bf4a25bd5940d1e794966ca7d24e1bc4eda471891543dfcf07",
+      "modified": false,
+      "upstream_sha256": "778a558cb93cc4bf4a25bd5940d1e794966ca7d24e1bc4eda471891543dfcf07"
+    },
+    {
+      "path": "server/docker-compose.yml",
+      "size": 954,
+      "sha256": "6ff9f1a8b69dee5c34962c9e973c4e99d223076ec68b64bd5bcdfa1261266be6",
+      "modified": true,
+      "modification": "reference flag replaced with placeholder"
+    },
+    {
+      "path": "server/Dockerfile",
+      "size": 158,
+      "sha256": "941c91ee1b328e7f71a97822d9735f07442cf013fa11911c0fd9926b44c7e96b",
+      "modified": false,
+      "upstream_sha256": "941c91ee1b328e7f71a97822d9735f07442cf013fa11911c0fd9926b44c7e96b"
+    },
+    {
+      "path": "server/src/app.py",
+      "size": 28412,
+      "sha256": "a2908ef957508dd822439b0c5c87dd135e6f7acc7e6256b77502452c2a55338f",
+      "modified": true,
+      "modification": "reference flag replaced with placeholder"
+    },
+    {
+      "path": "server/src/requirements.txt",
+      "size": 41,
+      "sha256": "32aa3298c0c47e7205c819066cf4b645e8f49c8925ccaa37e8d0d78d784d3c93",
+      "modified": false,
+      "upstream_sha256": "32aa3298c0c47e7205c819066cf4b645e8f49c8925ccaa37e8d0d78d784d3c93"
+    },
+    {
+      "path": "server/src/runner.py",
+      "size": 4333,
+      "sha256": "4e58ac9db43f5ec99c2e38b73b5165c1b3ca7a167f4aeeed1dc9679f61236cda",
+      "modified": false,
+      "upstream_sha256": "4e58ac9db43f5ec99c2e38b73b5165c1b3ca7a167f4aeeed1dc9679f61236cda"
+    },
+    {
+      "path": "server/src/static/enemy1.gif",
+      "size": 307565,
+      "sha256": "30cb6f5aa71a4761c2b335a0a90a973336dd3911c4e1bc4f0acbfa962728ad1a",
+      "modified": false,
+      "upstream_sha256": "30cb6f5aa71a4761c2b335a0a90a973336dd3911c4e1bc4f0acbfa962728ad1a"
+    },
+    {
+      "path": "server/src/static/exit.png",
+      "size": 2878,
+      "sha256": "06c9985e5bddd5867a0dce4597a9e7cc550ab6585ae7b56edc675197409bdc9f",
+      "modified": false,
+      "upstream_sha256": "06c9985e5bddd5867a0dce4597a9e7cc550ab6585ae7b56edc675197409bdc9f"
+    },
+    {
+      "path": "server/src/static/fish.gif",
+      "size": 338356,
+      "sha256": "6f10bee751166acb26ccb3ba915d69dc7f50013c51075b1aace031e58fc4ee82",
+      "modified": false,
+      "upstream_sha256": "6f10bee751166acb26ccb3ba915d69dc7f50013c51075b1aace031e58fc4ee82"
+    },
+    {
+      "path": "server/src/static/switch.png",
+      "size": 499,
+      "sha256": "68d2d1879e8106d8ebafd3e1937c14cdf30d9874ff75012d743fd93a7e3ce3f2",
+      "modified": false,
+      "upstream_sha256": "68d2d1879e8106d8ebafd3e1937c14cdf30d9874ff75012d743fd93a7e3ce3f2"
+    },
+    {
+      "path": "server/src/static/wall.png",
+      "size": 312289,
+      "sha256": "c73ba5ad444cb11eaf286471e524820e085d7b6ff012e1c30d80e3f824c5d14e",
+      "modified": false,
+      "upstream_sha256": "c73ba5ad444cb11eaf286471e524820e085d7b6ff012e1c30d80e3f824c5d14e"
+    },
+    {
+      "path": "server/src/static/templates/index.html",
+      "size": 41053,
+      "sha256": "a0f021e9c2cc989f5dec9e45d84f90e123b77732d5aaf24bbd61f5b5183e634d",
+      "modified": false,
+      "upstream_sha256": "a0f021e9c2cc989f5dec9e45d84f90e123b77732d5aaf24bbd61f5b5183e634d"
+    },
+    {
+      "path": "server/src/static/templates/login.html",
+      "size": 3535,
+      "sha256": "632effe585e14de09435627647b4afc91d4ac6b88aaf199ef503ae4a95e961c7",
+      "modified": false,
+      "upstream_sha256": "632effe585e14de09435627647b4afc91d4ac6b88aaf199ef503ae4a95e961c7"
+    },
+    {
+      "path": "server/src/static/templates/register.html",
+      "size": 3377,
+      "sha256": "e15ffba8f4246b116dfd57715b43e99705da000d1f2d463c8a1d8252a63ff4f4",
+      "modified": false,
+      "upstream_sha256": "e15ffba8f4246b116dfd57715b43e99705da000d1f2d463c8a1d8252a63ff4f4"
+    }
+  ],
+  "modified_files": [
+    "server/docker-compose.yml",
+    "server/src/app.py"
+  ],
+  "removed_from_public_package": {
+    "writeup": true,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": []
 }

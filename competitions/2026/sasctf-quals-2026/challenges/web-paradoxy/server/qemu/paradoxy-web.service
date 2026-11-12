@@ -1,0 +1,18 @@
+[Unit]
+Description=paradoxy web UI
+After=network-online.target
+Wants=network-online.target
+ConditionKernelCommandLine=paradoxy.role=controller
+
+[Service]
+User=paradoxy-web
+Group=paradoxy-web
+WorkingDirectory=/opt/paradoxy/web
+Environment=PARADOXY_WEB_ADDR=:18080
+ExecStart=/opt/paradoxy/web/paradoxy-web
+NoNewPrivileges=true
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

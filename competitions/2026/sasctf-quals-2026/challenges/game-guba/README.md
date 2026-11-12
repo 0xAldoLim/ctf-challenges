@@ -1,12 +1,16 @@
-# Escape from Guba I & II
 
-Category `game`. Original authors [@kumfc](https://github.com/kumfc), [@Ezzh](https://github.com/Ezzh).
+## Title
+Escape the Guba I & II
 
-Redistribution permission for the upstream challenge materials could not be verified. See the [competition index](../../README.md) and [manifest](manifest.json).
+## Description
+The Captain has burdened the Brother with a sophisticated challenge. Brother tried so hard but was yet unsuccessfull. The Crazy Man is really happy that the Brother is back, but looks like it is your shift now. Is this a getaway chance?
 
-## Parts
+\==============================
 
-- Escape from Guba I (`sasctf-quals-2026/game-guba/part-1`)
-- Escape from Guba II (`sasctf-quals-2026/game-guba/part-2`)
+This challenge is intended to be played over TF2 or TF2-based mods. The original game is quite big, so we've built a lightweight client (Win64/Linux64) that can be downloaded separately from the challenge. It will still require a Steam Client installed and logged in though.
 
-Both tasks belong to the same upstream directory. Their player descriptions and attachment relationships remain unverified.
+Linux enjoyer? Use Steam Runtime 3.0 (Sniper):
+`~/.steam/steam/steamapps/common/SteamLinuxRuntime_sniper/_v2-entry-point --verb=run -- /full/path/start.sh -game flagfortress2`
+
+## Description 2
+This part of the challenge share description and files with the first part. Submit the second flag here.

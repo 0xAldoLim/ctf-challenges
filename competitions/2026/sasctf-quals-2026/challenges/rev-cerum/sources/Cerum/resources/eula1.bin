@@ -1,0 +1,287 @@
+END USER LICENSE AGREEMENT
+
+Effective Date: June 3, 2026
+
+This End User License Agreement ("Agreement" or "EULA") is a legally binding agreement between the individual or entity that downloads, installs, accesses, activates, or uses the Software ("User," "you," or "your") and the owner, developer, publisher, or authorized distributor of the Software ("Licensor," "we," "us," or "our").
+
+By downloading, installing, copying, activating, accessing, or using the Software, you agree to be bound by this Agreement. If you do not agree to this Agreement, you must not download, install, activate, access, copy, or use the Software and must delete all copies in your possession or control.
+
+1. Definitions
+
+1.1. "Software" means the Licensor’s audio software product, including the VST, VST3, Audio Unit, AAX, standalone, or other plugin or application formats, together with any presets, sound content, documentation, updates, upgrades, license files, authorization components, installers, libraries, interfaces, and related materials supplied by Licensor.
+
+1.2. "License Key" means any serial number, activation code, license file, account entitlement, device authorization, cloud authorization, machine authorization, or other credential or technical mechanism used to authorize use of the Software.
+
+1.3. "License Check" means any local, online, offline, cryptographic, account-based, hardware-bound, machine-bound, subscription-based, or other technical measure used to verify, validate, limit, activate, deactivate, monitor, or enforce your license rights.
+
+1.4. "Tampering" means any modification, disabling, removal, bypassing, interference with, circumvention, patching, hooking, emulation, spoofing, debugging, decompilation, disassembly, unpacking, instrumentation, memory modification, binary modification, network manipulation, API interception, signature manipulation, or other unauthorized technical interference with the Software, any License Key, any License Check, or any protection mechanism.
+
+2. Grant of License
+
+2.1. Subject to your continuous compliance with this Agreement and payment of all applicable fees, Licensor grants you a limited, revocable, non-exclusive, non-transferable, non-sublicensable license to install and use the Software solely for lawful music production, sound design, mixing, mastering, performance, or other legitimate audio-related purposes.
+
+2.2. This Agreement grants a license, not a sale. Licensor and its licensors retain all right, title, and interest in and to the Software, including all copyrights, trade secrets, patents, trademarks, moral rights, database rights, and other intellectual property rights.
+
+2.3. The scope of your license, including the number of authorized users, devices, activations, seats, commercial-use permissions, trial restrictions, subscription term, or educational limitations, is determined by the license type, purchase terms, invoice, account entitlement, or written authorization issued by Licensor.
+
+3. Permitted Use
+
+3.1. You may use the Software to create, process, render, export, perform, and distribute your own audio works, musical compositions, recordings, sound designs, stems, mixes, masters, and other creative outputs, subject to this Agreement.
+
+3.2. Unless the applicable license type states otherwise, you may use the Software for commercial audio production, provided that you do not distribute, expose, embed, resell, sublicense, or make available the Software itself or any component of it.
+
+3.3. You are responsible for ensuring that your operating system, digital audio workstation, plugin host, hardware, drivers, and third-party software are compatible with the Software.
+
+4. License Restrictions
+
+Except to the extent expressly permitted by this Agreement or by mandatory applicable law that cannot be waived by contract, you must not, and must not permit, assist, enable, encourage, or authorize any third party to:
+
+4.1. copy, reproduce, distribute, publish, rent, lease, lend, sell, resell, sublicense, transfer, assign, share, host, stream, or make the Software available to any third party;
+
+4.2. reverse engineer, decompile, disassemble, decode, decrypt, extract, derive source code from, inspect internal structures of, or attempt to discover any source code, algorithms, methods, models, protection logic, License Check logic, or trade secrets of the Software;
+
+4.3. modify, adapt, translate, port, patch, alter, merge, create derivative works from, or otherwise change the Software or any component of it;
+
+4.4. bypass, avoid, remove, disable, impair, emulate, spoof, defeat, or circumvent any License Check, activation system, authorization server, copy-protection system, cryptographic signature, entitlement check, usage limit, trial limit, subscription check, hardware binding, or other technical protection measure;
+
+4.5. use, create, distribute, publish, sell, host, promote, link to, or otherwise make available any crack, patch, keygen, loader, emulator, fake authorization server, license generator, modified binary, unauthorized license file, activation bypass, unlocker, injector, debugger script, memory patch, or other tool intended to enable unauthorized access to or use of the Software;
+
+4.6. use the Software with any unauthorized License Key, stolen License Key, leaked License Key, shared License Key, fraudulent account, chargeback-related entitlement, compromised account, or license obtained from an unauthorized source;
+
+4.7. remove, alter, obscure, or falsify any copyright notice, trademark notice, proprietary notice, watermark, digital signature, metadata, license notice, or attribution included in or with the Software;
+
+4.8. perform security testing, penetration testing, vulnerability scanning, fuzzing, dynamic analysis, sandbox analysis, debugging, API interception, protocol analysis, memory dumping, binary instrumentation, or similar analysis of the Software without Licensor’s prior written consent, except where such restriction is prohibited by mandatory applicable law;
+
+4.9. use the Software to develop, train, benchmark, validate, or improve a competing product by analyzing, copying, extracting, or replicating the Software’s behavior, interfaces, sound engine, presets, DSP methods, UI design, license system, or other protectable elements;
+
+4.10. use the Software in any service bureau, hosted service, cloud rendering farm, remote production system, shared studio system, rental system, managed service, or time-sharing arrangement unless expressly authorized by Licensor in writing;
+
+4.11. use the Software in a way that violates any applicable law, regulation, third-party right, export-control rule, sanctions rule, or this Agreement;
+
+4.12. attempt to gain unauthorized access to Licensor’s systems, license servers, update servers, accounts, APIs, telemetry systems, or distribution infrastructure.
+
+5. License Checks, Activation, and Anti-Tampering
+
+5.1. The Software may require activation, periodic License Checks, account login, device authorization, internet access, cryptographic verification, machine identification, or other technical measures to verify your license.
+
+5.2. You agree that License Checks are an essential condition of the license granted under this Agreement. Any attempt to bypass, disable, manipulate, spoof, block, falsify, replay, emulate, or interfere with a License Check is a material breach of this Agreement.
+
+5.3. Licensor may suspend, deactivate, revoke, or refuse activations if Licensor reasonably believes that a License Key, account, device, installation, or copy of the Software has been used in breach of this Agreement, obtained fraudulently, shared unlawfully, leaked, resold without authorization, compromised, charged back, or associated with Tampering.
+
+5.4. The Software may detect unauthorized modifications, corrupted binaries, altered signatures, invalid licenses, debugging, hooking, injection, emulation, virtualization anomalies, known cracking tools, or other indicators of Tampering. Where permitted by applicable law, the Software may refuse to run, restrict functionality, require reactivation, display warnings, or report license-status information to Licensor.
+
+5.5. You must not block, manipulate, or falsify network communications necessary for activation, updates, License Checks, fraud prevention, security, or license enforcement, except where such restriction is prohibited by mandatory applicable law.
+
+6. Trial, Demo, Beta, NFR, Educational, and Evaluation Licenses
+
+6.1. Trial, demo, beta, not-for-resale, educational, review, or evaluation versions of the Software may be subject to feature limitations, output limitations, time limits, watermarks, noise bursts, silence insertion, preset limitations, saving restrictions, export restrictions, activation limits, or other restrictions.
+
+6.2. You must not remove, bypass, disable, reset, extend, manipulate, or circumvent any limitation applicable to a trial, demo, beta, not-for-resale, educational, review, or evaluation license.
+
+6.3. Beta versions are provided for testing only and may contain defects, crashes, compatibility issues, data-loss risks, or unfinished features. Licensor may discontinue or disable beta versions at any time.
+
+7. Updates and Changes
+
+7.1. Licensor may provide updates, upgrades, patches, bug fixes, security fixes, compatibility updates, content updates, or feature changes at its discretion.
+
+7.2. Updates may modify, remove, replace, or add features, presets, formats, authorization methods, compatibility requirements, or technical protection measures.
+
+7.3. Some updates may be required for continued operation, compatibility, activation, security, or license verification.
+
+7.4. Unless Licensor states otherwise, updates are governed by this Agreement.
+
+8. Ownership of User Content
+
+8.1. As between you and Licensor, you retain ownership of your original musical works, recordings, audio files, MIDI files, presets created entirely by you, project files, and other user-created content.
+
+8.2. Licensor does not claim ownership of audio output that you lawfully create using the Software.
+
+8.3. You are solely responsible for ensuring that your content does not infringe third-party rights or violate applicable law.
+
+9. Presets, Samples, and Sound Content
+
+9.1. If the Software includes presets, samples, wavetables, impulse responses, MIDI files, sound banks, or other sound content supplied by Licensor, you may use such content solely as part of your own musical or audio productions.
+
+9.2. You must not distribute, resell, sublicense, upload, extract, share, publish, or make available Licensor-supplied presets, samples, wavetables, impulse responses, MIDI files, sound banks, or other sound content as standalone files, sample packs, preset packs, datasets, libraries, competing products, or substantially similar collections.
+
+9.3. You must not use Licensor-supplied content to train, fine-tune, validate, or create machine-learning models, sample-generation systems, preset-generation systems, or competing sound libraries without Licensor’s prior written consent.
+
+10. Third-Party Software and Plugin Formats
+
+10.1. The Software may include or interact with third-party components, SDKs, frameworks, libraries, plugin standards, copy-protection tools, installers, or platform services.
+
+10.2. Third-party components may be subject to separate license terms. To the extent required by such terms, those terms apply in addition to this Agreement.
+
+10.3. VST is a trademark and software interface technology associated with its respective owner. This Agreement does not grant you any rights in third-party trademarks, plugin standards, SDKs, or host applications.
+
+11. Privacy and Data
+
+11.1. The Software may process limited technical, activation, device, license, crash, diagnostic, update, fraud-prevention, and usage-status information for purposes of license verification, security, support, product improvement, abuse prevention, and legal compliance.
+
+11.2. Licensor will process personal data in accordance with its applicable privacy policy and applicable data-protection laws.
+
+11.3. You must not submit confidential, sensitive, regulated, or third-party personal data to Licensor unless Licensor expressly provides a lawful and secure mechanism for doing so.
+
+12. Support
+
+12.1. Licensor may provide support at its discretion through its designated support channels.
+
+12.2. Licensor is not obligated to provide support for unsupported operating systems, unsupported plugin hosts, obsolete versions, modified installations, unauthorized copies, cracked versions, tampered copies, or environments that fail to meet published system requirements.
+
+13. Termination
+
+13.1. This Agreement remains in effect until terminated.
+
+13.2. Your rights under this Agreement automatically terminate without notice if you breach any provision of this Agreement, including any restriction relating to Tampering, reverse engineering, License Checks, unauthorized copying, unauthorized transfer, or misuse of License Keys.
+
+13.3. Upon termination, you must immediately cease all use of the Software and delete or destroy all copies of the Software, License Keys, license files, installers, and related materials in your possession or control.
+
+13.4. Termination does not limit any rights or remedies available to Licensor at law, in equity, or under this Agreement.
+
+13.5. Sections concerning ownership, restrictions, anti-tampering, termination, disclaimers, limitation of liability, indemnity, governing law, audit, and dispute resolution survive termination.
+
+14. Injunctive Relief and Enforcement
+
+14.1. You acknowledge that unauthorized copying, distribution, reverse engineering, Tampering, license bypassing, or disclosure of trade secrets may cause irreparable harm to Licensor for which monetary damages may be inadequate.
+
+14.2. Licensor is entitled to seek injunctive relief, equitable relief, damages, accountings, statutory remedies, recovery of costs, and any other remedies available under applicable law, without prejudice to any other rights.
+
+14.3. Licensor may cooperate with payment processors, marketplaces, hosting providers, anti-piracy vendors, law-enforcement agencies, and rights-enforcement bodies to prevent, investigate, and remedy unauthorized use, piracy, fraud, Tampering, or license abuse.
+
+15. Fees, Refunds, and Chargebacks
+
+15.1. Fees, taxes, refund rights, renewal terms, and cancellation terms are governed by the applicable purchase terms, store terms, invoice, checkout terms, or subscription terms provided at the time of purchase.
+
+15.2. Unless required by applicable law or expressly stated by Licensor, fees are non-refundable once the Software has been delivered, activated, downloaded, or used.
+
+15.3. A chargeback, payment reversal, fraudulent payment, or failed payment may result in suspension or termination of the relevant license.
+
+15.4. If the Software is provided as a subscription, your right to use the Software continues only during the paid subscription term and subject to successful payment, unless mandatory law provides otherwise.
+
+16. No Warranty
+
+16.1. To the maximum extent permitted by applicable law, the Software is provided "as is" and "as available," with all faults and without warranties of any kind.
+
+16.2. Licensor disclaims all warranties, whether express, implied, statutory, or otherwise, including implied warranties of merchantability, fitness for a particular purpose, title, non-infringement, quiet enjoyment, accuracy, reliability, compatibility, uninterrupted operation, error-free operation, and absence of harmful components.
+
+16.3. Licensor does not warrant that the Software will meet your requirements, operate with every digital audio workstation, plugin host, operating system, audio interface, driver, controller, preset, session, or workflow, or remain compatible with future third-party updates.
+
+16.4. Audio software may produce unexpected sound, silence, feedback, clipping, distortion, high output levels, automation changes, latency, crashes, or other behavior. You are responsible for safe monitoring levels, backups, testing, and protecting your hearing, equipment, sessions, and data.
+
+17. Limitation of Liability
+
+17.1. To the maximum extent permitted by applicable law, Licensor will not be liable for any indirect, incidental, special, consequential, exemplary, punitive, or enhanced damages, including loss of profits, loss of revenue, loss of business, loss of goodwill, loss of data, loss of projects, loss of recordings, loss of opportunities, equipment damage, studio downtime, procurement of substitute goods, or interruption of production, whether arising in contract, tort, negligence, strict liability, statute, or otherwise.
+
+17.2. To the maximum extent permitted by applicable law, Licensor’s total cumulative liability arising out of or relating to the Software or this Agreement will not exceed the amount you actually paid to Licensor for the Software during the twelve months preceding the event giving rise to the claim.
+
+17.3. The limitations in this Section apply even if Licensor has been advised of the possibility of damages and even if any remedy fails of its essential purpose.
+
+17.4. Nothing in this Agreement excludes or limits liability that cannot be excluded or limited under mandatory applicable law.
+
+18. Indemnity
+
+18.1. To the maximum extent permitted by applicable law, you agree to indemnify, defend, and hold harmless Licensor and its owners, officers, directors, employees, contractors, affiliates, licensors, distributors, and agents from and against any claims, damages, liabilities, losses, costs, expenses, and fees, including reasonable attorneys’ fees, arising out of or relating to:
+
+(a) your breach of this Agreement;
+
+(b) your unauthorized use, copying, distribution, transfer, reverse engineering, Tampering, or license bypassing;
+
+(c) your violation of applicable law or third-party rights;
+
+(d) your content, productions, recordings, performances, distributions, or commercial activities involving the Software;
+
+(e) your misuse of any License Key, account, activation, or entitlement.
+
+19. Export Control and Sanctions
+
+19.1. You must comply with all applicable export-control, import-control, sanctions, embargo, and trade-compliance laws.
+
+19.2. You represent that you are not located in, ordinarily resident in, organized under the laws of, or acting on behalf of any country, region, entity, or person subject to applicable sanctions or embargoes prohibiting receipt or use of the Software.
+
+19.3. You must not use, export, re-export, transfer, or make available the Software in violation of applicable law.
+
+20. Transfer Restrictions
+
+20.1. You may not sell, resell, assign, transfer, sublicense, lend, rent, lease, share, or otherwise provide your license, License Key, account, or activation to any third party without Licensor’s prior written consent.
+
+20.2. Any unauthorized transfer is void and may result in termination of the license.
+
+20.3. Licensor may condition any approved transfer on payment of a transfer fee, deactivation of prior installations, verification of ownership, account standing, and compliance with applicable transfer procedures.
+
+21. Audit and Verification
+
+21.1. For business, enterprise, institutional, studio, educational, or multi-seat licenses, Licensor may request reasonable verification of license compliance.
+
+21.2. You agree to provide accurate information reasonably necessary to verify the number of users, devices, seats, activations, and installations.
+
+21.3. If an audit or verification reveals unauthorized use, Licensor may require payment of applicable fees, terminate licenses, suspend access, and pursue available remedies.
+
+22. Open Source
+
+22.1. If the Software includes open-source components, such components are licensed under their respective open-source licenses.
+
+22.2. Nothing in this Agreement is intended to restrict rights granted to you under applicable open-source licenses.
+
+22.3. The Software as a whole, excluding separately licensed open-source components, remains licensed under this Agreement.
+
+23. Consumer Rights and Mandatory Law
+
+23.1. Some jurisdictions do not allow certain exclusions, limitations, transfer restrictions, reverse-engineering restrictions, warranty disclaimers, liability limitations, or termination rights. In such jurisdictions, the relevant provisions apply only to the maximum extent permitted by applicable law.
+
+23.2. Nothing in this Agreement limits any non-waivable rights you may have under mandatory consumer-protection, digital-content, software-interoperability, copyright, or other applicable laws.
+
+23.3. If you are a consumer, this Agreement does not deprive you of rights that cannot be waived by contract under the laws of your country or region of residence.
+
+24. Governing Law and Venue
+
+24.1. This Agreement is governed by the laws designated in Licensor’s purchase terms, website terms, invoice, or other written terms applicable to the Software, without regard to conflict-of-law principles.
+
+24.2. If no governing law is designated elsewhere, this Agreement is governed by the laws of the jurisdiction in which Licensor is established, excluding its conflict-of-law rules.
+
+24.3. Subject to mandatory applicable law, any dispute arising out of or relating to this Agreement or the Software must be brought exclusively in the competent courts of the jurisdiction in which Licensor is established.
+
+25. U.S. Government End Users
+
+25.1. If the Software is acquired by or on behalf of the United States Government, the Software is commercial computer software and is provided with only those rights expressly granted under this Agreement.
+
+26. Severability
+
+26.1. If any provision of this Agreement is held invalid, illegal, or unenforceable, that provision will be enforced to the maximum extent permitted by law and the remaining provisions will remain in full force and effect.
+
+26.2. The invalid, illegal, or unenforceable provision will be deemed modified to the minimum extent necessary to make it valid, legal, and enforceable while preserving its original intent as closely as possible.
+
+27. No Waiver
+
+27.1. Licensor’s failure to enforce any provision of this Agreement does not constitute a waiver of that provision or any other provision.
+
+27.2. Any waiver must be in writing and signed by Licensor.
+
+28. Assignment
+
+28.1. You may not assign or transfer this Agreement or any rights or obligations under it without Licensor’s prior written consent.
+
+28.2. Licensor may assign or transfer this Agreement, in whole or in part, in connection with a merger, acquisition, reorganization, sale of assets, change of control, corporate restructuring, or transfer of the Software business.
+
+29. Entire Agreement
+
+29.1. This Agreement, together with any applicable purchase terms, subscription terms, privacy policy, support terms, and written license-specific terms issued by Licensor, constitutes the entire agreement between you and Licensor regarding the Software.
+
+29.2. This Agreement supersedes all prior or contemporaneous oral or written agreements, representations, proposals, and understandings regarding the Software.
+
+30. Changes to this Agreement
+
+30.1. Licensor may update this Agreement from time to time.
+
+30.2. Changes apply prospectively unless required for legal, security, anti-piracy, operational, or compliance reasons.
+
+30.3. Continued use of the Software after an updated Agreement becomes effective constitutes acceptance of the updated Agreement, to the extent permitted by applicable law.
+
+31. Contact and Notices
+
+31.1. Notices to Licensor must be sent through Licensor’s official support, legal, or contact channels published by Licensor.
+
+31.2. Licensor may provide notices to you by email, account notification, in-product notice, website notice, or other reasonable means.
+
+32. Acceptance
+
+By downloading, installing, activating, accessing, copying, or using the Software, you acknowledge that you have read, understood, and agreed to be bound by this Agreement.

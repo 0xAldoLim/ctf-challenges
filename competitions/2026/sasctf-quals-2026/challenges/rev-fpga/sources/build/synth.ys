@@ -1,0 +1,10 @@
+read_verilog ../rtl/ps2_rx.v
+read_verilog ../rtl/scancode_fsm.v
+read_verilog ../rtl/controller.v
+read_verilog ../rtl/cipher.v
+read_verilog ../rtl/sbox_rom.v
+read_verilog ../rtl/keymem.v
+read_verilog ../rtl/led_output.v
+read_verilog ../rtl/decoy.v
+read_verilog ../rtl/top.v
+synth_ice40 -top top -json hardware.json

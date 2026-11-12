@@ -1,0 +1,42 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: schizo-postgres
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U schizo -d schizo"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  schizo-ssh:
+    build: .
+    container_name: schizo-ssh
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "2222:2222"
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - hostkeys:/app/hostkeys
+
+  agentos:
+    build: .
+    container_name: schizo-agentos
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: ["uvicorn", "app.agentos:app", "--host", "0.0.0.0", "--port", "7777"]
+    ports:
+      - "10.131.0.81:7777:7777"
+    restart: unless-stopped
+    env_file: .env
+
+volumes:
+  hostkeys:
+  pgdata:

@@ -1,0 +1,2 @@
+# Built QEMU artifact synced in via sync-qemu.sh (large, reproducible from sources)
+qemu-system-riscv64

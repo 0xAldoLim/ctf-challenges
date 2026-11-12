@@ -1,0 +1,16 @@
+FROM node:24-alpine
+
+WORKDIR /app
+
+
+RUN apk update && apk add chromium
+
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+RUN npm install express puppeteer express-rate-limit
+
+ADD bot.js bot.html ./
+
+USER 1000
+
+CMD ["node", "bot.js"]

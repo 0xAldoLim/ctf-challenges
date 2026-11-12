@@ -15,11 +15,334 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/net-incident-67",
-  "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "preparation_status": "ready",
+  "player_files": [
+    {
+      "path": "static/task.zip",
+      "size": 1043,
+      "sha256": "92ad3cd9617eb5435c1d14b773b727acae945fd3a7bd07047305c2e3c7648f4e",
+      "modified": false,
+      "upstream_sha256": "92ad3cd9617eb5435c1d14b773b727acae945fd3a7bd07047305c2e3c7648f4e"
+    }
+  ],
+  "operator_files": [
+    {
+      "path": ".gitignore",
+      "size": 18,
+      "sha256": "fab12f653f86901fd5d5b68e583816a410ac0fe49e50924270697574cc843e6d",
+      "modified": false,
+      "upstream_sha256": "fab12f653f86901fd5d5b68e583816a410ac0fe49e50924270697574cc843e6d"
+    },
+    {
+      "path": "server/challenge-compose.yml",
+      "size": 7552,
+      "sha256": "22309553cd14dcf58e85733b02a552c66282e17eee7150863687d78f64939470",
+      "modified": false,
+      "upstream_sha256": "22309553cd14dcf58e85733b02a552c66282e17eee7150863687d78f64939470"
+    },
+    {
+      "path": "server/DEPLOYMENT.md",
+      "size": 66,
+      "sha256": "cd879ff24fa02973266001e491a19a70868e22325f7e56eefd45899fb3a2acd1",
+      "modified": false,
+      "upstream_sha256": "cd879ff24fa02973266001e491a19a70868e22325f7e56eefd45899fb3a2acd1"
+    },
+    {
+      "path": "server/docker-compose.yml",
+      "size": 347,
+      "sha256": "611a5c8af964f18bef7c13e1abd03cbcc5bf05969d70b22a74f4e6ff17e54630",
+      "modified": false,
+      "upstream_sha256": "611a5c8af964f18bef7c13e1abd03cbcc5bf05969d70b22a74f4e6ff17e54630"
+    },
+    {
+      "path": "server/Dockerfile.frr",
+      "size": 1008,
+      "sha256": "91378b961ba9b43f86f85829df36efd59311725bfbf4e4281b30b3cf15e91544",
+      "modified": false,
+      "upstream_sha256": "91378b961ba9b43f86f85829df36efd59311725bfbf4e4281b30b3cf15e91544"
+    },
+    {
+      "path": "server/Dockerfile.player-tools",
+      "size": 1069,
+      "sha256": "1073df9338f029e47d368203ccab6a19bc4e8e0cebb49b84aec83ac670e938f9",
+      "modified": false,
+      "upstream_sha256": "1073df9338f029e47d368203ccab6a19bc4e8e0cebb49b84aec83ac670e938f9"
+    },
+    {
+      "path": "server/topology.clab.yml",
+      "size": 3966,
+      "sha256": "5e04fb51caf5b014fbea4c160f15544b75dd390d81d6a266285727263eeb3701",
+      "modified": false,
+      "upstream_sha256": "5e04fb51caf5b014fbea4c160f15544b75dd390d81d6a266285727263eeb3701"
+    },
+    {
+      "path": "server/configs/cryptocloud/daemons",
+      "size": 283,
+      "sha256": "32650bce04f88a2416e9d205fdde807c5b9112453b36a34f9c7cbf2361e5fabc",
+      "modified": false,
+      "upstream_sha256": "32650bce04f88a2416e9d205fdde807c5b9112453b36a34f9c7cbf2361e5fabc"
+    },
+    {
+      "path": "server/configs/cryptocloud/frr.conf",
+      "size": 577,
+      "sha256": "f3fef00c5afd714aec74f556a5978e50170434eea9ec00b9b05244702bb4f13c",
+      "modified": false,
+      "upstream_sha256": "f3fef00c5afd714aec74f556a5978e50170434eea9ec00b9b05244702bb4f13c"
+    },
+    {
+      "path": "server/configs/cryptocloud/vtysh.conf",
+      "size": 32,
+      "sha256": "dc8aa539965a4cebabbe1a75a53b48ae8471bafe77ce59af22d5352d28da4df6",
+      "modified": false,
+      "upstream_sha256": "dc8aa539965a4cebabbe1a75a53b48ae8471bafe77ce59af22d5352d28da4df6"
+    },
+    {
+      "path": "server/configs/globalnet/daemons",
+      "size": 291,
+      "sha256": "eae485d7a6f02897ccbdd4dfe7268d474f00e2f48042f79cee1bbf3823ca422f",
+      "modified": false,
+      "upstream_sha256": "eae485d7a6f02897ccbdd4dfe7268d474f00e2f48042f79cee1bbf3823ca422f"
+    },
+    {
+      "path": "server/configs/globalnet/frr.conf",
+      "size": 1064,
+      "sha256": "a12baa5fe11ca72324dcdf1c28dfde40930c2177195f81100d2306fcf16e5ad6",
+      "modified": false,
+      "upstream_sha256": "a12baa5fe11ca72324dcdf1c28dfde40930c2177195f81100d2306fcf16e5ad6"
+    },
+    {
+      "path": "server/configs/globalnet/vtysh.conf",
+      "size": 32,
+      "sha256": "dc8aa539965a4cebabbe1a75a53b48ae8471bafe77ce59af22d5352d28da4df6",
+      "modified": false,
+      "upstream_sha256": "dc8aa539965a4cebabbe1a75a53b48ae8471bafe77ce59af22d5352d28da4df6"
+    },
+    {
+      "path": "server/configs/ixp/daemons",
+      "size": 283,
+      "sha256": "32650bce04f88a2416e9d205fdde807c5b9112453b36a34f9c7cbf2361e5fabc",
+      "modified": false,
+      "upstream_sha256": "32650bce04f88a2416e9d205fdde807c5b9112453b36a34f9c7cbf2361e5fabc"
+    },
+    {
+      "path": "server/configs/ixp/frr.conf",
+      "size": 624,
+      "sha256": "0674be4903c58a3bf0b58f1582f8b03b80dfe49aee48eff3551ebb5ecbaa414f",
+      "modified": false,
+      "upstream_sha256": "0674be4903c58a3bf0b58f1582f8b03b80dfe49aee48eff3551ebb5ecbaa414f"
+    },
+    {
+      "path": "server/configs/ixp/vtysh.conf",
+      "size": 32,
+      "sha256": "dc8aa539965a4cebabbe1a75a53b48ae8471bafe77ce59af22d5352d28da4df6",
+      "modified": false,
+      "upstream_sha256": "dc8aa539965a4cebabbe1a75a53b48ae8471bafe77ce59af22d5352d28da4df6"
+    },
+    {
+      "path": "server/configs/player/daemons",
+      "size": 283,
+      "sha256": "32650bce04f88a2416e9d205fdde807c5b9112453b36a34f9c7cbf2361e5fabc",
+      "modified": false,
+      "upstream_sha256": "32650bce04f88a2416e9d205fdde807c5b9112453b36a34f9c7cbf2361e5fabc"
+    },
+    {
+      "path": "server/configs/player/frr.conf",
+      "size": 1261,
+      "sha256": "fae3bf2e3a998f245415ada562b641c31d97d9f03b463529b5ca105207dca311",
+      "modified": false,
+      "upstream_sha256": "fae3bf2e3a998f245415ada562b641c31d97d9f03b463529b5ca105207dca311"
+    },
+    {
+      "path": "server/configs/player/vtysh.conf",
+      "size": 32,
+      "sha256": "dc8aa539965a4cebabbe1a75a53b48ae8471bafe77ce59af22d5352d28da4df6",
+      "modified": false,
+      "upstream_sha256": "dc8aa539965a4cebabbe1a75a53b48ae8471bafe77ce59af22d5352d28da4df6"
+    },
+    {
+      "path": "server/configs/regionallink/daemons",
+      "size": 291,
+      "sha256": "eae485d7a6f02897ccbdd4dfe7268d474f00e2f48042f79cee1bbf3823ca422f",
+      "modified": false,
+      "upstream_sha256": "eae485d7a6f02897ccbdd4dfe7268d474f00e2f48042f79cee1bbf3823ca422f"
+    },
+    {
+      "path": "server/configs/regionallink/frr.conf",
+      "size": 1268,
+      "sha256": "a4e12b77c8ac69831bd37af313a8a54052fefe205de4af5bc1f2be983c717521",
+      "modified": false,
+      "upstream_sha256": "a4e12b77c8ac69831bd37af313a8a54052fefe205de4af5bc1f2be983c717521"
+    },
+    {
+      "path": "server/configs/regionallink/vtysh.conf",
+      "size": 32,
+      "sha256": "dc8aa539965a4cebabbe1a75a53b48ae8471bafe77ce59af22d5352d28da4df6",
+      "modified": false,
+      "upstream_sha256": "dc8aa539965a4cebabbe1a75a53b48ae8471bafe77ce59af22d5352d28da4df6"
+    },
+    {
+      "path": "server/configs/usernet/daemons",
+      "size": 283,
+      "sha256": "32650bce04f88a2416e9d205fdde807c5b9112453b36a34f9c7cbf2361e5fabc",
+      "modified": false,
+      "upstream_sha256": "32650bce04f88a2416e9d205fdde807c5b9112453b36a34f9c7cbf2361e5fabc"
+    },
+    {
+      "path": "server/configs/usernet/frr.conf",
+      "size": 538,
+      "sha256": "8f836807ec449a702da767050dc8d3ae4bc2406e31984f4b60d96d6694879ed0",
+      "modified": false,
+      "upstream_sha256": "8f836807ec449a702da767050dc8d3ae4bc2406e31984f4b60d96d6694879ed0"
+    },
+    {
+      "path": "server/configs/usernet/vtysh.conf",
+      "size": 32,
+      "sha256": "dc8aa539965a4cebabbe1a75a53b48ae8471bafe77ce59af22d5352d28da4df6",
+      "modified": false,
+      "upstream_sha256": "dc8aa539965a4cebabbe1a75a53b48ae8471bafe77ce59af22d5352d28da4df6"
+    },
+    {
+      "path": "server/services/dns-server/Corefile",
+      "size": 136,
+      "sha256": "d50be9a7cd2104a8b155c134626dde1dba683df1e90318750c1c560680b688d1",
+      "modified": false,
+      "upstream_sha256": "d50be9a7cd2104a8b155c134626dde1dba683df1e90318750c1c560680b688d1"
+    },
+    {
+      "path": "server/services/dns-server/Dockerfile",
+      "size": 293,
+      "sha256": "1a2dcc9d19c111eb7f9121969cf5f9b2aa358da7cad1cd500e3eb37881536c03",
+      "modified": false,
+      "upstream_sha256": "1a2dcc9d19c111eb7f9121969cf5f9b2aa358da7cad1cd500e3eb37881536c03"
+    },
+    {
+      "path": "server/services/dns-server/zones/cryptowallet.ctf.db",
+      "size": 332,
+      "sha256": "0ede83ff1a1a0ccc5fe742ef0583886ee5c3f6440751d71981fa51528bdd12ca",
+      "modified": false,
+      "upstream_sha256": "0ede83ff1a1a0ccc5fe742ef0583886ee5c3f6440751d71981fa51528bdd12ca"
+    },
+    {
+      "path": "server/services/rpki-validator/Dockerfile",
+      "size": 345,
+      "sha256": "35e0069024806cd5d7419934bd761b60ef87eb80d9d1a76f80b65d165e9c3399",
+      "modified": false,
+      "upstream_sha256": "35e0069024806cd5d7419934bd761b60ef87eb80d9d1a76f80b65d165e9c3399"
+    },
+    {
+      "path": "server/services/rpki-validator/roas.json",
+      "size": 701,
+      "sha256": "b86e5bfdcc022a0e5b9f66c6985143f421b5c4a026626e03fd28cc1be71b32f0",
+      "modified": false,
+      "upstream_sha256": "b86e5bfdcc022a0e5b9f66c6985143f421b5c4a026626e03fd28cc1be71b32f0"
+    },
+    {
+      "path": "server/services/victim-bot/bot.py",
+      "size": 2087,
+      "sha256": "084b518b98c0ae6dc73a8cc4f8717e0e8b3dd30a5d696386769bf2fe0841625a",
+      "modified": false,
+      "upstream_sha256": "084b518b98c0ae6dc73a8cc4f8717e0e8b3dd30a5d696386769bf2fe0841625a"
+    },
+    {
+      "path": "server/services/victim-bot/Dockerfile",
+      "size": 204,
+      "sha256": "1ba5aeaa947f460ca7ae6120b3866e210ea477c44b11d6c2f806499d4eda2d70",
+      "modified": false,
+      "upstream_sha256": "1ba5aeaa947f460ca7ae6120b3866e210ea477c44b11d6c2f806499d4eda2d70"
+    },
+    {
+      "path": "server/services/victim-bot/requirements.txt",
+      "size": 34,
+      "sha256": "eab5d4f956e8d93f2911d0e23a61f9c8ddc6573d89d46ba3ff104f63abcc8555",
+      "modified": false,
+      "upstream_sha256": "eab5d4f956e8d93f2911d0e23a61f9c8ddc6573d89d46ba3ff104f63abcc8555"
+    },
+    {
+      "path": "server/services/wallet-web/app.py",
+      "size": 7810,
+      "sha256": "e45015a9cff6aab2d6f4e40d6739288f7174ca261989e05fa75ef4d55e1e1342",
+      "modified": false,
+      "upstream_sha256": "e45015a9cff6aab2d6f4e40d6739288f7174ca261989e05fa75ef4d55e1e1342"
+    },
+    {
+      "path": "server/services/wallet-web/Dockerfile",
+      "size": 277,
+      "sha256": "0d60e12f4bc6784e1428487b5c7a3397f4dde7ae4a97943dd86b3b6946ce9049",
+      "modified": false,
+      "upstream_sha256": "0d60e12f4bc6784e1428487b5c7a3397f4dde7ae4a97943dd86b3b6946ce9049"
+    },
+    {
+      "path": "server/services/wallet-web/entrypoint.sh",
+      "size": 597,
+      "sha256": "54a11d02de21c363f3de2bb4148d1aa4971e3ada425f6bd97719b28fe8ee49b2",
+      "modified": false,
+      "upstream_sha256": "54a11d02de21c363f3de2bb4148d1aa4971e3ada425f6bd97719b28fe8ee49b2"
+    },
+    {
+      "path": "server/services/wallet-web/requirements.txt",
+      "size": 30,
+      "sha256": "e1cdd0d97a3db768c4bd797de27939b5ec25bdf2ac50063c66e124e9dbc5d26e",
+      "modified": false,
+      "upstream_sha256": "e1cdd0d97a3db768c4bd797de27939b5ec25bdf2ac50063c66e124e9dbc5d26e"
+    },
+    {
+      "path": "sources/static/info.txt",
+      "size": 720,
+      "sha256": "5b84b88a73eca092ac6e2f9ba56721f568ee0a0922d13da238db5216ee26d211",
+      "modified": false,
+      "upstream_sha256": "5b84b88a73eca092ac6e2f9ba56721f568ee0a0922d13da238db5216ee26d211"
+    },
+    {
+      "path": "sources/static/network-diagram.txt",
+      "size": 1612,
+      "sha256": "f4608f607b8144b00e09b1f63fd140b5a61f1341471bcc9c57fbaf42c8142d5f",
+      "modified": false,
+      "upstream_sha256": "f4608f607b8144b00e09b1f63fd140b5a61f1341471bcc9c57fbaf42c8142d5f"
+    },
+    {
+      "path": "vm/build-vm.sh",
+      "size": 872,
+      "sha256": "008a54b9baae12b546c718eaeff0e27691a1a065be80fd79525bdee57f9337fd",
+      "modified": false,
+      "upstream_sha256": "008a54b9baae12b546c718eaeff0e27691a1a065be80fd79525bdee57f9337fd"
+    },
+    {
+      "path": "vm/Dockerfile",
+      "size": 2707,
+      "sha256": "ee4e8e061cc1c21b6b7a907186f927afa505e48ad90e444583d29fee5afa0f9b",
+      "modified": false,
+      "upstream_sha256": "ee4e8e061cc1c21b6b7a907186f927afa505e48ad90e444583d29fee5afa0f9b"
+    },
+    {
+      "path": "vm/entrypoint.sh",
+      "size": 1542,
+      "sha256": "910a65b1f6675254d4de8264561633b051f93bc722cac794179128f9fbd3b140",
+      "modified": false,
+      "upstream_sha256": "910a65b1f6675254d4de8264561633b051f93bc722cac794179128f9fbd3b140"
+    },
+    {
+      "path": "vm/Makefile",
+      "size": 852,
+      "sha256": "407d5720938f468edb4decad08b490d8bd31775f3e21bcbcb2dd96d9b4bd9933",
+      "modified": false,
+      "upstream_sha256": "407d5720938f468edb4decad08b490d8bd31775f3e21bcbcb2dd96d9b4bd9933"
+    },
+    {
+      "path": "vm/scripts/init.sh",
+      "size": 1406,
+      "sha256": "eb04902b48b85ec97dd7aa62378111feec31064b10483df7b2550332ee6e81f4",
+      "modified": false,
+      "upstream_sha256": "eb04902b48b85ec97dd7aa62378111feec31064b10483df7b2550332ee6e81f4"
+    }
+  ],
+  "modified_files": [],
+  "removed_from_public_package": {
+    "writeup": true,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": []
 }

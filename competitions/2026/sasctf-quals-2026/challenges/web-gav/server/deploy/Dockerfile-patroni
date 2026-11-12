@@ -1,0 +1,31 @@
+FROM gcc:15.2.0 AS builder
+
+WORKDIR /app
+COPY patroni/readflag.c .
+RUN gcc -static -o readflag readflag.c
+
+FROM postgis/postgis:11-2.5-alpine
+RUN apk add --no-cache \
+	bash \
+	gcc \
+	libffi-dev \
+	musl-dev \
+	openssl-dev \
+	py3-pip \
+	py3-wheel \
+	python3 \
+	python3-dev
+
+COPY patroni/requirements.txt /requirements.txt
+RUN pip3 install --ignore-installed --no-cache-dir -r /requirements.txt
+
+RUN chmod 700 /var/lib/postgresql/data
+
+COPY patroni/patroni.yml /patroni.yml
+COPY patroni/entry.sh /entry.sh
+COPY patroni/init.sql /init.sql
+
+COPY --from=builder /app/readflag /
+RUN chmod 4111 /readflag
+
+ENTRYPOINT ["sh", "/entry.sh"]

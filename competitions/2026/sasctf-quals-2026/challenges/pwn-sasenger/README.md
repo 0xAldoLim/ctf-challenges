@@ -1,5 +1,8 @@
-# Sasenger
+## Title
+Sasenger
 
-Category `pwn`. Original author [@m4drat](https://github.com/m4drat).
+## Description
 
-Redistribution permission for the upstream challenge materials could not be verified. See the [competition index](../../README.md) and [manifest](manifest.json).
+I guess there's not a lot to talk about here. Just... get your flag somehow?
+
+N.B. The Android VM running the app is given no outbound network access - the only channel to or from it is the in-app messaging service.

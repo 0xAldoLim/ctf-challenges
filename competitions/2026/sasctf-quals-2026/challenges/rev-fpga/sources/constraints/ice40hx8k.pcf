@@ -1,0 +1,21 @@
+# iCE40 HX8K-CT256 Pin Constraints
+# Target board: iCE40 HX8K Evaluation Board
+
+set_io CLK J3
+
+set_io RST_N R9
+
+set_io PS2_CLK T1
+set_io PS2_DATA T2
+
+set_io LED[0] B5
+set_io LED[1] B4
+set_io LED[2] A2
+set_io LED[3] A1
+set_io LED[4] C5
+set_io LED[5] C4
+set_io LED[6] B3
+set_io LED[7] C3
+
+set_io LED_STROBE D5
+set_io DECOY_OUT E5

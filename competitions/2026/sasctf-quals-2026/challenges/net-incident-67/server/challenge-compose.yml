@@ -1,0 +1,356 @@
+x-frr-router: &frr-router
+  image: net-incident-67/frr-router:latest
+  build:
+    context: .
+    dockerfile: Dockerfile.frr
+  cap_drop:
+    - ALL
+  cap_add:
+    - NET_ADMIN
+    - NET_RAW
+    - NET_BIND_SERVICE
+    - SETUID
+    - SETGID
+    - CHOWN
+    - DAC_OVERRIDE
+    - FOWNER
+    - KILL
+    - SYS_CHROOT
+    - SYS_ADMIN
+  security_opt:
+    - no-new-privileges:true
+  sysctls:
+    - net.ipv4.ip_forward=1
+    - net.ipv4.conf.all.rp_filter=0
+    - net.ipv4.conf.default.rp_filter=0
+  tmpfs:
+    - /var/run/frr:uid=100,gid=101
+    - /var/tmp/frr:uid=100,gid=101
+    - /tmp
+    - /var/log
+  restart: unless-stopped
+
+services:
+  cryptocloud:
+    <<: *frr-router
+    container_name: cryptocloud
+    hostname: cryptocloud
+    volumes:
+      - ./configs/cryptocloud:/etc/frr
+    networks:
+      net-cc-gn:
+        ipv4_address: 10.100.12.1
+      net-cc-rl:
+        ipv4_address: 10.100.13.1
+      net-dns:
+        ipv4_address: 10.0.1.1
+      net-wallet:
+        ipv4_address: 10.0.2.1
+
+  globalnet:
+    <<: *frr-router
+    container_name: globalnet
+    hostname: globalnet
+    volumes:
+      - ./configs/globalnet:/etc/frr
+    depends_on:
+      - rpki-validator
+    networks:
+      net-cc-gn:
+        ipv4_address: 10.100.12.2
+      net-gn-rl:
+        ipv4_address: 10.100.23.1
+      net-gn-ixp:
+        ipv4_address: 10.100.24.1
+      net-rpki:
+        ipv4_address: 10.0.7.2
+
+  regionallink:
+    <<: *frr-router
+    container_name: regionallink
+    hostname: regionallink
+    volumes:
+      - ./configs/regionallink:/etc/frr
+    depends_on:
+      - rpki-validator
+    networks:
+      net-cc-rl:
+        ipv4_address: 10.100.13.2
+      net-gn-rl:
+        ipv4_address: 10.100.23.2
+      net-rl-player:
+        ipv4_address: 10.100.35.1
+      net-rl-usernet:
+        ipv4_address: 10.100.36.1
+      net-rpki:
+        ipv4_address: 10.0.7.3
+
+  ixp:
+    <<: *frr-router
+    container_name: ixp
+    hostname: ixp
+    volumes:
+      - ./configs/ixp:/etc/frr
+    networks:
+      net-gn-ixp:
+        ipv4_address: 10.100.24.2
+      net-ixp-player:
+        ipv4_address: 10.100.45.1
+      net-usernet-ixp:
+        ipv4_address: 10.100.46.2
+
+  player:
+    <<: *frr-router
+    container_name: player
+    hostname: player
+    volumes:
+      - ./configs/player:/etc/frr:ro
+    ports:
+      - "2222:22"
+    pids_limit: 256
+    mem_limit: 512m
+    cpus: 1.0
+    tmpfs:
+      - /tmp
+      - /run
+      - /var/run/frr
+      - /var/tmp/frr
+      - /var/log
+    networks:
+      net-external: {}
+      net-rl-player:
+        ipv4_address: 10.100.35.2
+      net-ixp-player:
+        ipv4_address: 10.100.45.2
+      net-player-svc:
+        ipv4_address: 10.0.5.1
+
+  usernet:
+    <<: *frr-router
+    container_name: usernet
+    hostname: usernet
+    volumes:
+      - ./configs/usernet:/etc/frr
+    networks:
+      net-rl-usernet:
+        ipv4_address: 10.100.36.2
+      net-usernet-ixp:
+        ipv4_address: 10.100.46.1
+      net-usernet-svc:
+        ipv4_address: 10.0.6.1
+
+  rpki-validator:
+    image: net-incident-67/rpki-validator:latest
+    build:
+      context: ./services/rpki-validator
+    container_name: rpki-validator
+    hostname: rpki-validator
+    restart: unless-stopped
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      net-rpki:
+        ipv4_address: 10.0.7.1
+
+  dns-server:
+    image: net-incident-67/dns-server:latest
+    build:
+      context: ./services/dns-server
+    container_name: dns-server
+    hostname: dns-server
+    restart: unless-stopped
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+      - NET_BIND_SERVICE
+    security_opt:
+      - no-new-privileges:true
+    entrypoint: ["/bin/sh", "-c", "ip route replace default via 10.0.1.1 && exec /coredns -conf /etc/coredns/Corefile"]
+    networks:
+      net-dns:
+        ipv4_address: 10.0.1.53
+    depends_on:
+      - cryptocloud
+
+  wallet-web:
+    image: net-incident-67/wallet-web:latest
+    build:
+      context: ./services/wallet-web
+    container_name: wallet-web
+    hostname: wallet-web
+    restart: unless-stopped
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+      - NET_BIND_SERVICE
+      - CHOWN
+      - DAC_OVERRIDE
+    security_opt:
+      - no-new-privileges:true
+    entrypoint: ["/bin/sh", "-c", "ip route replace default via 10.0.2.1 && exec /entrypoint.sh"]
+    networks:
+      net-wallet:
+        ipv4_address: 10.0.2.80
+    depends_on:
+      - cryptocloud
+
+  victim-bot:
+    image: net-incident-67/victim-bot:latest
+    build:
+      context: ./services/victim-bot
+    container_name: victim-bot
+    hostname: victim-bot
+    restart: unless-stopped
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      FLAG: "${FLAG:?FLAG is required}"
+    entrypoint: ["/bin/sh", "-c", "ip route replace default via 10.0.6.1 && exec python -u bot.py"]
+    networks:
+      net-usernet-svc:
+        ipv4_address: 10.0.6.100
+    depends_on:
+      - usernet
+      - dns-server
+      - wallet-web
+
+  player-tools:
+    image: net-incident-67/player-tools:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.player-tools
+    container_name: player-tools
+    hostname: player-tools
+    restart: unless-stopped
+    ports:
+      - "2223:22"
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - NET_BIND_SERVICE
+      - SETUID
+      - SETGID
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - KILL
+      - SYS_CHROOT
+      - SYS_ADMIN
+    pids_limit: 256
+    mem_limit: 512m
+    cpus: 1.0
+    tmpfs:
+      - /tmp
+      - /run
+    entrypoint: ["/bin/sh", "-c", "EXT_GW=$$(ip route show default | awk '{print $$3; exit}'); [ -n \"$$EXT_GW\" ] && ip route replace 172.16.0.0/12 via \"$$EXT_GW\"; ip route replace default via 10.0.5.1 && exec /start.sh"]
+    networks:
+      net-external: {}
+      net-player-svc:
+        ipv4_address: 10.0.5.100
+    depends_on:
+      - player
+
+networks:
+  net-cc-gn:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.100.12.0/24
+          gateway: 10.100.12.254
+
+  net-cc-rl:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.100.13.0/24
+          gateway: 10.100.13.254
+
+  net-gn-rl:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.100.23.0/24
+          gateway: 10.100.23.254
+
+  net-gn-ixp:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.100.24.0/24
+          gateway: 10.100.24.254
+
+  net-rl-player:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.100.35.0/24
+          gateway: 10.100.35.254
+
+  net-ixp-player:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.100.45.0/24
+          gateway: 10.100.45.254
+
+  net-rl-usernet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.100.36.0/24
+          gateway: 10.100.36.254
+
+  net-usernet-ixp:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.100.46.0/24
+          gateway: 10.100.46.254
+
+  net-dns:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.1.0/24
+          gateway: 10.0.1.254
+
+  net-wallet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.2.0/24
+          gateway: 10.0.2.254
+
+  net-player-svc:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.5.0/24
+          gateway: 10.0.5.254
+
+  net-usernet-svc:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.6.0/24
+          gateway: 10.0.6.254
+
+  net-rpki:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.7.0/24
+          gateway: 10.0.7.254
+
+  net-external:
+    driver: bridge

@@ -1,0 +1,23 @@
+services:
+  gatekeeper:
+    build: .
+    image: gatekeeper-service
+    ports:
+      - "2048:2048"
+    environment:
+      - MAX_CONCURRENT=3
+      - VERIFY_MEM_MB=4608
+      - VERIFY_TIMEOUT_S=35
+      - QEMU_TIMEOUT_S=12
+      - POW_DIFFICULTY=24
+      - FLAG=SAS{placeholder}
+      - ARCHIVE_DIR=/data/programs
+    mem_limit: 16g
+    cpus: 4.0
+    pids_limit: 4096
+    restart: unless-stopped
+    volumes:
+      - gatekeeper-programs:/data/programs
+
+volumes:
+  gatekeeper-programs:

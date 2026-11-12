@@ -15,11 +15,25 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/rev-venom",
-  "player_files": [],
+  "preparation_status": "ready",
+  "player_files": [
+    {
+      "path": "static/static.zip",
+      "size": 22520817,
+      "sha256": "d1a14ca7dc3044a97210c9d336237029b834bc64265633d1f127c3ca30bea28f",
+      "modified": false,
+      "upstream_sha256": "d1a14ca7dc3044a97210c9d336237029b834bc64265633d1f127c3ca30bea28f"
+    }
+  ],
   "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "modified_files": [],
+  "removed_from_public_package": {
+    "writeup": true,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": []
 }

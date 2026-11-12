@@ -15,11 +15,55 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/misc-tgs",
+  "preparation_status": "source_only",
   "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "operator_files": [
+    {
+      "path": "sources/11.tgs",
+      "size": 62503,
+      "sha256": "5381588c2b48b2ec413f4be50b6a1a393bfbe45d140252ff19908f67fbbe6bc3",
+      "modified": false,
+      "upstream_sha256": "5381588c2b48b2ec413f4be50b6a1a393bfbe45d140252ff19908f67fbbe6bc3"
+    },
+    {
+      "path": "sources/requirements.txt",
+      "size": 38,
+      "sha256": "53a49e1c800fa5f85d7155c50fc0e3f1d58b3faa36310b118b7d0a66559b0286",
+      "modified": false,
+      "upstream_sha256": "53a49e1c800fa5f85d7155c50fc0e3f1d58b3faa36310b118b7d0a66559b0286"
+    },
+    {
+      "path": "sources/tools/embed_flag.py",
+      "size": 15841,
+      "sha256": "72ad1b163b8fcbeb239440c89f3235e0b77a928433017d3392012ad16aed776d",
+      "modified": true,
+      "modification": "reference flag replaced with placeholder"
+    },
+    {
+      "path": "sources/tools/font_to_shattered_path.py",
+      "size": 17210,
+      "sha256": "7d74833e9a37e910a562a807fdc1ee80b6121ddfc0fe29ad2cc0a548d13bd5d2",
+      "modified": false,
+      "upstream_sha256": "7d74833e9a37e910a562a807fdc1ee80b6121ddfc0fe29ad2cc0a548d13bd5d2"
+    },
+    {
+      "path": "sources/tools/preview.html",
+      "size": 26975,
+      "sha256": "adb6b0b3a6f2086b79d2b2b7df13e75e6f7056f6332b5aeaec26b3d8be7c76ed",
+      "modified": false,
+      "upstream_sha256": "adb6b0b3a6f2086b79d2b2b7df13e75e6f7056f6332b5aeaec26b3d8be7c76ed"
+    }
+  ],
+  "modified_files": [
+    "sources/tools/embed_flag.py"
+  ],
+  "removed_from_public_package": {
+    "writeup": false,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": []
 }

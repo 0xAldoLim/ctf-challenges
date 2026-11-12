@@ -15,11 +15,25 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/welcome-sanity-files",
-  "player_files": [],
+  "preparation_status": "ready",
+  "player_files": [
+    {
+      "path": "static/SAS487212900.pdf",
+      "size": 193748,
+      "sha256": "8560cbf6dd3a076b51f3dcf750ddb0477aa74aefba622956f3deab267771ee43",
+      "modified": false,
+      "upstream_sha256": "8560cbf6dd3a076b51f3dcf750ddb0477aa74aefba622956f3deab267771ee43"
+    }
+  ],
   "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "modified_files": [],
+  "removed_from_public_package": {
+    "writeup": false,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": []
 }

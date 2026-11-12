@@ -1,0 +1,33 @@
+services:
+    chall:
+        build: ./chall
+        restart: unless-stopped
+        ports:
+            - "8080:80"
+        volumes:
+            - ./chall/www:/var/www/html:ro
+        deploy:
+            resources:
+                limits:
+                    cpus: '8'
+                    memory: 8G
+                reservations:
+                    cpus: '4'
+                    memory: 4G
+
+    bot:
+        build: ./bot
+        restart: unless-stopped
+        ports:
+            - "1337:1337"
+        environment:
+            - DOMAIN=http://chall/
+            - FLAG=SAS{placeholder}
+        deploy:
+            resources:
+                limits:
+                    cpus: '20'
+                    memory: 20G
+                reservations:
+                    cpus: '16'
+                    memory: 16G

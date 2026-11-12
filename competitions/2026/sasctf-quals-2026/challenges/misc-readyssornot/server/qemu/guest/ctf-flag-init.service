@@ -1,0 +1,11 @@
+[Unit]
+Description=Fetch per-instance CTF flag
+After=local-fs.target systemd-modules-load.service
+Before=valkey-server.service ssh.service cron.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/ctf-flag-init
+
+[Install]
+WantedBy=multi-user.target

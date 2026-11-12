@@ -16,11 +16,144 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/misc-readyssornot",
+  "preparation_status": "source_only",
   "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "operator_files": [
+    {
+      "path": "server/Dockerfile",
+      "size": 3378,
+      "sha256": "2199ac65ea0864b1ecec6be2d534e09cc0b64072406862107481c6850abadfd5",
+      "modified": false,
+      "upstream_sha256": "2199ac65ea0864b1ecec6be2d534e09cc0b64072406862107481c6850abadfd5"
+    },
+    {
+      "path": "server/start.sh",
+      "size": 1298,
+      "sha256": "24672082723fee0fa11e98ffd9b6bd3d54fabc1f34fb96855a7f237e89018ec7",
+      "modified": false,
+      "upstream_sha256": "24672082723fee0fa11e98ffd9b6bd3d54fabc1f34fb96855a7f237e89018ec7"
+    },
+    {
+      "path": "server/config/cron/cores-cleanup.sh",
+      "size": 304,
+      "sha256": "716f817d6803d22c4e5937a89b6673b6ab944477dd3b630ea346cadb9f291e56",
+      "modified": false,
+      "upstream_sha256": "716f817d6803d22c4e5937a89b6673b6ab944477dd3b630ea346cadb9f291e56"
+    },
+    {
+      "path": "server/config/ssh/valkey.conf",
+      "size": 88,
+      "sha256": "bc00af5157c841bcda2a62a47da6c9bc96162653a580de7ed4017217f8c0dddf",
+      "modified": false,
+      "upstream_sha256": "bc00af5157c841bcda2a62a47da6c9bc96162653a580de7ed4017217f8c0dddf"
+    },
+    {
+      "path": "server/config/systemd/valkey-server.service",
+      "size": 1356,
+      "sha256": "0c195d9557ab5081fbaf7b60e53c0e3944d460b0dc9ef4b64be67e7b69fd8e3e",
+      "modified": false,
+      "upstream_sha256": "0c195d9557ab5081fbaf7b60e53c0e3944d460b0dc9ef4b64be67e7b69fd8e3e"
+    },
+    {
+      "path": "server/config/valkey/valkey.conf",
+      "size": 293,
+      "sha256": "42bb5de8298f453457db9d10d7201e5e3e2db1c279c8021ae72b9e1f1befcdd4",
+      "modified": false,
+      "upstream_sha256": "42bb5de8298f453457db9d10d7201e5e3e2db1c279c8021ae72b9e1f1befcdd4"
+    },
+    {
+      "path": "server/qemu/build-qemu.sh",
+      "size": 2201,
+      "sha256": "606033f9b8bc4959b97f482aa7a74c2ee252e95817745b9c95bf9409ffca4e97",
+      "modified": false,
+      "upstream_sha256": "606033f9b8bc4959b97f482aa7a74c2ee252e95817745b9c95bf9409ffca4e97"
+    },
+    {
+      "path": "server/qemu/Dockerfile",
+      "size": 565,
+      "sha256": "7aebd5470baf5e75449668b8bb8e922e186867509d28698be15cedc22992eec7",
+      "modified": false,
+      "upstream_sha256": "7aebd5470baf5e75449668b8bb8e922e186867509d28698be15cedc22992eec7"
+    },
+    {
+      "path": "server/qemu/rootfs.Dockerfile",
+      "size": 4040,
+      "sha256": "ea5860dcf07b1af5caafedb290d01de3243721f084e0fcec607394fd2b5ae76f",
+      "modified": false,
+      "upstream_sha256": "ea5860dcf07b1af5caafedb290d01de3243721f084e0fcec607394fd2b5ae76f"
+    },
+    {
+      "path": "server/qemu/run-qemu.sh",
+      "size": 892,
+      "sha256": "51ac02be4755e08174031c7a0f0974e9553af8a878fac9ca21d97e58fd4d167d",
+      "modified": false,
+      "upstream_sha256": "51ac02be4755e08174031c7a0f0974e9553af8a878fac9ca21d97e58fd4d167d"
+    },
+    {
+      "path": "server/qemu/guest/10-eth0.network",
+      "size": 56,
+      "sha256": "0413e057e12ca8770e9fdad9f7e625ee1b2597cca88e172f683a854cbe0d4a49",
+      "modified": false,
+      "upstream_sha256": "0413e057e12ca8770e9fdad9f7e625ee1b2597cca88e172f683a854cbe0d4a49"
+    },
+    {
+      "path": "server/qemu/guest/ctf-flag-init.service",
+      "size": 254,
+      "sha256": "82e46727e27290428b0894a9ac2a508850d2d11bc5a33862eebacc72c592ddc3",
+      "modified": false,
+      "upstream_sha256": "82e46727e27290428b0894a9ac2a508850d2d11bc5a33862eebacc72c592ddc3"
+    },
+    {
+      "path": "server/qemu/guest/ctf-flag-init.sh",
+      "size": 1550,
+      "sha256": "44506016eb85b30e0d301eabad35155f174b705de0a88fb14f57c2d9ea55a5bb",
+      "modified": false,
+      "upstream_sha256": "44506016eb85b30e0d301eabad35155f174b705de0a88fb14f57c2d9ea55a5bb"
+    },
+    {
+      "path": "server/scripts/build.sh",
+      "size": 453,
+      "sha256": "983885b6884b5dd301611a362da0141bf29683ddb8a3f2fe86a4c740d6cc85c3",
+      "modified": false,
+      "upstream_sha256": "983885b6884b5dd301611a362da0141bf29683ddb8a3f2fe86a4c740d6cc85c3"
+    },
+    {
+      "path": "server/scripts/deploy.sh",
+      "size": 882,
+      "sha256": "0bc8e0459e10b11c09438c340e79efe144a6f8ba458310f4c37eba9b7a1c0ddf",
+      "modified": false,
+      "upstream_sha256": "0bc8e0459e10b11c09438c340e79efe144a6f8ba458310f4c37eba9b7a1c0ddf"
+    },
+    {
+      "path": "server/scripts/up.sh",
+      "size": 79,
+      "sha256": "09db045710d9b17762d6eeaff87bef7ead5b75bf80c3a670fbbfd4b64f8b282a",
+      "modified": false,
+      "upstream_sha256": "09db045710d9b17762d6eeaff87bef7ead5b75bf80c3a670fbbfd4b64f8b282a"
+    },
+    {
+      "path": "server/src/agent/agent.c",
+      "size": 10567,
+      "sha256": "2537e6727a9ae868559b17ac6f7f8e5a21225778b0192fc5f0eb3b62d9be696d",
+      "modified": false,
+      "upstream_sha256": "2537e6727a9ae868559b17ac6f7f8e5a21225778b0192fc5f0eb3b62d9be696d"
+    },
+    {
+      "path": "server/src/agent/Makefile",
+      "size": 424,
+      "sha256": "d90afe173648f73221a1c6e97b340b69ba836082a682b79aeb99b20fc378344e",
+      "modified": false,
+      "upstream_sha256": "d90afe173648f73221a1c6e97b340b69ba836082a682b79aeb99b20fc378344e"
+    }
+  ],
+  "modified_files": [],
+  "removed_from_public_package": {
+    "writeup": true,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": []
 }

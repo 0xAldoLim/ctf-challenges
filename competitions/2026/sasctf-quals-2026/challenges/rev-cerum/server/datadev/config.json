@@ -1,0 +1,14 @@
+{
+  "bind_host": "0.0.0.0",
+  "bind_port": 13317,
+  "backlog": 32,
+  "stdout_log_level": "DEBUG",
+  "log_file_path": "logs/access.log",
+  "shared_secret": "91161bd62ea99086dcc2a6356cce3eb7370bcca016711f9340ad7bf2d0530f5381c3c89e99a81b47435f8a811ffae89a2966842f4642c8e9da82888a09195d51",
+  "snapshot_path": "datadev/snapshot.json.gz",
+  "tls_cert_path": "datadev/server.crt",
+  "tls_key_path": "datadev/server.key",
+  "lic_sign_key": "datadev/lic.key",
+  "client_ca_path": "datadev/ca.crt",
+  "license": "cerum"
+}

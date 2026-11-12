@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package proto.billing;
+option go_package = "nslp-cli/package/proto/billing";
+
+service BillingService {
+  rpc Get (GetRequest) returns (GetResponse);
+  rpc List (Empty) returns (ListResponse);
+  rpc Create (Empty) returns (CreateResponse);
+  rpc Grant (GrantRequest) returns (GrantResponse);
+}
+
+message Empty {}
+
+message GetRequest {
+  string billing_id = 1;
+}
+
+message GetResponse {
+  string billing_id = 1;
+  int64 balance = 2;
+  bool granted = 3;
+}
+
+message ListResponse {
+  repeated string billing_ids = 1;
+}
+
+message CreateResponse {
+  string billing_id = 1;
+}
+
+message GrantRequest {
+  string billing_id = 1;
+}
+
+message GrantResponse {
+  string message = 1;
+  int64 amount = 2;
+}

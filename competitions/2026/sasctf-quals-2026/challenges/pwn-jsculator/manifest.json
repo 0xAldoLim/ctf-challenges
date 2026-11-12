@@ -16,11 +16,63 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/pwn-jsculator",
-  "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "preparation_status": "ready",
+  "player_files": [
+    {
+      "path": "static/jsculator.tar.gz",
+      "size": 2770,
+      "sha256": "957bfc1c46264be655ee63c034cdd6c9f69ac993b6bea50f2bc2711606b3673e",
+      "modified": false,
+      "upstream_sha256": "957bfc1c46264be655ee63c034cdd6c9f69ac993b6bea50f2bc2711606b3673e"
+    }
+  ],
+  "operator_files": [
+    {
+      "path": "server/docker-compose.yml",
+      "size": 235,
+      "sha256": "69b4353bbe7045210ec7ab80fff6bb8b610a3ef635416203bb198e611606dc8d",
+      "modified": false,
+      "upstream_sha256": "69b4353bbe7045210ec7ab80fff6bb8b610a3ef635416203bb198e611606dc8d"
+    },
+    {
+      "path": "server/Dockerfile",
+      "size": 769,
+      "sha256": "f6e6d8107d40ac2833f168117ccfcf24305fd2338a1b90f7930e38a59f6cf249",
+      "modified": false,
+      "upstream_sha256": "f6e6d8107d40ac2833f168117ccfcf24305fd2338a1b90f7930e38a59f6cf249"
+    },
+    {
+      "path": "server/flag.txt",
+      "size": 17,
+      "sha256": "d26641d6355f50904583601f0a1b9f0ade7818176d27e5610f09edc29984b339",
+      "modified": true,
+      "modification": "reference flag replaced with placeholder"
+    },
+    {
+      "path": "server/jsculator.js",
+      "size": 7346,
+      "sha256": "111b07c7d4d8665f5e2d451057ac0354f934c42e5d438cbd68e302a9758c66fd",
+      "modified": false,
+      "upstream_sha256": "111b07c7d4d8665f5e2d451057ac0354f934c42e5d438cbd68e302a9758c66fd"
+    },
+    {
+      "path": "server/run.sh",
+      "size": 61,
+      "sha256": "6a3706146f73d93860e32f3da1eff15ad68ef8084ed9a5ca958b06e505eb7004",
+      "modified": false,
+      "upstream_sha256": "6a3706146f73d93860e32f3da1eff15ad68ef8084ed9a5ca958b06e505eb7004"
+    }
+  ],
+  "modified_files": [
+    "server/flag.txt"
+  ],
+  "removed_from_public_package": {
+    "writeup": true,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": []
 }

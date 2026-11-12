@@ -1,0 +1,2 @@
+pycryptodome==3.21.0
+numba==0.61.2

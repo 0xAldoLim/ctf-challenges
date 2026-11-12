@@ -1,0 +1,22 @@
+package.access=jdk.,\
+               sun.,\
+               java.lang.reflect.,\
+               java.lang.foreign.,\
+               java.lang.invoke.,\
+               java.lang.instrument.,\
+               java.lang.ProcessBuilder,\
+               java.lang.Runtime,\
+               java.rmi.,\
+               javax.naming.,\
+               com.sun.,\
+               javax.script.,\
+               org.graalvm.
+
+package.definition=java.,\
+                   javax.,\
+                   sun.,\
+                   jdk.,\
+                   com.sun.,\
+                   org.jnius.,\
+                   jnius.,\
+                   requester.

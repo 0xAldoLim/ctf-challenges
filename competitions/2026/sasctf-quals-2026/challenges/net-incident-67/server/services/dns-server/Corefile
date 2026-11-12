@@ -1,0 +1,11 @@
+cryptowallet.ctf {
+    file /etc/coredns/zones/cryptowallet.ctf.db
+    log
+    errors
+}
+
+. {
+    forward . 8.8.8.8
+    log
+    errors
+}

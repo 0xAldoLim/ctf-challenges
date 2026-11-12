@@ -1,0 +1,16 @@
+$ORIGIN cryptowallet.ctf.
+$TTL 60
+
+@   IN  SOA ns1.cryptowallet.ctf. admin.cryptowallet.ctf. (
+        2026060201  ; serial
+        3600        ; refresh
+        600         ; retry
+        86400       ; expire
+        60          ; minimum TTL
+    )
+
+    IN  NS  ns1.cryptowallet.ctf.
+
+    IN  A   10.0.2.80
+
+ns1 IN  A   10.0.1.53

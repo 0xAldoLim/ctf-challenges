@@ -1,12 +1,33 @@
-# CTF archive import rules
+# AGENTS.md
 
-Follow [the import policy](docs/IMPORT_POLICY.md) for every import.
+Conventions for this repository.
 
-- Identify the original competition, its organizer, the challenge authors, and a pinned source revision.
-- Verify redistribution permission before adding upstream challenge materials. Record a provenance-only entry when permission is unclear.
-- Preserve existing competitions, avoid duplicate imports, and use stable paths and task IDs. Preserve provenance and make each import independently auditable.
-- For every import, update the root README with the competition name, source repository, organizing team, challenge list, and each challenge's original authors. Update the competition README with the same provenance.
-- Preserve authorized player attachments and original names. Track player-visible and operator-only files separately. Record missing files, dependencies, and challenges requiring preparation.
-- Exclude all standalone solutions, flags, writeups, solver scripts, and answer keys from repository history. Keep private archives outside this repository and benchmark workspaces.
-- Transfer files without upstream Git history. Never execute challenge materials or solve, exploit, reverse-engineer, or analyze vulnerabilities during ingestion.
-- Review the staged tree and resulting commit before publishing. Resolve validator errors and document the disposition of manual review findings.
+## Layout
+
+```
+README.md                      root index: competitions, challenges, credits
+AGENTS.md
+competitions/<year>/<competition>/
+    README.md                  competition description, credits, challenge index
+    challenges/<original-dir>/
+        README.md              original title and description only
+        manifest.json          source, authors, status, file list with size and SHA-256
+        static/                participant-facing files
+        server/, vm/, sources/ operator and source material, kept separate
+```
+
+- Keep the upstream directory names and file names.
+- Do not create empty directories.
+- Add a new competition under its year, update its README, then update the root README.
+
+## Import rules
+
+- Import from a pinned upstream commit, without upstream Git history.
+- Record the competition name, organizer, challenge authors, source URL, and commit in each manifest.
+- Keep the original title and description. Remove writeups, solution sections, solver and exploit scripts, and explicit answer keys.
+- Keep server and challenge logic functional. Replace reference flags in server configuration with `SAS{placeholder}`.
+- Keep removed material in a private folder outside this repository. Never commit it.
+- Do not execute challenge materials.
+- List any artifact that could not be retrieved in the manifest's `missing_or_external_dependencies`. Never substitute a metadata-only placeholder for a real file.
+- Status values: `ready` (participant files present), `incomplete` (a required file is missing or external), `source_only` (no participant attachment upstream).
+- Verify the import: file counts, sizes, SHA-256 of unchanged files, and that binary files are not empty.

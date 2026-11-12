@@ -15,11 +15,803 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/web-naas",
-  "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "preparation_status": "ready",
+  "player_files": [
+    {
+      "path": "static/naas.tgz",
+      "size": 9135351,
+      "sha256": "08d4753d8853cf99723365efb40e63622d1fed08ddd295cf8e01a809a469fbcd",
+      "modified": false,
+      "upstream_sha256": "08d4753d8853cf99723365efb40e63622d1fed08ddd295cf8e01a809a469fbcd"
+    }
+  ],
+  "operator_files": [
+    {
+      "path": "server/docker-compose.yaml",
+      "size": 2254,
+      "sha256": "0001fab7a7f93dc2eec0864bf48347c81f696340683c940f7045bd3fd5aaab1f",
+      "modified": false,
+      "upstream_sha256": "0001fab7a7f93dc2eec0864bf48347c81f696340683c940f7045bd3fd5aaab1f"
+    },
+    {
+      "path": "server/Dockerfile",
+      "size": 875,
+      "sha256": "62455421a41632be439d754e603a2854c01ef35949c1c632b723a6135f18fb2f",
+      "modified": false,
+      "upstream_sha256": "62455421a41632be439d754e603a2854c01ef35949c1c632b723a6135f18fb2f"
+    },
+    {
+      "path": "server/entry.sh",
+      "size": 619,
+      "sha256": "097b9666a10641df44c4126b30cef69b65911129c21acd675bf966c434070840",
+      "modified": false,
+      "upstream_sha256": "097b9666a10641df44c4126b30cef69b65911129c21acd675bf966c434070840"
+    },
+    {
+      "path": "server/pyproject.toml",
+      "size": 627,
+      "sha256": "840d5a22510d21ef1e485d8393ba4af0d56e375a5637431902f0ddc18fa4aeb1",
+      "modified": false,
+      "upstream_sha256": "840d5a22510d21ef1e485d8393ba4af0d56e375a5637431902f0ddc18fa4aeb1"
+    },
+    {
+      "path": "server/readflag.c",
+      "size": 512,
+      "sha256": "8e1964285f90e045c41f718b975ad973a6882c80292de2f9e3ee24217858ac07",
+      "modified": false,
+      "upstream_sha256": "8e1964285f90e045c41f718b975ad973a6882c80292de2f9e3ee24217858ac07"
+    },
+    {
+      "path": "server/src/main.py",
+      "size": 912,
+      "sha256": "84f2e29f0e315dc84bf3ed0ea0e2ebc45a3411dcc35a64c273599f28c647eb87",
+      "modified": false,
+      "upstream_sha256": "84f2e29f0e315dc84bf3ed0ea0e2ebc45a3411dcc35a64c273599f28c647eb87"
+    },
+    {
+      "path": "server/src/app/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false,
+      "upstream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "server/src/app/archive_import/bundle.py",
+      "size": 8372,
+      "sha256": "cb16ecfc714763a40d319fb779e1097eb5971f52c68ad551e35999e46b76be1b",
+      "modified": false,
+      "upstream_sha256": "cb16ecfc714763a40d319fb779e1097eb5971f52c68ad551e35999e46b76be1b"
+    },
+    {
+      "path": "server/src/app/archive_import/materialize.py",
+      "size": 273,
+      "sha256": "efb44c515cfb310afe4ccf5c627a2d025555df85b31fe181690edc795707928e",
+      "modified": false,
+      "upstream_sha256": "efb44c515cfb310afe4ccf5c627a2d025555df85b31fe181690edc795707928e"
+    },
+    {
+      "path": "server/src/app/archive_import/transactions.py",
+      "size": 3677,
+      "sha256": "defd1dbb3403bbfb95c135a3aa4ba3a4ce4f93e7f16f1e94fa4f90e308e243e2",
+      "modified": false,
+      "upstream_sha256": "defd1dbb3403bbfb95c135a3aa4ba3a4ce4f93e7f16f1e94fa4f90e308e243e2"
+    },
+    {
+      "path": "server/src/app/archive_import/validators.py",
+      "size": 1724,
+      "sha256": "888aef4f1cd8361b2874d92933d4af14c2958706c9525e7cb7c39e5e054a3ee6",
+      "modified": false,
+      "upstream_sha256": "888aef4f1cd8361b2874d92933d4af14c2958706c9525e7cb7c39e5e054a3ee6"
+    },
+    {
+      "path": "server/src/app/archive_import/__init__.py",
+      "size": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "modified": false,
+      "upstream_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "server/src/app/archive_policy/index.py",
+      "size": 1853,
+      "sha256": "e331657b71b9bcb8e69b334a16b97411895692194a7949ef612b655ef3ed7ea5",
+      "modified": false,
+      "upstream_sha256": "e331657b71b9bcb8e69b334a16b97411895692194a7949ef612b655ef3ed7ea5"
+    },
+    {
+      "path": "server/src/app/archive_policy/__init__.py",
+      "size": 124,
+      "sha256": "58f447b275e8a5128273f6a6a752b4799d2f63d604085eecdc475935c0810a35",
+      "modified": false,
+      "upstream_sha256": "58f447b275e8a5128273f6a6a752b4799d2f63d604085eecdc475935c0810a35"
+    },
+    {
+      "path": "server/src/app/background/jobs.py",
+      "size": 3866,
+      "sha256": "c74f702e8bd0af1d5a601cd73c23e284bcdc9b7eee2bae79923554c32cfcc065",
+      "modified": false,
+      "upstream_sha256": "c74f702e8bd0af1d5a601cd73c23e284bcdc9b7eee2bae79923554c32cfcc065"
+    },
+    {
+      "path": "server/src/app/background/queue.py",
+      "size": 1521,
+      "sha256": "2a00a3152a185e35347b60058c583b353521d4fe70190e2fddcc0c74ea45fd35",
+      "modified": false,
+      "upstream_sha256": "2a00a3152a185e35347b60058c583b353521d4fe70190e2fddcc0c74ea45fd35"
+    },
+    {
+      "path": "server/src/app/background/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false,
+      "upstream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "server/src/app/billing/approval.py",
+      "size": 5779,
+      "sha256": "3e699aeaf99d4aa60cb758e3e6d91d2e99f8d5b63a6ec54679c2fa1731d20680",
+      "modified": false,
+      "upstream_sha256": "3e699aeaf99d4aa60cb758e3e6d91d2e99f8d5b63a6ec54679c2fa1731d20680"
+    },
+    {
+      "path": "server/src/app/billing/__init__.py",
+      "size": 411,
+      "sha256": "3053ae88717d4fdd97edecaa2ef82e1e68c3c8513216e60ddf125d4ea841b09d",
+      "modified": false,
+      "upstream_sha256": "3053ae88717d4fdd97edecaa2ef82e1e68c3c8513216e60ddf125d4ea841b09d"
+    },
+    {
+      "path": "server/src/app/cold_manifest/references.py",
+      "size": 2131,
+      "sha256": "12c16f7b467169a48b26714e7e781ba77df2c754c3b91fb6e4004efc6fe47af3",
+      "modified": false,
+      "upstream_sha256": "12c16f7b467169a48b26714e7e781ba77df2c754c3b91fb6e4004efc6fe47af3"
+    },
+    {
+      "path": "server/src/app/cold_manifest/__init__.py",
+      "size": 77,
+      "sha256": "185ee6a50ff4a4a811b126650397c4b84c66891266692a1d7e8c8289d665f26b",
+      "modified": false,
+      "upstream_sha256": "185ee6a50ff4a4a811b126650397c4b84c66891266692a1d7e8c8289d665f26b"
+    },
+    {
+      "path": "server/src/app/processor/apply.py",
+      "size": 3409,
+      "sha256": "7e43ce7fc0e979c3bd93fea72a1d42603f1f4e157e3439b7826212a08451d6e0",
+      "modified": false,
+      "upstream_sha256": "7e43ce7fc0e979c3bd93fea72a1d42603f1f4e157e3439b7826212a08451d6e0"
+    },
+    {
+      "path": "server/src/app/processor/configure.py",
+      "size": 696,
+      "sha256": "53d4d1fed73557dfc47b87d4ac356fd5314462d4178b9b310dbb53e6c0b736d7",
+      "modified": false,
+      "upstream_sha256": "53d4d1fed73557dfc47b87d4ac356fd5314462d4178b9b310dbb53e6c0b736d7"
+    },
+    {
+      "path": "server/src/app/processor/formatting.py",
+      "size": 355,
+      "sha256": "e49839c7e1a5b5bec7a2b32e278a3d6435ce73d1eaa6bf115ad7c7120cbf8ff1",
+      "modified": false,
+      "upstream_sha256": "e49839c7e1a5b5bec7a2b32e278a3d6435ce73d1eaa6bf115ad7c7120cbf8ff1"
+    },
+    {
+      "path": "server/src/app/processor/health.py",
+      "size": 2638,
+      "sha256": "02c3bd77cbf6d9db06f0049d6a1d178085fa9df91ff4757a6507ebb254ce9047",
+      "modified": false,
+      "upstream_sha256": "02c3bd77cbf6d9db06f0049d6a1d178085fa9df91ff4757a6507ebb254ce9047"
+    },
+    {
+      "path": "server/src/app/processor/metadata.py",
+      "size": 1127,
+      "sha256": "a7bf7377bb8f9cde3cdcdf5b832399b93131722ce08e93c5233b8076cea5c2ea",
+      "modified": false,
+      "upstream_sha256": "a7bf7377bb8f9cde3cdcdf5b832399b93131722ce08e93c5233b8076cea5c2ea"
+    },
+    {
+      "path": "server/src/app/processor/profile.py",
+      "size": 1381,
+      "sha256": "bb04b21c42a30228db77703f30df53754da7693402d23eb745341834910d8ee9",
+      "modified": false,
+      "upstream_sha256": "bb04b21c42a30228db77703f30df53754da7693402d23eb745341834910d8ee9"
+    },
+    {
+      "path": "server/src/app/processor/published_records.py",
+      "size": 3768,
+      "sha256": "b86693db777f5d54f4d7dcf45b6e973ec792500fe10495b4a3f68335df7a00a5",
+      "modified": false,
+      "upstream_sha256": "b86693db777f5d54f4d7dcf45b6e973ec792500fe10495b4a3f68335df7a00a5"
+    },
+    {
+      "path": "server/src/app/processor/__init__.py",
+      "size": 80,
+      "sha256": "a99e22470e65eb6185f33ed70d74ff2e6ed2b33f7c93e6d2b072b280ebbe2857",
+      "modified": false,
+      "upstream_sha256": "a99e22470e65eb6185f33ed70d74ff2e6ed2b33f7c93e6d2b072b280ebbe2857"
+    },
+    {
+      "path": "server/src/app/processor_config/hydrate.py",
+      "size": 504,
+      "sha256": "368fca193e74b3f424a8b4d971f2cea3a8a87afb6af887073d72a81c56c8eb2c",
+      "modified": false,
+      "upstream_sha256": "368fca193e74b3f424a8b4d971f2cea3a8a87afb6af887073d72a81c56c8eb2c"
+    },
+    {
+      "path": "server/src/app/processor_config/models.py",
+      "size": 1072,
+      "sha256": "46f8dafcf1ecc90a573668ac415c9909878306c89f2783702128fce26f80b9de",
+      "modified": false,
+      "upstream_sha256": "46f8dafcf1ecc90a573668ac415c9909878306c89f2783702128fce26f80b9de"
+    },
+    {
+      "path": "server/src/app/processor_config/scope.py",
+      "size": 1545,
+      "sha256": "76938ab1a14dcf0aaf31e7045361836fcfa7a254db84188ff47aa9b98f2cf6c3",
+      "modified": false,
+      "upstream_sha256": "76938ab1a14dcf0aaf31e7045361836fcfa7a254db84188ff47aa9b98f2cf6c3"
+    },
+    {
+      "path": "server/src/app/processor_config/__init__.py",
+      "size": 164,
+      "sha256": "14fd0f3a1064ac420d6e6fa076ea82fe9f7ea161ed4548040f271b7af7d2238c",
+      "modified": false,
+      "upstream_sha256": "14fd0f3a1064ac420d6e6fa076ea82fe9f7ea161ed4548040f271b7af7d2238c"
+    },
+    {
+      "path": "server/src/app/repair/descriptor.py",
+      "size": 2505,
+      "sha256": "3e96dcb16e448da45c9a94bb5460d0bbf0f13ae4531afb45572bb8022033016d",
+      "modified": false,
+      "upstream_sha256": "3e96dcb16e448da45c9a94bb5460d0bbf0f13ae4531afb45572bb8022033016d"
+    },
+    {
+      "path": "server/src/app/repair/__init__.py",
+      "size": 151,
+      "sha256": "63ace8c184a9c103b2a722a5ba2142a23ae5ef6c377fb8c43fec4901967343a5",
+      "modified": false,
+      "upstream_sha256": "63ace8c184a9c103b2a722a5ba2142a23ae5ef6c377fb8c43fec4901967343a5"
+    },
+    {
+      "path": "server/src/app/restore_session/state.py",
+      "size": 3402,
+      "sha256": "c7b54a83bccdd736ddf28469513ddac537a3448bb3a93d1e6bf80ec2e7591cc2",
+      "modified": false,
+      "upstream_sha256": "c7b54a83bccdd736ddf28469513ddac537a3448bb3a93d1e6bf80ec2e7591cc2"
+    },
+    {
+      "path": "server/src/app/restore_session/__init__.py",
+      "size": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "modified": false,
+      "upstream_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "server/src/app/storage/identity.py",
+      "size": 80,
+      "sha256": "b42ae87fc09774f835be8f8bac97e1e7ad5a55d99dc5f875199d222c2305b177",
+      "modified": false,
+      "upstream_sha256": "b42ae87fc09774f835be8f8bac97e1e7ad5a55d99dc5f875199d222c2305b177"
+    },
+    {
+      "path": "server/src/app/storage/paths.py",
+      "size": 467,
+      "sha256": "5d9fb8a34da0ac1dcb4f4a739c8542fc442cc0da5e2775b56fdbc1bce5c5b0ee",
+      "modified": false,
+      "upstream_sha256": "5d9fb8a34da0ac1dcb4f4a739c8542fc442cc0da5e2775b56fdbc1bce5c5b0ee"
+    },
+    {
+      "path": "server/src/app/storage/zodb_store.py",
+      "size": 2445,
+      "sha256": "bbb29a870fc0cb76d1599125a4a4b8ca2162af3291a856dde8ad2fc98632cabb",
+      "modified": false,
+      "upstream_sha256": "bbb29a870fc0cb76d1599125a4a4b8ca2162af3291a856dde8ad2fc98632cabb"
+    },
+    {
+      "path": "server/src/app/storage/__init__.py",
+      "size": 334,
+      "sha256": "9352862eabf6ab7eefec0e48d7672dec84b30af73cf3cd7cf9f7290115824605",
+      "modified": false,
+      "upstream_sha256": "9352862eabf6ab7eefec0e48d7672dec84b30af73cf3cd7cf9f7290115824605"
+    },
+    {
+      "path": "server/src/models/billing.py",
+      "size": 610,
+      "sha256": "c6c524f050b817bd87bac3740a4466cf777c73577a772981b255619b5a75b4ab",
+      "modified": false,
+      "upstream_sha256": "c6c524f050b817bd87bac3740a4466cf777c73577a772981b255619b5a75b4ab"
+    },
+    {
+      "path": "server/src/models/processor.py",
+      "size": 1130,
+      "sha256": "6ea694b8d4c7fac629b062a7be3ec51f1d1847541a7a99a2ad0cbf0b5ed2980d",
+      "modified": false,
+      "upstream_sha256": "6ea694b8d4c7fac629b062a7be3ec51f1d1847541a7a99a2ad0cbf0b5ed2980d"
+    },
+    {
+      "path": "server/src/models/published_record.py",
+      "size": 625,
+      "sha256": "b81d3b78379704eaa05820b99cd6c7fec7c0321a4273be95b6f64a80fc5ec0d4",
+      "modified": false,
+      "upstream_sha256": "b81d3b78379704eaa05820b99cd6c7fec7c0321a4273be95b6f64a80fc5ec0d4"
+    },
+    {
+      "path": "server/src/models/storage.py",
+      "size": 681,
+      "sha256": "4f360bbf49c4d309741983313476baed4f34f0e0727f66ac5b22e85886bd215b",
+      "modified": false,
+      "upstream_sha256": "4f360bbf49c4d309741983313476baed4f34f0e0727f66ac5b22e85886bd215b"
+    },
+    {
+      "path": "server/src/models/user.py",
+      "size": 389,
+      "sha256": "091882555fd9b0ceaad6a75c67891603b9fb525f3f648050a522ba085a396af8",
+      "modified": false,
+      "upstream_sha256": "091882555fd9b0ceaad6a75c67891603b9fb525f3f648050a522ba085a396af8"
+    },
+    {
+      "path": "server/src/models/__init__.py",
+      "size": 346,
+      "sha256": "e6819f48b29cea0fa771a1922e8a18b8b9015c149d391371905a642acce05ea9",
+      "modified": false,
+      "upstream_sha256": "e6819f48b29cea0fa771a1922e8a18b8b9015c149d391371905a642acce05ea9"
+    },
+    {
+      "path": "server/src/proto/auth_pb2.py",
+      "size": 2113,
+      "sha256": "886b3ba534401530af7180f6730bcb86276d235bb218846db857c9d0848f5761",
+      "modified": false,
+      "upstream_sha256": "886b3ba534401530af7180f6730bcb86276d235bb218846db857c9d0848f5761"
+    },
+    {
+      "path": "server/src/proto/auth_pb2_grpc.py",
+      "size": 3988,
+      "sha256": "f1692b93272252fc7a88256ecf19d3e348818f9da6d376d0a3fccb16ed8d6099",
+      "modified": false,
+      "upstream_sha256": "f1692b93272252fc7a88256ecf19d3e348818f9da6d376d0a3fccb16ed8d6099"
+    },
+    {
+      "path": "server/src/proto/billing_pb2.py",
+      "size": 2684,
+      "sha256": "3e63126b1110fb615ee99af4be9f47bd01dadb2a942843e54f26d70160a4ec47",
+      "modified": false,
+      "upstream_sha256": "3e63126b1110fb615ee99af4be9f47bd01dadb2a942843e54f26d70160a4ec47"
+    },
+    {
+      "path": "server/src/proto/billing_pb2_grpc.py",
+      "size": 7029,
+      "sha256": "b3d1066da9d97db4ae35854baec5942508357463cf89b97d4099432a3e08a245",
+      "modified": false,
+      "upstream_sha256": "b3d1066da9d97db4ae35854baec5942508357463cf89b97d4099432a3e08a245"
+    },
+    {
+      "path": "server/src/proto/processor_pb2.py",
+      "size": 2888,
+      "sha256": "b8449a8b92c7812a65d79411a1aec36e7fa2b05557ac0e36cc2f87408e2b6057",
+      "modified": false,
+      "upstream_sha256": "b8449a8b92c7812a65d79411a1aec36e7fa2b05557ac0e36cc2f87408e2b6057"
+    },
+    {
+      "path": "server/src/proto/processor_pb2_grpc.py",
+      "size": 5706,
+      "sha256": "c6e638bc5f917884286fa7e57eec1b4c8a515b9973e0078ef78d0ceed9fe0693",
+      "modified": false,
+      "upstream_sha256": "c6e638bc5f917884286fa7e57eec1b4c8a515b9973e0078ef78d0ceed9fe0693"
+    },
+    {
+      "path": "server/src/proto/storage_pb2.py",
+      "size": 3142,
+      "sha256": "c2beccb4c618a2bd9ed8fecf4723c8ffa3c9c0f0534ad9074c52228e3dc01114",
+      "modified": false,
+      "upstream_sha256": "c2beccb4c618a2bd9ed8fecf4723c8ffa3c9c0f0534ad9074c52228e3dc01114"
+    },
+    {
+      "path": "server/src/proto/storage_pb2_grpc.py",
+      "size": 8519,
+      "sha256": "72e85bb801d48edfc0d4f24ecb605b8de358f05d60d8f14711b02a4d2e36c015",
+      "modified": false,
+      "upstream_sha256": "72e85bb801d48edfc0d4f24ecb605b8de358f05d60d8f14711b02a4d2e36c015"
+    },
+    {
+      "path": "server/src/proto/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false,
+      "upstream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "server/src/resource/billing.py",
+      "size": 1306,
+      "sha256": "4a549bd220db636ea671158acd6b398df4ce1269d404c46f37c7e787ab65452a",
+      "modified": false,
+      "upstream_sha256": "4a549bd220db636ea671158acd6b398df4ce1269d404c46f37c7e787ab65452a"
+    },
+    {
+      "path": "server/src/resource/default.py",
+      "size": 121,
+      "sha256": "2b4fbfb7dbcef94780032113dc855cbbe01fcaf358ab71942ef8998db2fed63f",
+      "modified": false,
+      "upstream_sha256": "2b4fbfb7dbcef94780032113dc855cbbe01fcaf358ab71942ef8998db2fed63f"
+    },
+    {
+      "path": "server/src/resource/processor.py",
+      "size": 5758,
+      "sha256": "9a0c3a0606c1a54e1183c65bbfa1f4eaeeac5c9a35fb7e5d25129a2a0218bad7",
+      "modified": false,
+      "upstream_sha256": "9a0c3a0606c1a54e1183c65bbfa1f4eaeeac5c9a35fb7e5d25129a2a0218bad7"
+    },
+    {
+      "path": "server/src/resource/storage.py",
+      "size": 2660,
+      "sha256": "a14e9430911517b8eeed5ce89d8025b46ffbd87833397f782fedafc3c2457a69",
+      "modified": false,
+      "upstream_sha256": "a14e9430911517b8eeed5ce89d8025b46ffbd87833397f782fedafc3c2457a69"
+    },
+    {
+      "path": "server/src/resource/user.py",
+      "size": 938,
+      "sha256": "ec7aaad21206812f054f03c6d3818c1d27c93bb4a3c55e8a52eae5b05955c60a",
+      "modified": false,
+      "upstream_sha256": "ec7aaad21206812f054f03c6d3818c1d27c93bb4a3c55e8a52eae5b05955c60a"
+    },
+    {
+      "path": "server/src/resource/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false,
+      "upstream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "server/src/service/auth.py",
+      "size": 1328,
+      "sha256": "1cda2aeb9f92a2f36fa05d5fe98ae34363ec8c6890dede24072c95a6080a6554",
+      "modified": false,
+      "upstream_sha256": "1cda2aeb9f92a2f36fa05d5fe98ae34363ec8c6890dede24072c95a6080a6554"
+    },
+    {
+      "path": "server/src/service/billing.py",
+      "size": 2121,
+      "sha256": "3d9ef57ec0319979351f47c57c2adc192322805f73a0f1d1f4de99c286318e5a",
+      "modified": false,
+      "upstream_sha256": "3d9ef57ec0319979351f47c57c2adc192322805f73a0f1d1f4de99c286318e5a"
+    },
+    {
+      "path": "server/src/service/processor.py",
+      "size": 3007,
+      "sha256": "d6df5ae16d6d4301f14195215f17c2fa6d18613555da95f7d4582926a430522d",
+      "modified": false,
+      "upstream_sha256": "d6df5ae16d6d4301f14195215f17c2fa6d18613555da95f7d4582926a430522d"
+    },
+    {
+      "path": "server/src/service/storage.py",
+      "size": 4610,
+      "sha256": "19d77c0759aa787e0d2ed7632b72bd93901289adb653206a0c7626cfd3f285f2",
+      "modified": false,
+      "upstream_sha256": "19d77c0759aa787e0d2ed7632b72bd93901289adb653206a0c7626cfd3f285f2"
+    },
+    {
+      "path": "server/src/service/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false,
+      "upstream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "server/src/utils/auth.py",
+      "size": 1346,
+      "sha256": "4369c6089a9f4a4522f19174476106268ad5397340c1b4bd6b64b28c091f8c5d",
+      "modified": false,
+      "upstream_sha256": "4369c6089a9f4a4522f19174476106268ad5397340c1b4bd6b64b28c091f8c5d"
+    },
+    {
+      "path": "server/src/utils/config.py",
+      "size": 378,
+      "sha256": "704be3701f497b7bebf0f8897c4359a2c07c3ebe133209a4ee7d7a23b3679dd7",
+      "modified": false,
+      "upstream_sha256": "704be3701f497b7bebf0f8897c4359a2c07c3ebe133209a4ee7d7a23b3679dd7"
+    },
+    {
+      "path": "server/src/utils/database.py",
+      "size": 244,
+      "sha256": "2cf47ebd5cf930128df4121d045ac298584a0cb7eb831e4caf10f02f8abdf324",
+      "modified": false,
+      "upstream_sha256": "2cf47ebd5cf930128df4121d045ac298584a0cb7eb831e4caf10f02f8abdf324"
+    },
+    {
+      "path": "server/src/utils/logger.py",
+      "size": 189,
+      "sha256": "ff3fa9ed922a113f94042f9de069379fb8ab86c673c752c63c989b7c628dbc75",
+      "modified": false,
+      "upstream_sha256": "ff3fa9ed922a113f94042f9de069379fb8ab86c673c752c63c989b7c628dbc75"
+    },
+    {
+      "path": "server/src/utils/storage.py",
+      "size": 603,
+      "sha256": "edc8b59f65f6cbaeca39c8dfef7318af89d76485bc9d169fa6f4224e43b02ff9",
+      "modified": false,
+      "upstream_sha256": "edc8b59f65f6cbaeca39c8dfef7318af89d76485bc9d169fa6f4224e43b02ff9"
+    },
+    {
+      "path": "server/src/utils/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false,
+      "upstream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "server/src/workers/private.py",
+      "size": 1109,
+      "sha256": "bfee00c0f74c821672d729425ff15af0fcf974a15a347dc6e3c8c9811b0e5618",
+      "modified": false,
+      "upstream_sha256": "bfee00c0f74c821672d729425ff15af0fcf974a15a347dc6e3c8c9811b0e5618"
+    },
+    {
+      "path": "server/src/workers/public.py",
+      "size": 730,
+      "sha256": "75047ac79f94a229bdd283ec4daee1aa69fc3af2f38c5a99db7cb68544e8fa90",
+      "modified": false,
+      "upstream_sha256": "75047ac79f94a229bdd283ec4daee1aa69fc3af2f38c5a99db7cb68544e8fa90"
+    },
+    {
+      "path": "server/src/workers/__init__.py",
+      "size": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "modified": false,
+      "upstream_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "sources/client/.nslp.conf",
+      "size": 212,
+      "sha256": "47a3700da5d9526f4cd9c15a51b38917f90ed8677b85e5a665bebc8ac35f791c",
+      "modified": false,
+      "upstream_sha256": "47a3700da5d9526f4cd9c15a51b38917f90ed8677b85e5a665bebc8ac35f791c"
+    },
+    {
+      "path": "sources/client/cli",
+      "size": 15874610,
+      "sha256": "d49c17439798f99a52ccf5a05a6bc030c8572322ed1b62f66cbb0603163632ac",
+      "modified": false,
+      "upstream_sha256": "d49c17439798f99a52ccf5a05a6bc030c8572322ed1b62f66cbb0603163632ac"
+    },
+    {
+      "path": "sources/client/Dockerfile",
+      "size": 255,
+      "sha256": "13f1d2bb78cc4b6d5b70069effda959b8d61f786a38527cf67711a0f1f6b663d",
+      "modified": false,
+      "upstream_sha256": "13f1d2bb78cc4b6d5b70069effda959b8d61f786a38527cf67711a0f1f6b663d"
+    },
+    {
+      "path": "sources/client/flow.sh",
+      "size": 198,
+      "sha256": "ba4489ded7a89f3e34e65055c2e1550c370022b6e8f9605fde2f4adee63d87e2",
+      "modified": false,
+      "upstream_sha256": "ba4489ded7a89f3e34e65055c2e1550c370022b6e8f9605fde2f4adee63d87e2"
+    },
+    {
+      "path": "sources/client/go.mod",
+      "size": 459,
+      "sha256": "b7e3c83ceb55e45d57f163aed67a462db8d45bdb780b7d338aea3c16934ce4d8",
+      "modified": false,
+      "upstream_sha256": "b7e3c83ceb55e45d57f163aed67a462db8d45bdb780b7d338aea3c16934ce4d8"
+    },
+    {
+      "path": "sources/client/go.sum",
+      "size": 4020,
+      "sha256": "4fcbe748d78511f868ecbde5a6d8565b57e5e370e43747697716f4e48df1c435",
+      "modified": false,
+      "upstream_sha256": "4fcbe748d78511f868ecbde5a6d8565b57e5e370e43747697716f4e48df1c435"
+    },
+    {
+      "path": "sources/client/main.go",
+      "size": 81,
+      "sha256": "8d187551d107fe812e8c9c5ac0e828db0f63ed9587b046827b0a2b8d7422c059",
+      "modified": false,
+      "upstream_sha256": "8d187551d107fe812e8c9c5ac0e828db0f63ed9587b046827b0a2b8d7422c059"
+    },
+    {
+      "path": "sources/client/README.md",
+      "size": 3225,
+      "sha256": "6c2184b3021098aac99b70845559a35a27968768954c13ef84ff85141504d482",
+      "modified": false,
+      "upstream_sha256": "6c2184b3021098aac99b70845559a35a27968768954c13ef84ff85141504d482"
+    },
+    {
+      "path": "sources/client/cmd/auth.go",
+      "size": 2235,
+      "sha256": "9ff4642e0668fd4505a60e75b2d97844f9c6fc1d69d71bc6c097a5b0294986fa",
+      "modified": false,
+      "upstream_sha256": "9ff4642e0668fd4505a60e75b2d97844f9c6fc1d69d71bc6c097a5b0294986fa"
+    },
+    {
+      "path": "sources/client/cmd/billing.go",
+      "size": 4437,
+      "sha256": "5bd6a279b918452f2d41efb002276666981bfe504803c26f9648c297b6a0dd55",
+      "modified": false,
+      "upstream_sha256": "5bd6a279b918452f2d41efb002276666981bfe504803c26f9648c297b6a0dd55"
+    },
+    {
+      "path": "sources/client/cmd/billing_config.go",
+      "size": 256,
+      "sha256": "e62e0c59c91ad80be58842354f4dda4860bd5712d42822a2e4eb6c53f007a56a",
+      "modified": false,
+      "upstream_sha256": "e62e0c59c91ad80be58842354f4dda4860bd5712d42822a2e4eb6c53f007a56a"
+    },
+    {
+      "path": "sources/client/cmd/nslp-cli.go",
+      "size": 230,
+      "sha256": "800574107d59d23dd57a769a5a56846bff939994859b7da4697ca76295ec6b8b",
+      "modified": false,
+      "upstream_sha256": "800574107d59d23dd57a769a5a56846bff939994859b7da4697ca76295ec6b8b"
+    },
+    {
+      "path": "sources/client/cmd/opts.go",
+      "size": 359,
+      "sha256": "eedff4a18a19e72b16284dd2df7fb01ef334249b3f305e010ae4a39beb614765",
+      "modified": false,
+      "upstream_sha256": "eedff4a18a19e72b16284dd2df7fb01ef334249b3f305e010ae4a39beb614765"
+    },
+    {
+      "path": "sources/client/cmd/processor.go",
+      "size": 8239,
+      "sha256": "439b12aeddd4b63910d7c0b2125e47145b5e36b0027665415cd084a1cc7ab994",
+      "modified": false,
+      "upstream_sha256": "439b12aeddd4b63910d7c0b2125e47145b5e36b0027665415cd084a1cc7ab994"
+    },
+    {
+      "path": "sources/client/cmd/setup.go",
+      "size": 831,
+      "sha256": "689bd028a9ddb738acea36d5fec8091500ed9da4f1a8b331a5a7277277d7ee04",
+      "modified": false,
+      "upstream_sha256": "689bd028a9ddb738acea36d5fec8091500ed9da4f1a8b331a5a7277277d7ee04"
+    },
+    {
+      "path": "sources/client/cmd/storage.go",
+      "size": 5829,
+      "sha256": "2b25dafe05fd13f4e31fe60983095883fb40fb4eb0035243aefd584c04a74304",
+      "modified": false,
+      "upstream_sha256": "2b25dafe05fd13f4e31fe60983095883fb40fb4eb0035243aefd584c04a74304"
+    },
+    {
+      "path": "sources/client/internal/client/auth.go",
+      "size": 1196,
+      "sha256": "65b61b6fd26026ac8c46bf59816bdf644f3983591ba09324cc86fe68553656eb",
+      "modified": false,
+      "upstream_sha256": "65b61b6fd26026ac8c46bf59816bdf644f3983591ba09324cc86fe68553656eb"
+    },
+    {
+      "path": "sources/client/internal/client/billing.go",
+      "size": 1530,
+      "sha256": "e76f79a3f410bbb1fd31b3f65b00df54c4cda28e52e1dd60424d3eaddbb34e77",
+      "modified": false,
+      "upstream_sha256": "e76f79a3f410bbb1fd31b3f65b00df54c4cda28e52e1dd60424d3eaddbb34e77"
+    },
+    {
+      "path": "sources/client/internal/client/processor.go",
+      "size": 2465,
+      "sha256": "f922e9ec74248d388a28c6a98b536714e845acc2ab1ea4b0769dcdbcd1fa1f0f",
+      "modified": false,
+      "upstream_sha256": "f922e9ec74248d388a28c6a98b536714e845acc2ab1ea4b0769dcdbcd1fa1f0f"
+    },
+    {
+      "path": "sources/client/internal/client/storage.go",
+      "size": 1952,
+      "sha256": "9a9402f21ac8c55d9daf36632ac12607176afdcf8700d942d572a034db777498",
+      "modified": false,
+      "upstream_sha256": "9a9402f21ac8c55d9daf36632ac12607176afdcf8700d942d572a034db777498"
+    },
+    {
+      "path": "sources/client/internal/config/config.go",
+      "size": 771,
+      "sha256": "6f20e1a9b6e883464bd06597884002576efe64e110f5c12df3a3aa5c5e520872",
+      "modified": false,
+      "upstream_sha256": "6f20e1a9b6e883464bd06597884002576efe64e110f5c12df3a3aa5c5e520872"
+    },
+    {
+      "path": "sources/client/package/proto/auth/auth.pb.go",
+      "size": 10810,
+      "sha256": "416ed2499da0be5f1b3ef51a32aabc03b16b96da202ca4685f53872d12d3b870",
+      "modified": false,
+      "upstream_sha256": "416ed2499da0be5f1b3ef51a32aabc03b16b96da202ca4685f53872d12d3b870"
+    },
+    {
+      "path": "sources/client/package/proto/auth/auth_grpc.pb.go",
+      "size": 5870,
+      "sha256": "ec5a17ee4e72035c4bad3f2e7ea4b0ef0fec9f10c105756af11b2ee87a85e14c",
+      "modified": false,
+      "upstream_sha256": "ec5a17ee4e72035c4bad3f2e7ea4b0ef0fec9f10c105756af11b2ee87a85e14c"
+    },
+    {
+      "path": "sources/client/package/proto/billing/billing.pb.go",
+      "size": 15842,
+      "sha256": "09af993a354e5b2fc2e1e16a6f0927d0035c125d054ed67db487a2662bdd9865",
+      "modified": false,
+      "upstream_sha256": "09af993a354e5b2fc2e1e16a6f0927d0035c125d054ed67db487a2662bdd9865"
+    },
+    {
+      "path": "sources/client/package/proto/billing/billing_grpc.pb.go",
+      "size": 8805,
+      "sha256": "62fc5b73bc6801d2a65edd8b365606c446cf2e9e9b692f550241196062591952",
+      "modified": false,
+      "upstream_sha256": "62fc5b73bc6801d2a65edd8b365606c446cf2e9e9b692f550241196062591952"
+    },
+    {
+      "path": "sources/client/package/proto/processor/processor.pb.go",
+      "size": 18361,
+      "sha256": "965562de514d715d68dadcb3d771b2695a7a57b45002e6df14974d61244d7a48",
+      "modified": false,
+      "upstream_sha256": "965562de514d715d68dadcb3d771b2695a7a57b45002e6df14974d61244d7a48"
+    },
+    {
+      "path": "sources/client/package/proto/processor/processor_grpc.pb.go",
+      "size": 7716,
+      "sha256": "c7d41a8971eccee037b74822220fc6fdd587c7a7caacadff03b61e1555cbdd76",
+      "modified": false,
+      "upstream_sha256": "c7d41a8971eccee037b74822220fc6fdd587c7a7caacadff03b61e1555cbdd76"
+    },
+    {
+      "path": "sources/client/package/proto/storage/storage.pb.go",
+      "size": 20084,
+      "sha256": "c53e1ff8b6a9f72a38f8a291f891b403295c91cfca245e9286e41353ad3c9f8d",
+      "modified": false,
+      "upstream_sha256": "c53e1ff8b6a9f72a38f8a291f891b403295c91cfca245e9286e41353ad3c9f8d"
+    },
+    {
+      "path": "sources/client/package/proto/storage/storage_grpc.pb.go",
+      "size": 10228,
+      "sha256": "540421b2251df82f8788f0884080ac23892d95253c72aa23dba227c291bdbf7e",
+      "modified": false,
+      "upstream_sha256": "540421b2251df82f8788f0884080ac23892d95253c72aa23dba227c291bdbf7e"
+    },
+    {
+      "path": "sources/client/volume/.keep",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false,
+      "upstream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "sources/proto/auth.proto",
+      "size": 507,
+      "sha256": "6e97c3de15cff7f25b4492ea4688344b294c316b80ac3e88a8ccead7ad4fa582",
+      "modified": false,
+      "upstream_sha256": "6e97c3de15cff7f25b4492ea4688344b294c316b80ac3e88a8ccead7ad4fa582"
+    },
+    {
+      "path": "sources/proto/billing.proto",
+      "size": 705,
+      "sha256": "ba019774566cc6c4185415fdb1a77eb1f5c60e6a429b2e6acdbe818ba4b37703",
+      "modified": false,
+      "upstream_sha256": "ba019774566cc6c4185415fdb1a77eb1f5c60e6a429b2e6acdbe818ba4b37703"
+    },
+    {
+      "path": "sources/proto/processor.proto",
+      "size": 882,
+      "sha256": "d678adf6866e6171a6bfe6b0411deabffde4e26b3abf6bc7096ac4f1be6581ef",
+      "modified": false,
+      "upstream_sha256": "d678adf6866e6171a6bfe6b0411deabffde4e26b3abf6bc7096ac4f1be6581ef"
+    },
+    {
+      "path": "sources/proto/storage.proto",
+      "size": 909,
+      "sha256": "b99b2d3e710f501840b75c5183f625e1e67ea78c705e8068366dcf2b41800ff0",
+      "modified": false,
+      "upstream_sha256": "b99b2d3e710f501840b75c5183f625e1e67ea78c705e8068366dcf2b41800ff0"
+    }
+  ],
+  "modified_files": [],
+  "removed_from_public_package": {
+    "writeup": true,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": [
+      {
+        "path": "sources/client/cmd/solver.go",
+        "reason": "Hidden 'solver' subcommand; may be a solution helper. Excluded pending review; client may not build without it."
+      }
+    ]
+  },
+  "missing_or_external_dependencies": [
+    "sources/client/cmd/solver.go - Hidden 'solver' subcommand; may be a solution helper. Excluded pending review; client may not build without it."
+  ]
 }

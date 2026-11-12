@@ -1,5 +1,5 @@
-# Sanity Files
+## Title
+Sanity Files
 
-Category `welcome`. Original author [@kumfc](https://github.com/kumfc).
-
-Redistribution permission for the upstream challenge materials could not be verified. See the [competition index](../../README.md) and [manifest](manifest.json).
+## Description
+As a welcoming gift we present you with this magnificent, powerful file. Perhaps, it will slightly lift the veil of mystery behind the CTF development. Didn't want to spoil the upcoming fun though, so we've slightly redacted it.

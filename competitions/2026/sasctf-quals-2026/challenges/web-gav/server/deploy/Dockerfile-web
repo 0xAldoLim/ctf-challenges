@@ -1,0 +1,13 @@
+FROM golang:alpine AS builder
+
+WORKDIR /app
+COPY ../web ./
+
+RUN go mod download
+RUN go build -o task ./cmd/main.go
+
+FROM alpine:latest
+
+COPY --from=builder /app/task /
+
+CMD ["/task"]

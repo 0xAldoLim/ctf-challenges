@@ -1,0 +1,18 @@
+#!/bin/sh
+set -eu
+
+container="${RUNTIME_SESSION_CONTAINER:-runtime-session}"
+user="${RUNTIME_SESSION_USER:-app}"
+workdir="${RUNTIME_SESSION_WORKDIR:-/home/app}"
+
+if ! command -v docker >/dev/null 2>&1; then
+  echo "runtime unavailable" >&2
+  exit 127
+fi
+
+if ! docker inspect -f '{{.State.Running}}' "$container" 2>/dev/null | grep -qx true; then
+  echo "runtime session is not ready" >&2
+  exit 125
+fi
+
+exec docker exec -i --user "$user" --workdir "$workdir" "$container" /bin/sh -l

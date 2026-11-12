@@ -1,0 +1,22 @@
+PLAYER ROUTER:
+  Host:     <HOST>
+  Port:     2222 (TLS-wrapped SSH)
+  User:     player
+  Password: player
+  Command:  ssh -o ProxyCommand="openssl s_client -quiet -connect <HOST>:2222 -servername <HOST>" player@router
+
+TOOLS SERVER:
+  Host:     <HOST>
+  Port:     2223 (TLS-wrapped SSH)
+  User:     player
+  Password: player
+  Command:  ssh -o ProxyCommand="openssl s_client -quiet -connect <HOST>:2223 -servername <HOST>" player@tools
+
+TARGET SERVICE:
+  Domain:      cryptowallet.ctf
+  DNS Server:  10.0.1.53 (authoritative for cryptowallet.ctf)
+
+NOTES:
+  - A client on the network periodically makes transactions to
+    the wallet service at cryptowallet.ctf
+  - The client resolves DNS fresh before every connection

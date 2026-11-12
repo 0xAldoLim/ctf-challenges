@@ -1,0 +1,42 @@
+FROM alpine:latest
+
+RUN apk add --no-cache \
+    bash \
+    python3 \
+    py3-pip \
+    dnsmasq \
+    bind-tools \
+    nginx \
+    tcpdump \
+    nmap \
+    nmap-scripts \
+    curl \
+    wget \
+    openssh-server \
+    iptables \
+    iproute2 \
+    iputils \
+    net-tools \
+    openssl \
+    jq \
+    vim \
+    nano \
+    sudo
+
+RUN ssh-keygen -A && \
+    adduser -D -s /bin/bash player && \
+    echo "player:player" | chpasswd && \
+    echo "root:330d5786ba7c8617ac686a6fa41e642a" | chpasswd && \
+    echo "player ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/player && \
+    sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+    mkdir -p /run/sshd /srv/www /home/player
+
+RUN printf '#!/bin/sh\nset -e\n/usr/sbin/sshd\necho "Player tools container ready"\necho "Available tools: python3, dnsmasq, nginx, tcpdump, nmap, openssl"\ntail -f /dev/null\n' > /start.sh && \
+    chmod +x /start.sh
+
+WORKDIR /srv
+
+EXPOSE 22 53 80 443
+
+ENTRYPOINT ["/start.sh"]

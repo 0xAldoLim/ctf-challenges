@@ -15,11 +15,183 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/web-sentinel",
-  "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "preparation_status": "ready",
+  "player_files": [
+    {
+      "path": "static/hint.zip",
+      "size": 3947,
+      "sha256": "247402d1ea9ad647180d704bf851dc49e24d5725a7cc43e0bccf0c2b56c4d135",
+      "modified": false,
+      "upstream_sha256": "247402d1ea9ad647180d704bf851dc49e24d5725a7cc43e0bccf0c2b56c4d135"
+    },
+    {
+      "path": "static/static.zip",
+      "size": 725,
+      "sha256": "efbbfd6fd3e660f958526bb1b62cc72f8f6ffb58b8e7422836f373e94b7a8ea6",
+      "modified": false,
+      "upstream_sha256": "efbbfd6fd3e660f958526bb1b62cc72f8f6ffb58b8e7422836f373e94b7a8ea6"
+    }
+  ],
+  "operator_files": [
+    {
+      "path": "server/docker-compose.yaml",
+      "size": 2546,
+      "sha256": "13fbd9fe170e55de082f6babe5ed52923c9dd161efe7e81b91a26742fb91f0e1",
+      "modified": true,
+      "modification": "reference flag replaced with placeholder"
+    },
+    {
+      "path": "server/exporter/Dockerfile",
+      "size": 452,
+      "sha256": "5b2659bf7fb5a11149319f39feca2d2b980b6e3ca3f38e4c2cc1cd3dd48d9dba",
+      "modified": false,
+      "upstream_sha256": "5b2659bf7fb5a11149319f39feca2d2b980b6e3ca3f38e4c2cc1cd3dd48d9dba"
+    },
+    {
+      "path": "server/exporter/entrypoint.sh",
+      "size": 282,
+      "sha256": "38c29b4ec2e45cba42ed2a8987a88836bd1f7d1ab35cd8eb9898c526c63def6f",
+      "modified": false,
+      "upstream_sha256": "38c29b4ec2e45cba42ed2a8987a88836bd1f7d1ab35cd8eb9898c526c63def6f"
+    },
+    {
+      "path": "server/master/Dockerfile",
+      "size": 304,
+      "sha256": "d351719aa5ff4bbe062abca46c3a88778ebdf2308372ea55453dd26d56f7b5cf",
+      "modified": false,
+      "upstream_sha256": "d351719aa5ff4bbe062abca46c3a88778ebdf2308372ea55453dd26d56f7b5cf"
+    },
+    {
+      "path": "server/replica/Dockerfile",
+      "size": 304,
+      "sha256": "d351719aa5ff4bbe062abca46c3a88778ebdf2308372ea55453dd26d56f7b5cf",
+      "modified": false,
+      "upstream_sha256": "d351719aa5ff4bbe062abca46c3a88778ebdf2308372ea55453dd26d56f7b5cf"
+    },
+    {
+      "path": "server/salt/minion-entrypoint.sh",
+      "size": 681,
+      "sha256": "ca52414b329e79fb8789354d433b0d4f1dd8696e2181ec95e5e5da0ee723de4c",
+      "modified": false,
+      "upstream_sha256": "ca52414b329e79fb8789354d433b0d4f1dd8696e2181ec95e5e5da0ee723de4c"
+    },
+    {
+      "path": "server/salt/master/Dockerfile",
+      "size": 575,
+      "sha256": "844d20f93184566e5c7a0c917dddcfc40b7aceaa3b2d8ee986602f82f7c30fa8",
+      "modified": false,
+      "upstream_sha256": "844d20f93184566e5c7a0c917dddcfc40b7aceaa3b2d8ee986602f82f7c30fa8"
+    },
+    {
+      "path": "server/salt/master/entrypoint.sh",
+      "size": 320,
+      "sha256": "e587b41f3e7fa7f9de3c4e9c6a651368b042c798bddacd72943f3be609182fda",
+      "modified": true,
+      "modification": "reference flag replaced with placeholder"
+    },
+    {
+      "path": "server/salt/master/master.conf",
+      "size": 278,
+      "sha256": "bb892b9a06e5dd93ce05a37be515187f31a3d513f8eb665c3d45410a3bbac902",
+      "modified": false,
+      "upstream_sha256": "bb892b9a06e5dd93ce05a37be515187f31a3d513f8eb665c3d45410a3bbac902"
+    },
+    {
+      "path": "server/salt/master/pillar-top.sls",
+      "size": 26,
+      "sha256": "1697558ef196e8a826c66d30e64a1dca4b621a9766f9b0cc27aa1292c9fa9ece",
+      "modified": false,
+      "upstream_sha256": "1697558ef196e8a826c66d30e64a1dca4b621a9766f9b0cc27aa1292c9fa9ece"
+    },
+    {
+      "path": "server/salt/master/top.sls",
+      "size": 168,
+      "sha256": "07fb56f656df42eefe94e8649f1b2da6465b699371d7ac485167997325a5a1c5",
+      "modified": false,
+      "upstream_sha256": "07fb56f656df42eefe94e8649f1b2da6465b699371d7ac485167997325a5a1c5"
+    },
+    {
+      "path": "server/salt/master/pillars/common.sls.j2",
+      "size": 37,
+      "sha256": "a8592ea07a8355d0a67fac16d3feda230cbc6da10c9ce67c36ac2028e26cac18",
+      "modified": false,
+      "upstream_sha256": "a8592ea07a8355d0a67fac16d3feda230cbc6da10c9ce67c36ac2028e26cac18"
+    },
+    {
+      "path": "server/salt/master/reactor/replica-render.sls",
+      "size": 239,
+      "sha256": "d95a3c2c1ca4d7761140d38b6a53a029b1e1e894419959d0610e43a77c0dfe9c",
+      "modified": false,
+      "upstream_sha256": "d95a3c2c1ca4d7761140d38b6a53a029b1e1e894419959d0610e43a77c0dfe9c"
+    },
+    {
+      "path": "server/salt/master/states/exporter.sls",
+      "size": 193,
+      "sha256": "796680a4e6e3a7f25e9152fbe89d1b8404f13627011bc44728ccf42475790c44",
+      "modified": false,
+      "upstream_sha256": "796680a4e6e3a7f25e9152fbe89d1b8404f13627011bc44728ccf42475790c44"
+    },
+    {
+      "path": "server/salt/master/states/master.sls",
+      "size": 413,
+      "sha256": "73a638a6017a85b106b267fbf8ce84d2419a6c9a09d23b39ee041c0e7a9c8393",
+      "modified": false,
+      "upstream_sha256": "73a638a6017a85b106b267fbf8ce84d2419a6c9a09d23b39ee041c0e7a9c8393"
+    },
+    {
+      "path": "server/salt/master/states/replica.sls",
+      "size": 383,
+      "sha256": "fdbdf0a0d7ef98b23a0ee576970ea1e140a00181e1c0fc78738249127a1af9ba",
+      "modified": false,
+      "upstream_sha256": "fdbdf0a0d7ef98b23a0ee576970ea1e140a00181e1c0fc78738249127a1af9ba"
+    },
+    {
+      "path": "server/salt/master/states/sentinel.sls",
+      "size": 499,
+      "sha256": "2ebd60d00030e7008d82b93eb166acb03cf73d17285f8c189c737cb8e5eccc83",
+      "modified": false,
+      "upstream_sha256": "2ebd60d00030e7008d82b93eb166acb03cf73d17285f8c189c737cb8e5eccc83"
+    },
+    {
+      "path": "server/salt/master/_runners/managed_redis.py",
+      "size": 662,
+      "sha256": "164a3a2e3548b010cd5c51fc365192f34a3e701a16a8aedbf4f490bd87cb0eab",
+      "modified": false,
+      "upstream_sha256": "164a3a2e3548b010cd5c51fc365192f34a3e701a16a8aedbf4f490bd87cb0eab"
+    },
+    {
+      "path": "server/sentinel/Dockerfile",
+      "size": 613,
+      "sha256": "b48cdf6f631bce0c7bfc1f26883e5718ee4165c6ad8aff9b4e891fda156ceae7",
+      "modified": false,
+      "upstream_sha256": "b48cdf6f631bce0c7bfc1f26883e5718ee4165c6ad8aff9b4e891fda156ceae7"
+    },
+    {
+      "path": "server/sentinel/entry.sh",
+      "size": 324,
+      "sha256": "1dce183a7c2cce95668ca7ab918c1286f60f7d4b2140d0f954ac20e64e3b03d7",
+      "modified": false,
+      "upstream_sha256": "1dce183a7c2cce95668ca7ab918c1286f60f7d4b2140d0f954ac20e64e3b03d7"
+    },
+    {
+      "path": "server/sentinel/sentinel-seccomp.c",
+      "size": 6927,
+      "sha256": "a84982b6820ef09ab7d54c8af0537cd7ce1c5ddf1470ecf029b9eb3cae73189c",
+      "modified": false,
+      "upstream_sha256": "a84982b6820ef09ab7d54c8af0537cd7ce1c5ddf1470ecf029b9eb3cae73189c"
+    }
+  ],
+  "modified_files": [
+    "server/docker-compose.yaml",
+    "server/salt/master/entrypoint.sh"
+  ],
+  "removed_from_public_package": {
+    "writeup": true,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": []
 }

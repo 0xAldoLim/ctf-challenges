@@ -15,11 +15,182 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/web-gav",
-  "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "preparation_status": "ready",
+  "player_files": [
+    {
+      "path": "static/gav-task.tgz",
+      "size": 72391,
+      "sha256": "9b9c4a55311131e36b3a142db64dd212f13c20205cff7f750ee6aecbf6791250",
+      "modified": false,
+      "upstream_sha256": "9b9c4a55311131e36b3a142db64dd212f13c20205cff7f750ee6aecbf6791250"
+    }
+  ],
+  "operator_files": [
+    {
+      "path": "server/docker-compose.yaml",
+      "size": 1267,
+      "sha256": "150a4ab0d910f0f41dd18a4c65e6b8550e0f25f90c5db2799308f62d7f251d36",
+      "modified": true,
+      "modification": "reference flag replaced with placeholder"
+    },
+    {
+      "path": "server/deploy/Dockerfile-patroni",
+      "size": 629,
+      "sha256": "fe969f8858f09f2426ae450d00568dbfa99a1145ff8e677fd390118ce02fea34",
+      "modified": false,
+      "upstream_sha256": "fe969f8858f09f2426ae450d00568dbfa99a1145ff8e677fd390118ce02fea34"
+    },
+    {
+      "path": "server/deploy/Dockerfile-web",
+      "size": 182,
+      "sha256": "995b7f28f2953521547ec31231751acaec059ef237ab0065b3a8ade777e114e3",
+      "modified": false,
+      "upstream_sha256": "995b7f28f2953521547ec31231751acaec059ef237ab0065b3a8ade777e114e3"
+    },
+    {
+      "path": "server/patroni/entry.sh",
+      "size": 117,
+      "sha256": "a0c45c8516503dba4c16f00e11decaea6a0c0270c545a21fbd6d20a2001f5e19",
+      "modified": false,
+      "upstream_sha256": "a0c45c8516503dba4c16f00e11decaea6a0c0270c545a21fbd6d20a2001f5e19"
+    },
+    {
+      "path": "server/patroni/init.sql",
+      "size": 406,
+      "sha256": "8323d47fc7a851c967a30bf3efacf777cfe77078bab81465d8bdc6fd90f89c37",
+      "modified": false,
+      "upstream_sha256": "8323d47fc7a851c967a30bf3efacf777cfe77078bab81465d8bdc6fd90f89c37"
+    },
+    {
+      "path": "server/patroni/patroni.yml",
+      "size": 1576,
+      "sha256": "6a0f326c9a39c4b6ad563b176cc83c536e0f2cd4278fc73f7f4f1dc569af1fa8",
+      "modified": false,
+      "upstream_sha256": "6a0f326c9a39c4b6ad563b176cc83c536e0f2cd4278fc73f7f4f1dc569af1fa8"
+    },
+    {
+      "path": "server/patroni/readflag.c",
+      "size": 512,
+      "sha256": "8e1964285f90e045c41f718b975ad973a6882c80292de2f9e3ee24217858ac07",
+      "modified": false,
+      "upstream_sha256": "8e1964285f90e045c41f718b975ad973a6882c80292de2f9e3ee24217858ac07"
+    },
+    {
+      "path": "server/patroni/requirements.txt",
+      "size": 134,
+      "sha256": "9fdaa2170f519d92b6b8947bc5299c72e19cdb8033add9a5c09d5e8f701de838",
+      "modified": false,
+      "upstream_sha256": "9fdaa2170f519d92b6b8947bc5299c72e19cdb8033add9a5c09d5e8f701de838"
+    },
+    {
+      "path": "server/web/go.mod",
+      "size": 1115,
+      "sha256": "eb325f7cddd4b41ec07dd507e02a94f2b6a30e3c5ae67cddcb5e24ea596928a5",
+      "modified": false,
+      "upstream_sha256": "eb325f7cddd4b41ec07dd507e02a94f2b6a30e3c5ae67cddcb5e24ea596928a5"
+    },
+    {
+      "path": "server/web/go.sum",
+      "size": 7207,
+      "sha256": "f2a4b81556a70e2ebe9b6e95eb9a6d93558620a1c1a6eec4a855a96e20648ac7",
+      "modified": false,
+      "upstream_sha256": "f2a4b81556a70e2ebe9b6e95eb9a6d93558620a1c1a6eec4a855a96e20648ac7"
+    },
+    {
+      "path": "server/web/cmd/main.go",
+      "size": 1168,
+      "sha256": "c87847eb0908a7aeaf3f7082e23241cc4722bf7b313ea4651e85463ed8e39087",
+      "modified": false,
+      "upstream_sha256": "c87847eb0908a7aeaf3f7082e23241cc4722bf7b313ea4651e85463ed8e39087"
+    },
+    {
+      "path": "server/web/internal/config/config.go",
+      "size": 723,
+      "sha256": "3fa406a7a5c4771c79ba5fafacc0ddb14fbf19c8dcf30cbf0bfbbc3be93cdd61",
+      "modified": false,
+      "upstream_sha256": "3fa406a7a5c4771c79ba5fafacc0ddb14fbf19c8dcf30cbf0bfbbc3be93cdd61"
+    },
+    {
+      "path": "server/web/internal/database/database.go",
+      "size": 8283,
+      "sha256": "a1056e52a9c8067020df31e7a0c25556acb08ea1af0cefd57e7880c45af40e00",
+      "modified": false,
+      "upstream_sha256": "a1056e52a9c8067020df31e7a0c25556acb08ea1af0cefd57e7880c45af40e00"
+    },
+    {
+      "path": "server/web/internal/database/models.go",
+      "size": 5662,
+      "sha256": "9a5a71f00a42b4ec4d51541fce28ed36baba592d5e6842836ab614e6d13b5798",
+      "modified": false,
+      "upstream_sha256": "9a5a71f00a42b4ec4d51541fce28ed36baba592d5e6842836ab614e6d13b5798"
+    },
+    {
+      "path": "server/web/internal/logger/logger.go",
+      "size": 196,
+      "sha256": "596bce42d372fa27766310c27577b9948f479508969a15de00d0d5204c46b47f",
+      "modified": false,
+      "upstream_sha256": "596bce42d372fa27766310c27577b9948f479508969a15de00d0d5204c46b47f"
+    },
+    {
+      "path": "server/web/internal/server/assets.go",
+      "size": 286,
+      "sha256": "15851ebcd67bdfb48afc9df5a3f43bc0be051ae2485ad66d69b3a76ba24b9a00",
+      "modified": false,
+      "upstream_sha256": "15851ebcd67bdfb48afc9df5a3f43bc0be051ae2485ad66d69b3a76ba24b9a00"
+    },
+    {
+      "path": "server/web/internal/server/server.go",
+      "size": 4359,
+      "sha256": "aecaa8714db16392147f57cbfd10d5b4c81471de1eaaed074e70bd762fa24cc2",
+      "modified": false,
+      "upstream_sha256": "aecaa8714db16392147f57cbfd10d5b4c81471de1eaaed074e70bd762fa24cc2"
+    },
+    {
+      "path": "server/web/internal/server/static/app.css",
+      "size": 9710,
+      "sha256": "56f383e7afb4140a0258e74594ac8813b15ae4ca086ebd134c0fad12dc9243b2",
+      "modified": false,
+      "upstream_sha256": "56f383e7afb4140a0258e74594ac8813b15ae4ca086ebd134c0fad12dc9243b2"
+    },
+    {
+      "path": "server/web/internal/server/static/app.js",
+      "size": 9971,
+      "sha256": "ab1f1ffae6e4293b623ac9d79e5b79e369bbd09971881c8efdd540880ae5a2b4",
+      "modified": false,
+      "upstream_sha256": "ab1f1ffae6e4293b623ac9d79e5b79e369bbd09971881c8efdd540880ae5a2b4"
+    },
+    {
+      "path": "server/web/internal/server/static/index.html",
+      "size": 3149,
+      "sha256": "67adfb928e66e30c9e7df668f585ebb5ad16288d8d9726bbf2bf56049a87c4b8",
+      "modified": false,
+      "upstream_sha256": "67adfb928e66e30c9e7df668f585ebb5ad16288d8d9726bbf2bf56049a87c4b8"
+    },
+    {
+      "path": "server/web/internal/waf/rules.go",
+      "size": 275,
+      "sha256": "8460c9a7585c2f25b4ebc41f59d6eeeb73d8e249886a616c7e8cfcb1b3edc8d4",
+      "modified": false,
+      "upstream_sha256": "8460c9a7585c2f25b4ebc41f59d6eeeb73d8e249886a616c7e8cfcb1b3edc8d4"
+    },
+    {
+      "path": "server/web/internal/waf/waf.go",
+      "size": 237,
+      "sha256": "01c45a5ac1f6e0376b73711c094b65e8b55ed2dc992bf3d30f106048ba9348cb",
+      "modified": false,
+      "upstream_sha256": "01c45a5ac1f6e0376b73711c094b65e8b55ed2dc992bf3d30f106048ba9348cb"
+    }
+  ],
+  "modified_files": [
+    "server/docker-compose.yaml"
+  ],
+  "removed_from_public_package": {
+    "writeup": true,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": []
 }

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "counts": 5,
+    "generated": 1780425000,
+    "valid": 1780525000
+  },
+  "roas": [
+    {
+      "asn": "AS64501",
+      "prefix": "10.0.0.0/22",
+      "maxLength": 22,
+      "ta": "ctf-rpki-ta"
+    },
+    {
+      "asn": "AS64502",
+      "prefix": "10.200.0.0/16",
+      "maxLength": 24,
+      "ta": "ctf-rpki-ta"
+    },
+    {
+      "asn": "AS64503",
+      "prefix": "10.201.0.0/16",
+      "maxLength": 24,
+      "ta": "ctf-rpki-ta"
+    },
+    {
+      "asn": "AS64504",
+      "prefix": "10.202.0.0/16",
+      "maxLength": 24,
+      "ta": "ctf-rpki-ta"
+    },
+    {
+      "asn": "AS64506",
+      "prefix": "10.0.6.0/24",
+      "maxLength": 24,
+      "ta": "ctf-rpki-ta"
+    }
+  ]
+}

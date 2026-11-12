@@ -1,5 +1,9 @@
-# Gatekeeper v2.0
+## Title
 
-Category `misc`, `pwn`. Original author [@m4drat](https://github.com/m4drat).
+Gatekeeper v2.0
 
-Redistribution permission for the upstream challenge materials could not be verified. See the [competition index](../../README.md) and [manifest](manifest.json).
+## Description
+
+After the last "incident" with our original verifier...
+
+We've decided to fully rework it, and we're now proudly presenting a faster, safer, and overall better Gatekeeper v2.0. Not even a mouse will slop. Ehm, slip*

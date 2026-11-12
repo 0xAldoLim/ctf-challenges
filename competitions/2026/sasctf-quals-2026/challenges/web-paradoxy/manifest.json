@@ -15,11 +15,118 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/web-paradoxy",
+  "preparation_status": "source_only",
   "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "operator_files": [
+    {
+      "path": ".gitignore",
+      "size": 6,
+      "sha256": "75ed3a73825327df6e3a81782fd814fe45823b4f059b16f3afe3cc004e4b9071",
+      "modified": false,
+      "upstream_sha256": "75ed3a73825327df6e3a81782fd814fe45823b4f059b16f3afe3cc004e4b9071"
+    },
+    {
+      "path": "server/deploy.yml",
+      "size": 2983,
+      "sha256": "5319335bc9a602e486a76c1370c6b3d529e8450cc0c706b2ea31adc431df6940",
+      "modified": false,
+      "upstream_sha256": "5319335bc9a602e486a76c1370c6b3d529e8450cc0c706b2ea31adc431df6940"
+    },
+    {
+      "path": "server/kvm-device-plugin.yml",
+      "size": 1900,
+      "sha256": "511bf4966ac2deaadbf7e13369c6794eaf099f83b373f29af261b47813322774",
+      "modified": false,
+      "upstream_sha256": "511bf4966ac2deaadbf7e13369c6794eaf099f83b373f29af261b47813322774"
+    },
+    {
+      "path": "server/qemu.Dockerfile",
+      "size": 8124,
+      "sha256": "37a11c4c0d9071b7ea83d92a7c5cad85e51a597e9798b37fc3620ed02f743a84",
+      "modified": false,
+      "upstream_sha256": "37a11c4c0d9071b7ea83d92a7c5cad85e51a597e9798b37fc3620ed02f743a84"
+    },
+    {
+      "path": "server/qemu/paradoxy-bootstrap",
+      "size": 18163,
+      "sha256": "40754a64decd1659b1aed2b9d4341638c3c88294db0424d512839db3298831ff",
+      "modified": true,
+      "modification": "reference flag replaced with placeholder"
+    },
+    {
+      "path": "server/qemu/paradoxy-bootstrap-api.py",
+      "size": 8379,
+      "sha256": "51250af6b007b893a6696505ca7616d8e8df7d0e7aa40289506a55ff4e06b8c5",
+      "modified": false,
+      "upstream_sha256": "51250af6b007b893a6696505ca7616d8e8df7d0e7aa40289506a55ff4e06b8c5"
+    },
+    {
+      "path": "server/qemu/paradoxy-bootstrap-api.service",
+      "size": 253,
+      "sha256": "ca5f0a0e79380eb3f5fc9dabf755b7e4b3147741e7c78548f8a35e0229db474b",
+      "modified": false,
+      "upstream_sha256": "ca5f0a0e79380eb3f5fc9dabf755b7e4b3147741e7c78548f8a35e0229db474b"
+    },
+    {
+      "path": "server/qemu/paradoxy-web.service",
+      "size": 391,
+      "sha256": "599fd6f056d96996ecc7c93a4be14da3006ce509d32be175d144882ae9b639b3",
+      "modified": false,
+      "upstream_sha256": "599fd6f056d96996ecc7c93a4be14da3006ce509d32be175d144882ae9b639b3"
+    },
+    {
+      "path": "server/qemu/qemu-entrypoint",
+      "size": 3396,
+      "sha256": "d51b793093f786deb02c2112316db000928c66905c747d5b96a02cc97d266698",
+      "modified": false,
+      "upstream_sha256": "d51b793093f786deb02c2112316db000928c66905c747d5b96a02cc97d266698"
+    },
+    {
+      "path": "server/web/go.mod",
+      "size": 2933,
+      "sha256": "ae46229448d35319cf2b7ed7952831a23bbebc715f263bfdf9b3ce552f3018a6",
+      "modified": false,
+      "upstream_sha256": "ae46229448d35319cf2b7ed7952831a23bbebc715f263bfdf9b3ce552f3018a6"
+    },
+    {
+      "path": "server/web/go.sum",
+      "size": 18457,
+      "sha256": "431824a721b8307694bff9eb4dbe15bf6b6585102434c80c60ae85a6785e0d2c",
+      "modified": false,
+      "upstream_sha256": "431824a721b8307694bff9eb4dbe15bf6b6585102434c80c60ae85a6785e0d2c"
+    },
+    {
+      "path": "server/web/main.go",
+      "size": 433,
+      "sha256": "b9fadeb58b971b853c347252d7787bc38ec07b81db756cb7578c2930de51c8b5",
+      "modified": false,
+      "upstream_sha256": "b9fadeb58b971b853c347252d7787bc38ec07b81db756cb7578c2930de51c8b5"
+    },
+    {
+      "path": "server/web/handlers/handlers.go",
+      "size": 10975,
+      "sha256": "66393365d2af135cca5aa0a2bf32e25fc69fe2340b4dcc1a88ced16e7ea1d742",
+      "modified": false,
+      "upstream_sha256": "66393365d2af135cca5aa0a2bf32e25fc69fe2340b4dcc1a88ced16e7ea1d742"
+    },
+    {
+      "path": "server/web/templates/index.html",
+      "size": 15309,
+      "sha256": "f383f62de3de768e818ed7fc82686f78a4ef09c71f5c848feaca531eaacbbf0f",
+      "modified": false,
+      "upstream_sha256": "f383f62de3de768e818ed7fc82686f78a4ef09c71f5c848feaca531eaacbbf0f"
+    }
+  ],
+  "modified_files": [
+    "server/qemu/paradoxy-bootstrap"
+  ],
+  "removed_from_public_package": {
+    "writeup": true,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": []
 }

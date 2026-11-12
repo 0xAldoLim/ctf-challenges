@@ -1,5 +1,5 @@
-# Snaking Revenge
+## Title
+Snaking Revenge
 
-Category `pwn`. Original author [@YariKartoshe4ka](https://github.com/YariKartoshe4ka).
-
-Redistribution permission for the upstream challenge materials could not be verified. See the [competition index](../../README.md) and [manifest](manifest.json).
+## Description
+Wild nature of Kazakhstan is amazing: yesterday we watched how a snake choked. Let's hope we will never see that again.

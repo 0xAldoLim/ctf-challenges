@@ -1,0 +1,91 @@
+services:
+  saltmaster:
+    build:
+      context: .
+      dockerfile: salt/master/Dockerfile
+    restart: always
+    environment:
+      - FLAG=SAS{placeholder}
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import socket; s=socket.socket(); s.settimeout(1); s.connect(('127.0.0.1', 4505)); s.close()"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+  master:
+    build:
+      context: .
+      dockerfile: master/Dockerfile
+    restart: always
+    environment:
+      - MINION_ID=redis-master
+      - SALT_MASTER_HOST=saltmaster
+      - SERVICE_COMMAND=redis-server /usr/local/etc/redis/redis.conf
+    depends_on:
+      saltmaster:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /usr/local/etc/redis/redis.conf && redis-cli -a \"$(awk '/^requirepass /{print $2}' /usr/local/etc/redis/redis.conf)\" ping | grep -q PONG"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+  replica:
+    build:
+      context: .
+      dockerfile: replica/Dockerfile
+    restart: always
+    environment:
+      - MINION_ID=redis-replica
+      - SALT_MASTER_HOST=saltmaster
+      - SERVICE_COMMAND=redis-server /usr/local/etc/redis/redis.conf
+    depends_on:
+      saltmaster:
+        condition: service_healthy
+      master:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /usr/local/etc/redis/redis.conf && redis-cli -a \"$(awk '/^requirepass /{print $2}' /usr/local/etc/redis/redis.conf)\" ping | grep -q PONG"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+  sentinel:
+    build:
+      context: .
+      dockerfile: sentinel/Dockerfile
+    restart: always
+    environment:
+      - MINION_ID=redis-sentinel
+      - SALT_MASTER_HOST=saltmaster
+    depends_on:
+      saltmaster:
+        condition: service_healthy
+      master:
+        condition: service_healthy
+      replica:
+        condition: service_healthy
+    ports:
+      - 26379:26379
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /usr/local/etc/redis/sentinel.conf && redis-cli -p 26379 -a \"$(awk '/^requirepass /{print $2}' /usr/local/etc/redis/sentinel.conf | tr -d '\"')\" ping | grep -q PONG"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+  exporter:
+    build:
+      context: .
+      dockerfile: exporter/Dockerfile
+    restart: always
+    environment:
+      - MINION_ID=redis-exporter
+      - SALT_MASTER_HOST=saltmaster
+    ports:
+      - "9121:9121"
+    depends_on:
+      saltmaster:
+        condition: service_healthy
+      master:
+        condition: service_healthy
+    

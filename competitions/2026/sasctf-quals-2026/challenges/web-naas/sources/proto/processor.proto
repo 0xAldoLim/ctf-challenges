@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package proto.processor;
+option go_package = "nslp-cli/package/proto/processor";
+
+service ProcessorService {
+  rpc Configure (ConfigureRequest) returns (ConfigureResponse);
+  rpc Apply (ApplyRequest) returns (ApplyResponse);
+  rpc Status (StatusRequest) returns (StatusResponse);
+}
+
+message ConfigureRequest {
+  string billing_id = 1;
+  string storage_name = 2;
+  string mode = 3;
+  string profile_json = 4;
+}
+
+message ConfigureResponse {
+  string processor_ref = 1;
+  string state = 2;
+}
+
+message ApplyRequest {
+  string billing_id = 1;
+  string storage_name = 2;
+  string processor_ref = 3;
+  string action = 4;
+}
+
+message ApplyResponse {
+  string state = 1;
+  string message = 2;
+}
+
+message StatusRequest {
+  string billing_id = 1;
+  string storage_name = 2;
+  string processor_ref = 3;
+}
+
+message StatusResponse {
+  string state = 1;
+  string summary = 2;
+}

@@ -15,11 +15,70 @@
   "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
   "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
   "source_path": "tasks/web-xod-revenge",
-  "player_files": [],
-  "operator_files": [],
-  "sha256": {},
-  "preparation_status": "provenance_only",
-  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
-  "missing_or_external_dependencies": [],
-  "dependency_review": "unverified"
+  "preparation_status": "ready",
+  "player_files": [
+    {
+      "path": "static/static.zip",
+      "size": 4229,
+      "sha256": "b81bdf026eff3ead9bbabd765cf207f1917601be4c21da35271f0eae4775d96f",
+      "modified": false,
+      "upstream_sha256": "b81bdf026eff3ead9bbabd765cf207f1917601be4c21da35271f0eae4775d96f"
+    }
+  ],
+  "operator_files": [
+    {
+      "path": "server/docker-compose.yml",
+      "size": 804,
+      "sha256": "94ea61844700e42367c7314f39353a46765f7789074015db53a3f22f8cfda778",
+      "modified": true,
+      "modification": "reference flag replaced with placeholder"
+    },
+    {
+      "path": "server/bot/bot.html",
+      "size": 2804,
+      "sha256": "73d653cf72e52b933e408846d5ec31b3bfcde44743bdc5ba07cfc8155c461dd9",
+      "modified": false,
+      "upstream_sha256": "73d653cf72e52b933e408846d5ec31b3bfcde44743bdc5ba07cfc8155c461dd9"
+    },
+    {
+      "path": "server/bot/bot.js",
+      "size": 2194,
+      "sha256": "c803ab3141e520ccaabaac3fa65924823a0b336f5a8e2820d253de77595f23e1",
+      "modified": false,
+      "upstream_sha256": "c803ab3141e520ccaabaac3fa65924823a0b336f5a8e2820d253de77595f23e1"
+    },
+    {
+      "path": "server/bot/dockerfile",
+      "size": 273,
+      "sha256": "2b24b8c011b08be6cf7d69bc9a8b83979aab6e28cbe097c8f5a74886e1a4860b",
+      "modified": false,
+      "upstream_sha256": "2b24b8c011b08be6cf7d69bc9a8b83979aab6e28cbe097c8f5a74886e1a4860b"
+    },
+    {
+      "path": "server/chall/dockerfile",
+      "size": 80,
+      "sha256": "15c7a86d75974ce647c5e7ace27f9344c9a136a8292f8e6a3b8de5ff3d2e2c1a",
+      "modified": false,
+      "upstream_sha256": "15c7a86d75974ce647c5e7ace27f9344c9a136a8292f8e6a3b8de5ff3d2e2c1a"
+    },
+    {
+      "path": "server/chall/www/index.php",
+      "size": 924,
+      "sha256": "f8f5cbd822220ff59dd3db2dd27eb414a17acb1d9152d82cfa14d43d17c987c2",
+      "modified": false,
+      "upstream_sha256": "f8f5cbd822220ff59dd3db2dd27eb414a17acb1d9152d82cfa14d43d17c987c2"
+    }
+  ],
+  "modified_files": [
+    "server/docker-compose.yml"
+  ],
+  "removed_from_public_package": {
+    "writeup": true,
+    "readme_sections": [
+      "Solution",
+      "Flag"
+    ],
+    "excluded_files": []
+  },
+  "missing_or_external_dependencies": []
 }

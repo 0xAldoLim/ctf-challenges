@@ -1,0 +1,22 @@
+#!/bin/sh
+set -eu
+
+container="${RUNTIME_SESSION_CONTAINER:-runtime-session}"
+
+for _ in $(seq 1 60); do
+  if docker inspect -f '{{.State.Running}}' "$container" 2>/dev/null | grep -qx true; then
+    break
+  fi
+  sleep 1
+done
+
+if ! docker inspect -f '{{.State.Running}}' "$container" 2>/dev/null | grep -qx true; then
+  echo "runtime session container is not running" >&2
+  exit 125
+fi
+
+if [ -n "${CARRIER_IFACE:-}" ]; then
+  exec /usr/local/bin/ebpf-backdoor-server --netns-cache -i "$CARRIER_IFACE"
+fi
+
+exec /usr/local/bin/ebpf-backdoor-server --netns-cache

@@ -1,0 +1,5 @@
+cells_sim_patched.v
+firmware_gates.v
+firmware.asc
+sim_output.hex
+sim_firmware

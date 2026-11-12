@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DogNav</title>
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <p>DogNav</p>
+          <h1>Navigation for chipped stray dogs</h1>
+        </div>
+      </div>
+
+      <form class="chip-search" id="chipForm">
+        <label for="chipInput">Chip</label>
+        <div class="search-row">
+          <input id="chipInput" name="chip" value="MSK-1042" autocomplete="off">
+          <button type="submit">Find</button>
+        </div>
+      </form>
+    </header>
+
+    <section class="workspace">
+      <aside class="side-panel" aria-label="Map filters">
+        <div class="field-grid">
+          <label>
+            <span>Latitude</span>
+            <input id="latInput" type="number" step="0.000001" value="55.751244">
+          </label>
+          <label>
+            <span>Longitude</span>
+            <input id="lonInput" type="number" step="0.000001" value="37.618423">
+          </label>
+        </div>
+
+        <label class="stacked-field">
+          <span>Radius, m</span>
+          <input id="radiusInput" type="range" min="1000" max="20000" step="500" value="12000">
+        </label>
+        <div class="radius-readout"><strong id="radiusValue">12000</strong><span>m</span></div>
+
+        <label class="stacked-field">
+          <span>Zone</span>
+          <select id="zoneSelect">
+            <option value="">All zones</option>
+          </select>
+        </label>
+
+        <button class="wide-button" id="refreshButton" type="button">Refresh</button>
+
+        <div class="metrics" id="metrics">
+          <div><span>Total</span><strong>-</strong></div>
+          <div><span>Moving</span><strong>-</strong></div>
+          <div><span>Stationary</span><strong>-</strong></div>
+          <div><span>Signal lost</span><strong>-</strong></div>
+        </div>
+
+        <div class="report" id="chipReport" aria-live="polite"></div>
+      </aside>
+
+      <section class="map-panel" aria-label="Dog map">
+        <div class="map-head">
+          <div>
+            <span class="muted">Moscow coverage</span>
+            <strong id="resultCount">0 dogs</strong>
+          </div>
+          <div class="legend">
+            <span><i class="dot moving"></i>moving</span>
+            <span><i class="dot idle"></i>stationary</span>
+            <span><i class="dot lost"></i>signal lost</span>
+          </div>
+        </div>
+
+        <div class="map" id="map">
+          <svg class="geo-layer" id="geoLayer" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true"></svg>
+          <div class="origin" id="originMarker" title="Volunteer point"></div>
+          <div id="markerLayer"></div>
+          <div class="map-scale">10 km</div>
+        </div>
+      </section>
+    </section>
+
+    <section class="dog-list" id="dogList" aria-label="Dog list"></section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

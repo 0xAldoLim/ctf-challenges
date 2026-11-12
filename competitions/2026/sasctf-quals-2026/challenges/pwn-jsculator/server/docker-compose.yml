@@ -1,0 +1,12 @@
+services:
+  jsculator:
+    build: .
+    container_name: jsculator-container
+    ports:
+      - 31337:5000
+    privileged: true
+    environment:
+      - JAIL_TIME=180
+      - JAIL_PIDS=16
+      - JAIL_TMP_SIZE=16M
+      - JAIL_MEM=128M

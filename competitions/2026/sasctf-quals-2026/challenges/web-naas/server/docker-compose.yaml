@@ -1,0 +1,95 @@
+services:
+  cloud-db:
+    image: postgres:15
+    restart: always
+    user: "999:999"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: task
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d task"]
+      interval: 5s
+      retries: 5
+      start_period: 10s
+
+  cloud-redis:
+    image: redis:7
+    restart: always
+    user: "999:999"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 5
+      start_period: 5s
+
+  cloud-storage-api:
+    build: .
+    command: ["./entry.sh", "api"]
+    restart: always
+    cap_drop:
+      - ALL
+    cap_add:
+      - SETUID
+      - SETGID
+    depends_on:
+      cloud-db:
+        condition: service_healthy
+      cloud-redis:
+        condition: service_healthy
+    ports:
+      - "10000:10000"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@cloud-db:5432/task
+      REDIS_URL: redis://cloud-redis:6379/0
+      APP_STORAGE_ROOT: /home/cloud/storages
+      APP_RUNTIME_ROOT: /home/cloud/runtime
+      FLAG: SAS{REDACTED}
+
+  cloud-worker-public:
+    build: .
+    command: ["./entry.sh", "worker-public"]
+    restart: always
+    cap_drop:
+      - ALL
+    cap_add:
+      - SETUID
+      - SETGID
+    depends_on:
+      cloud-db:
+        condition: service_healthy
+      cloud-redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@cloud-db:5432/task
+      REDIS_URL: redis://cloud-redis:6379/0
+      APP_STORAGE_ROOT: /home/cloud/storages
+      APP_RUNTIME_ROOT: /home/cloud/runtime
+
+  cloud-worker-private:
+    build: .
+    command: ["./entry.sh", "worker-private"]
+    restart: always
+    cap_drop:
+      - ALL
+    cap_add:
+      - SETUID
+      - SETGID
+    depends_on:
+      cloud-db:
+        condition: service_healthy
+      cloud-redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@cloud-db:5432/task
+      REDIS_URL: redis://cloud-redis:6379/0
+      APP_STORAGE_ROOT: /home/cloud/storages
+      APP_RUNTIME_ROOT: /home/cloud/runtime

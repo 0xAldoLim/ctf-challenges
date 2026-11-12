@@ -1,0 +1,6 @@
+# Downloaded AOSP device images (~6 GB, fetched by ./setup.sh)
+/images/
+
+# Local exploit-dev scratch
+*.bin
+__pycache__/
