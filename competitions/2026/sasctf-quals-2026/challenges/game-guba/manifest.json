@@ -1,0 +1,39 @@
+{
+  "id": "sasctf-quals-2026/game-guba",
+  "title": "Escape from Guba I & II",
+  "competition": "SAS CTF 2026 Quals",
+  "year": 2026,
+  "categories": [
+    "game"
+  ],
+  "authors": [
+    {
+      "name": "@kumfc",
+      "url": "https://github.com/kumfc"
+    },
+    {
+      "name": "@Ezzh",
+      "url": "https://github.com/Ezzh"
+    }
+  ],
+  "source_repository": "https://github.com/Team-Drovosec/sasctf-quals-2026",
+  "source_commit": "4a4c403f80ee1772185a967aa6ad7226d6708968",
+  "source_path": "tasks/game-guba",
+  "player_files": [],
+  "operator_files": [],
+  "sha256": {},
+  "preparation_status": "provenance_only",
+  "status_reason": "Redistribution permission for the upstream challenge materials could not be verified.",
+  "missing_or_external_dependencies": [],
+  "dependency_review": "unverified",
+  "parts": [
+    {
+      "id": "sasctf-quals-2026/game-guba/part-1",
+      "title": "Escape from Guba I"
+    },
+    {
+      "id": "sasctf-quals-2026/game-guba/part-2",
+      "title": "Escape from Guba II"
+    }
+  ]
+}

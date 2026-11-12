@@ -1,0 +1,3 @@
+# Preserve imported artifact bytes across platforms.
+competitions/**/player/** -text
+competitions/**/operator/** -text
